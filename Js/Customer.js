@@ -1,20 +1,21 @@
 "use strict"
-class Business {
+
+class Customer {
     #id;
     #name;
-    #location;
-    #description;
     #email;
+    #genre;
+    #birth;
     #subscription;
+    #image;
 
-    constructor(id, name, location, description, email, subscription) {
+    constructor(id, name, genre, birth, subscription, image) {
         this.#id = id;
         this.#name = name;
-        this.#location = location;
-        this.#description = description;
-        this.#email = email;
+        this.#genre = genre;
+        this.#birth = birth;
         this.#subscription = subscription;
-
+        this.#image = image;
     }
 
     get id(){
@@ -30,22 +31,17 @@ class Business {
         this.#name = newName;
     }
 
-    get location() {
-        return this.#location;
+    get genre() {
+        return this.#genre;
     }
 
-    set location(newLocation) {
-        if (newLocation == "") throw exception;
-        this.#location = newLocation;
+    set genre(newGenre) {
+        if (newGenre == "") throw exception;
+        this.#genre = newGenre;
     }
 
-    get description() {
-        return this.#description;
-    }
-
-    set description(newDescription) {
-        if (newDescription == "") throw exception;
-        this.#description = newDescription;
+    get birth() {
+        return this.#birth;
     }
 
     get email() {
@@ -66,6 +62,15 @@ class Business {
         this.#subscription = newSubscription;
     }
 
+    get image() {
+        return this.#image;
+    }
+    
+    set image(newImage) {
+        if (newImage == "") throw exception;
+        this.#image = newImage;
+    }
+
 }
 
-export default Business;
+export default Customer;
