@@ -127,3 +127,5 @@ class Barados {
     }
 
 }
+
+export default Barados;
