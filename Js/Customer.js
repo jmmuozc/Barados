@@ -9,9 +9,10 @@ class Customer {
     #subscription;
     #image;
 
-    constructor(id, name, genre, birth, subscription, image) {
+    constructor(id, name, email, genre, birth, subscription, image) {
         this.#id = id;
         this.#name = name;
+        this.#email = email;
         this.#genre = genre;
         this.#birth = birth;
         this.#subscription = subscription;

@@ -18,11 +18,27 @@ class InvalidPassword extends BaseException {
     }
 }
 
-//Excepción Business no cumple su patrón
-class InvalidBusiness extends BaseException {
+//Excepción Business existe
+class BusinessExists extends BaseException {
     constructor(fileName, lineNumber) {
         super("Business already exists.", fileName, lineNumber);
         this.name = "Business already Exists";
+    }
+}
+
+//Excepción Customer existe
+class CustomerExists extends BaseException {
+    constructor(fileName, lineNumber) {
+        super("Customer already exists.", fileName, lineNumber);
+        this.name = "Customer already Exists";
+    }
+}
+
+//Excepción Event existe
+class EventExists extends BaseException {
+    constructor(fileName, lineNumber) {
+        super("Event already exists.", fileName, lineNumber);
+        this.name = "Event already Exists";
     }
 }
 
@@ -33,3 +49,5 @@ class InvalidObject extends BaseException {
         this.name = "Invalid Object Exception";
     }
 }
+
+export {InvalidPassword,BusinessExists,CustomerExists,EventExists,InvalidObject}
