@@ -8,7 +8,6 @@ class Event {
     #eventEnd;
     #description;
     #capacity;
-    #name;
 
     constructor(id,businessId, name, eventStart, eventEnd, description, capacity) {
         this.#id = id;

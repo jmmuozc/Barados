@@ -62,6 +62,10 @@ class Barados {
         return this.#Events.findIndex(compareElements);
     }
 
+    constructor(){
+        console.log("Model working");
+    }
+
     /**
       * Crea un objeto Business
       * @param {Number} id 

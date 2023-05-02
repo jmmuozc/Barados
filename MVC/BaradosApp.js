@@ -6,7 +6,7 @@ import BaradosController from "./BaradosControler.js";
 let baradosApp;
 
 (function () {
-	baradosApp = new baradosController(new Barados(),new BaradosView());
+	baradosApp = new BaradosController(new Barados(),new BaradosView());
 })();
 
 export default baradosApp;
