@@ -2,7 +2,7 @@
 "use strict";
 import Barados from "./BaradosModel.js";
 import BaradosView from "./BaradosView.js";
-import BaradosController from "./BaradosControler.js";
+import BaradosController from "./BaradosController.js";
 let baradosApp;
 
 (function () {
