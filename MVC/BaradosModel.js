@@ -4,9 +4,9 @@ import Event from "../Js/Event.js";
 import { BusinessExists,CustomerExists,EventExists,InvalidObject } from "../Js/Exceptions.js";
 class Barados {
 
-    #Customers = [];
-    #Business = [];
-    #Events = [];
+    #CustomersList = [];
+    #BusinessList = [];
+    #EventsList = [];
 
     /**
       * Dado un business, devuelve la posición de ese business en el array de business o -1 si no lo encontramos
@@ -23,7 +23,7 @@ class Barados {
             return (element.business.email === business.email)
         }
 
-        return this.#Business.findIndex(compareElements);
+        return this.#BusinessList.findIndex(compareElements);
     }
 
     /**
@@ -41,7 +41,7 @@ class Barados {
             return (element.customer.email === customer.email)
         }
 
-        return this.#Customers.findIndex(compareElements);
+        return this.#CustomersList.findIndex(compareElements);
     }
 
     /**
@@ -50,20 +50,56 @@ class Barados {
       * @returns Devolvemos la posicion en caso de que se encuentre
     */
     #getEventPosition(event) {
-        if (!(event instanceof Event)) {
-            throw new InvalidObject();
-        }
+        if (!(event instanceof Event)) throw new InvalidObject();
         // Creamos un patron para la busqueda de findIndex
         function compareElements(element) {
             // Comprobamos que el event del array y del objeto introducido tenga el mismo id
             return (element.event.id === event.id)
         }
 
-        return this.#Events.findIndex(compareElements);
+        return this.#EventsList.findIndex(compareElements);
     }
 
     constructor(){
         console.log("Model working");
+    }
+
+    addCustomer(customer){
+        // Comprueba que el objeto introducido es un customer
+        if (!(customer instanceof Customer)) throw new InvalidObject();
+        // Comprueba que el customer no existe 
+        if (this.#getCustomerPosition!=-1) throw new CustomerExists();
+        // En caso de que no exista lo introduce
+        this.#CustomerList.push(
+            {
+                customer: customer,
+                events: []
+            })
+
+    }
+
+    addBusiness(business){
+        // Comprueba que el objeto introducido es un business
+        if (!(business instanceof Business)) throw new InvalidObject();
+        // Comprueba que el business no existe 
+        if (this.#getBusinessPosition!=-1) throw new BusinessExists();
+        // En caso de que no exista lo introduce
+        this.#BusinessList.push(
+            {
+                business: business,
+                events: []
+            })
+
+    }
+
+    addEvent(event){
+        // Comprueba que el objeto introducido es un event
+        if (!(event instanceof Event)) throw new InvalidObject();
+        // Comprueba que el event no existe 
+        if (this.#getEventPosition!=-1) throw new EventExists();
+        // En caso de que no exista lo introduce
+        this.#EventList.push(event);
+
     }
 
     /**
