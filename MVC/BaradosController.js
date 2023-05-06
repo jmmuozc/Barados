@@ -21,10 +21,19 @@ class BaradosController {
 
     onLoad = () => {
 
-        // const { data, error } = await this.#supabaseConection
-        //     .from('Business')
-        //     .select()
 
+
+    }
+
+
+    fetchBusiness = async () => {
+
+        const { data, error } = await this.#supabaseConection
+            .from('Business')
+            .select()
+
+        if (error) return error;
+        if (data) return data;
     }
 }
 
