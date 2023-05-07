@@ -125,6 +125,10 @@ class Barados {
 
     }
 
+    /**
+     * Elimina un objeto Customer del modelo
+     * @param {Customer} customer 
+     */
     removeCustomer(customer) {
         // Comprueba que el objeto introducido es un customer
         if (!(customer instanceof Customer)) throw new InvalidObject();
@@ -154,6 +158,10 @@ class Barados {
 
     }
 
+    /**
+     * Elimina los business del owner en cuestión y el owner del modelo
+     * @param {Owner} owner 
+     */
     removeOwner(owner) {
         // Comprueba que el objeto introducido es un owner
         if (!(owner instanceof Owner)) throw new InvalidObject();
