@@ -50,6 +50,22 @@ class CustomerNoExists extends BaseException {
     }
 }
 
+//Excepción Owner existe
+class OwnerExists extends BaseException {
+    constructor(fileName, lineNumber) {
+        super("Owner already exists.", fileName, lineNumber);
+        this.name = "Owner already Exists";
+    }
+}
+
+//Excepción Owner existe
+class OwnerNoExists extends BaseException {
+    constructor(fileName, lineNumber) {
+        super("Owner does not exists.", fileName, lineNumber);
+        this.name = "Owner does not Exists";
+    }
+}
+
 //Excepción Event existe
 class EventExists extends BaseException {
     constructor(fileName, lineNumber) {
@@ -74,4 +90,4 @@ class InvalidObject extends BaseException {
     }
 }
 
-export {InvalidPassword,BusinessExists,BusinessNoExists,CustomerExists,CustomerNoExists,EventExists,EventNoExists,InvalidObject}
+export {InvalidPassword,BusinessExists,BusinessNoExists,CustomerExists,CustomerNoExists,OwnerExists,OwnerNoExists,EventExists,EventNoExists,InvalidObject}

@@ -1,10 +1,12 @@
-import Business from "../Js/Business.js";
 import Customer from "../Js/Customer.js";
+import Owner from "../Js/Owner.js";
+import Business from "../Js/Business.js";
 import Event from "../Js/Event.js";
-import { BusinessExists, BusinessNoExists, CustomerExists, CustomerNoExists, EventExists, EventNoExists, InvalidObject } from "../Js/Exceptions.js";
+import { BusinessExists, BusinessNoExists, CustomerExists, CustomerNoExists, OwnerExists, OwnerNoExists, EventExists, EventNoExists, InvalidObject } from "../Js/Exceptions.js";
 class Barados {
 
     #CustomersList = [];
+    #OwnerList = [];
     #BusinessList = [];
     #EventsList = [];
 
@@ -15,6 +17,12 @@ class Barados {
         Customer: Cliente
         Events: Eventos en los que participa el cliente
     }
+    ]
+    OwnerList: [
+        {
+            Owner: Propietario
+            business: [business,business] Array con la referencia de los business del Owner
+        }
     ]
     BusinessList: [Array de Empresas
     {
@@ -62,11 +70,29 @@ class Barados {
     }
 
     /**
+      * Dado un owner, devuelve la posición de ese owner en el array de owners o -1 si no lo encontramos
+      * @param {Customer} owner 
+      * @returns Devolvemos la posicion en caso de que se encuentre
+    */
+    #getOwnerPosition(owner) {
+        if (!(owner instanceof Owner)) {
+            throw new InvalidObject();
+        }
+        // Creamos un patron para la busqueda de findIndex
+        function compareElements(element) {
+            // Comprobamos que el owner del array y del objeto introducido tenga el mismo email
+            return (element.owner.email === owner.email)
+        }
+
+        return this.#OwnerList.findIndex(compareElements);
+    }
+
+    /**
       * Dado un event, devuelve la posición de ese event en el array de events o -1 si no lo encontramos
       * @param {Event} event 
       * @returns Devolvemos la posicion en caso de que se encuentre
     */
-    #getEventPosition(event, eventsList=this.#EventsList) {
+    #getEventPosition(event, eventsList = this.#EventsList) {
         if (!(event instanceof Event)) throw new InvalidObject();
         // Creamos un patron para la busqueda de findIndex
         function compareElements(element) {
@@ -99,6 +125,50 @@ class Barados {
 
     }
 
+    removeCustomer(customer) {
+        // Comprueba que el objeto introducido es un customer
+        if (!(customer instanceof Customer)) throw new InvalidObject();
+        // Comprueba que el customer existe
+        if (this.#getCustomerPosition(customer) != -1) {
+            // Se elimina el Customer segun la posicion encontrada
+            this.#BusinessList.splice(this.#getCustomerPosition(customer), 1);
+        } else throw new CustomerNoExists();
+
+    }
+
+    /**
+     * Añade un objeto owner a la array de owners
+     * @param {Owner} owner 
+     */
+    addOwner(owner) {
+        // Comprueba que el objeto introducido es un owner
+        if (!(owner instanceof Owner)) throw new InvalidObject();
+        // Comprueba que el owner no existe 
+        if (this.#getOwnerPosition(owner) != -1) throw new OwnerExists();
+        // En caso de que no exista lo introduce
+        this.#OwnerList.push(
+            {
+                owner: owner,
+                business: []
+            })
+
+    }
+
+    removeOwner(owner) {
+        // Comprueba que el objeto introducido es un owner
+        if (!(owner instanceof Owner)) throw new InvalidObject();
+        // Comprueba que el owner no existe 
+        let ownerPosition=this.#getOwnerPosition(owner);
+        if (ownerPosition === -1) throw new OwnerNoExists();
+        // Recorre todos los business del objeto owner
+        for (let business of this.#OwnerList[ownerPosition].business) {
+            this.#BusinessList.splice(this.#getBusinessPosition(business),1);
+        }
+        // Elimina el Owner en cuestión
+        this.#OwnerList.splice(ownerPosition,1);
+
+     }
+
     /**
      * Añade un objeto business a la array de business
      * @param {Business} business 
@@ -117,7 +187,7 @@ class Barados {
 
     }
 
-    removeBusiness(business){
+    removeBusiness(business) {
         if (!(business instanceof Business)) throw new InvalidObject();
         // Consigue la posicion en el array segun 
         let positionBusiness = this.#getBusinessPosition(business);
@@ -146,35 +216,35 @@ class Barados {
      * Elimina el Event de forma total del modelo
      * @param {Event} event 
      */
-    removeEvent(event) { 
-    // Comprueba que el objeto introducido es un event
-    if (!(event instanceof Event)) throw new InvalidObject();
-    // Comprueba que el event existe 
-    if (this.#getEventPosition(event) === -1) throw new EventNoExists();
-    let eventPosition;
-    // Recorre el array de Business
-    for (let index of this.#BusinessList) {
-        // Comprueba que el event exista dentro de cada array dentro de Business
-        eventPosition = this.#geteventPosition(event, index.events);
-        // En caso de que exista el evento dentro de cualquier Business
-        if (eventPosition > -1) {
-            // Lo elimina del business donde se ha encontrado
-            index.events.splice(eventPosition, 1);
+    removeEvent(event) {
+        // Comprueba que el objeto introducido es un event
+        if (!(event instanceof Event)) throw new InvalidObject();
+        // Comprueba que el event existe 
+        if (this.#getEventPosition(event) === -1) throw new EventNoExists();
+        let eventPosition;
+        // Recorre el array de Business
+        for (let index of this.#BusinessList) {
+            // Comprueba que el event exista dentro de cada array dentro de Business
+            eventPosition = this.#geteventPosition(event, index.events);
+            // En caso de que exista el evento dentro de cualquier Business
+            if (eventPosition > -1) {
+                // Lo elimina del business donde se ha encontrado
+                index.events.splice(eventPosition, 1);
+            }
         }
-    }
-    // Recorre el array de customers
-    for (let index of this.#CustomersList) {
-        // Comprueba que el event exista dentro de cada array dentro de customers
-        eventPosition = this.#geteventPosition(event, index.events);
-        // En caso de que exista el event dentro de cualquier actor
-        if (eventPosition > -1) {
-            // el elimina del customer donde se ha encontrado
-            index.events.splice(eventPosition, 1);
+        // Recorre el array de customers
+        for (let index of this.#CustomersList) {
+            // Comprueba que el event exista dentro de cada array dentro de customers
+            eventPosition = this.#geteventPosition(event, index.events);
+            // En caso de que exista el event dentro de cualquier actor
+            if (eventPosition > -1) {
+                // el elimina del customer donde se ha encontrado
+                index.events.splice(eventPosition, 1);
+            }
         }
-    }
-    eventPosition=this.#getEventPosition(event);
-    // Se elimina de la lista principal de producciones
-    this.#EventsList.splice(eventPosition, 1);
+        eventPosition = this.#getEventPosition(event);
+        // Se elimina de la lista principal de producciones
+        this.#EventsList.splice(eventPosition, 1);
     }
 
     /**
