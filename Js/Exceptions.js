@@ -26,11 +26,27 @@ class BusinessExists extends BaseException {
     }
 }
 
+//Excepción Business existe
+class BusinessNoExists extends BaseException {
+    constructor(fileName, lineNumber) {
+        super("Business already exists.", fileName, lineNumber);
+        this.name = "Business already Exists";
+    }
+}
+
 //Excepción Customer existe
 class CustomerExists extends BaseException {
     constructor(fileName, lineNumber) {
         super("Customer already exists.", fileName, lineNumber);
         this.name = "Customer already Exists";
+    }
+}
+
+//Excepción Customer existe
+class CustomerNoExists extends BaseException {
+    constructor(fileName, lineNumber) {
+        super("Customer does not exists.", fileName, lineNumber);
+        this.name = "Customer does not Exists";
     }
 }
 
@@ -42,6 +58,14 @@ class EventExists extends BaseException {
     }
 }
 
+//Excepción Event existe
+class EventNoExists extends BaseException {
+    constructor(fileName, lineNumber) {
+        super("Event does not exists.", fileName, lineNumber);
+        this.name = "Event does not Exists";
+    }
+}
+
 //Excepción Objeto Invalido
 class InvalidObject extends BaseException {
     constructor(fileName, lineNumber) {
@@ -50,4 +74,4 @@ class InvalidObject extends BaseException {
     }
 }
 
-export {InvalidPassword,BusinessExists,CustomerExists,EventExists,InvalidObject}
+export {InvalidPassword,BusinessExists,BusinessNoExists,CustomerExists,CustomerNoExists,EventExists,EventNoExists,InvalidObject}

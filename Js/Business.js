@@ -5,15 +5,15 @@ class Business {
     #location;
     #description;
     #email;
-    #subscription;
+    #idOwner;
 
-    constructor(id, name, location, description, email, subscription) {
+    constructor(id, name, location, description, email, idOwner) {
         this.#id = id;
         this.#name = name;
         this.#location = location;
         this.#description = description;
         this.#email = email;
-        this.#subscription = subscription;
+        this.#idOwner = idOwner;
 
     }
 
@@ -57,13 +57,13 @@ class Business {
         this.#email = newEmail;
     }
 
-    get subscription() {
-        return this.#subscription;
+    get idOwner() {
+        return this.#idOwner;
     }
     
-    set subscription(newSubscription) {
-        if (newSubscription == "") throw exception;
-        this.#subscription = newSubscription;
+    set idOwner(newidOwner) {
+        if (newidOwner == "") throw exception;
+        this.#idOwner = newidOwner;
     }
 
 }

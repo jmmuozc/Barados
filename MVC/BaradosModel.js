@@ -1,12 +1,29 @@
 import Business from "../Js/Business.js";
 import Customer from "../Js/Customer.js";
 import Event from "../Js/Event.js";
-import { BusinessExists,CustomerExists,EventExists,InvalidObject } from "../Js/Exceptions.js";
+import { BusinessExists, BusinessNoExists, CustomerExists, CustomerNoExists, EventExists, EventNoExists, InvalidObject } from "../Js/Exceptions.js";
 class Barados {
 
     #CustomersList = [];
     #BusinessList = [];
     #EventsList = [];
+
+    /*
+    Estructura de datos
+    CustomerList: [ Array de Usuarios
+    {
+        Customer: Cliente
+        Events: Eventos en los que participa el cliente
+    }
+    ]
+    BusinessList: [Array de Empresas
+    {
+        Business: Empresa
+        Events: Eventos que la empresa organiza
+    }
+    ]
+    EventList: [] Array de Eventos
+     */
 
     /**
       * Dado un business, devuelve la posición de ese business en el array de business o -1 si no lo encontramos
@@ -49,7 +66,7 @@ class Barados {
       * @param {Event} event 
       * @returns Devolvemos la posicion en caso de que se encuentre
     */
-    #getEventPosition(event) {
+    #getEventPosition(event, eventsList=this.#EventsList) {
         if (!(event instanceof Event)) throw new InvalidObject();
         // Creamos un patron para la busqueda de findIndex
         function compareElements(element) {
@@ -57,18 +74,22 @@ class Barados {
             return (element.event.id === event.id)
         }
 
-        return this.#EventsList.findIndex(compareElements);
+        return eventsList.findIndex(compareElements);
     }
 
-    constructor(){
+    constructor() {
         console.log("Model working");
     }
 
-    addCustomer(customer){
+    /**
+     * Añade un objeto customer a la array de customers
+     * @param {Customer} customer 
+     */
+    addCustomer(customer) {
         // Comprueba que el objeto introducido es un customer
         if (!(customer instanceof Customer)) throw new InvalidObject();
         // Comprueba que el customer no existe 
-        if (this.#getCustomerPosition!=-1) throw new CustomerExists();
+        if (this.#getCustomerPosition(customer) != -1) throw new CustomerExists();
         // En caso de que no exista lo introduce
         this.#CustomerList.push(
             {
@@ -78,11 +99,15 @@ class Barados {
 
     }
 
-    addBusiness(business){
+    /**
+     * Añade un objeto business a la array de business
+     * @param {Business} business 
+     */
+    addBusiness(business) {
         // Comprueba que el objeto introducido es un business
         if (!(business instanceof Business)) throw new InvalidObject();
         // Comprueba que el business no existe 
-        if (this.#getBusinessPosition!=-1) throw new BusinessExists();
+        if (this.#getBusinessPosition(business) != -1) throw new BusinessExists();
         // En caso de que no exista lo introduce
         this.#BusinessList.push(
             {
@@ -92,14 +117,64 @@ class Barados {
 
     }
 
-    addEvent(event){
+    removeBusiness(business){
+        if (!(business instanceof Business)) throw new InvalidObject();
+        // Consigue la posicion en el array segun 
+        let positionBusiness = this.#getBusinessPosition(business);
+        // En caso de que exista segun username y tenga la misma posicion segun email lo borra
+        if (positionBusiness != -1) {
+            // Se elimina el usuario segun la posicion de cualquiera de los anteriores
+            this.#BusinessList.splice(positionBusiness, 1);
+        } else throw new BusinessNoExists();
+
+    }
+
+    /**
+     * Añade un objeto event a la array de event
+     * @param {Event} event 
+     */
+    addEvent(event) {
         // Comprueba que el objeto introducido es un event
         if (!(event instanceof Event)) throw new InvalidObject();
         // Comprueba que el event no existe 
-        if (this.#getEventPosition!=-1) throw new EventExists();
+        if (this.#getEventPosition(event) != -1) throw new EventExists();
         // En caso de que no exista lo introduce
         this.#EventList.push(event);
+    }
 
+    /**
+     * Elimina el Event de forma total del modelo
+     * @param {Event} event 
+     */
+    removeEvent(event) { 
+    // Comprueba que el objeto introducido es un event
+    if (!(event instanceof Event)) throw new InvalidObject();
+    // Comprueba que el event existe 
+    if (this.#getEventPosition(event) === -1) throw new EventNoExists();
+    let eventPosition;
+    // Recorre el array de Business
+    for (let index of this.#BusinessList) {
+        // Comprueba que el event exista dentro de cada array dentro de Business
+        eventPosition = this.#geteventPosition(event, index.events);
+        // En caso de que exista el evento dentro de cualquier Business
+        if (eventPosition > -1) {
+            // Lo elimina del business donde se ha encontrado
+            index.events.splice(eventPosition, 1);
+        }
+    }
+    // Recorre el array de customers
+    for (let index of this.#CustomersList) {
+        // Comprueba que el event exista dentro de cada array dentro de customers
+        eventPosition = this.#geteventPosition(event, index.events);
+        // En caso de que exista el event dentro de cualquier actor
+        if (eventPosition > -1) {
+            // el elimina del customer donde se ha encontrado
+            index.events.splice(eventPosition, 1);
+        }
+    }
+    eventPosition=this.#getEventPosition(event);
+    // Se elimina de la lista principal de producciones
+    this.#EventsList.splice(eventPosition, 1);
     }
 
     /**
@@ -112,8 +187,8 @@ class Barados {
       * @param {Number} subscription 
       * @returns Objeto Business creado
     */
-    businessFactory(id, name = "",location, description, email, subscription) {
-        let createdBusiness = new Business(id,name,location, description,email,subscription);
+    businessFactory(id, name = "", location, description, email, subscription) {
+        let createdBusiness = new Business(id, name, location, description, email, subscription);
         // Comprueba la posicion del business en la Array principal de Business
         let position = this.#getBusinessPosition(createdBusiness);
         if (position === -1) {

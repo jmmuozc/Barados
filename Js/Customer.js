@@ -6,10 +6,9 @@ class Customer {
     #email;
     #genre;
     #birth;
-    #subscription;
     #image;
 
-    constructor(id, name, email, genre, birth, subscription, image) {
+    constructor(id, name, email, genre, birth, image) {
         this.#id = id;
         this.#name = name;
         this.#email = email;
@@ -52,15 +51,6 @@ class Customer {
     set email(newEmail) {
         if (newEmail == "") throw exception;
         this.#email = newEmail;
-    }
-
-    get subscription() {
-        return this.#subscription;
-    }
-    
-    set subscription(newSubscription) {
-        if (newSubscription == "") throw exception;
-        this.#subscription = newSubscription;
     }
 
     get image() {
