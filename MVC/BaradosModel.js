@@ -117,7 +117,7 @@ class Barados {
         // Comprueba que el customer no existe 
         if (this.#getCustomerPosition(customer) != -1) throw new CustomerExists();
         // En caso de que no exista lo introduce
-        this.#CustomerList.push(
+        this.#CustomersList.push(
             {
                 customer: customer,
                 events: []
