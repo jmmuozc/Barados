@@ -24,7 +24,7 @@ class BaradosController {
         let business = this.fetchData("Business");
         let customers = this.fetchData("Customers");
         let owners = this.fetchData("Owner");
-        console.log(business.promiseResult);
+        console.log(business);
         console.log(customers);
         console.log(owners);
 
@@ -33,7 +33,7 @@ class BaradosController {
 
     fetchData = async (table) => {
 
-        const fetched= await this.#supabaseConection.from(table).select();
+        let fetched= await this.#supabaseConection.from(table).select();
 
         return fetched;
     }
