@@ -14,7 +14,6 @@ class Owner {
         this.#email = email;
         this.#genre = genre;
         this.#birth = birth;
-        this.#subscription = subscription;
         this.#image = image;
     }
 
