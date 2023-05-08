@@ -21,19 +21,17 @@ class BaradosController {
 
     onLoad = () => {
 
-
+        let business = this.fetchData("Business");
+        console.log(business);
 
     }
 
 
-    fetchBusiness = async () => {
+    fetchData = async (table) => {
 
-        const { data, error } = await this.#supabaseConection
-            .from('Business')
-            .select()
-
-        if (error) return error;
-        if (data) return data;
+        return await this.#supabaseConection
+        .from(table)
+        .select();
     }
 }
 
