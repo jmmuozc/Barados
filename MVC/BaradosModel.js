@@ -233,7 +233,7 @@ class Barados {
         // Recorre el array de Business
         for (let index of this.#BusinessList) {
             // Comprueba que el event exista dentro de cada array dentro de Business
-            eventPosition = this.#geteventPosition(event, index.events);
+            eventPosition = this.#getEventPosition(event, index.events);
             // En caso de que exista el evento dentro de cualquier Business
             if (eventPosition > -1) {
                 // Lo elimina del business donde se ha encontrado
@@ -243,7 +243,7 @@ class Barados {
         // Recorre el array de customers
         for (let index of this.#CustomersList) {
             // Comprueba que el event exista dentro de cada array dentro de customers
-            eventPosition = this.#geteventPosition(event, index.events);
+            eventPosition = this.#getEventPosition(event, index.events);
             // En caso de que exista el event dentro de cualquier actor
             if (eventPosition > -1) {
                 // el elimina del customer donde se ha encontrado
