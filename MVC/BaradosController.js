@@ -31,9 +31,9 @@ class BaradosController {
     }
 
 
-    fetchData = async (table) => {
+    fetchData = async () => {
 
-        let {data, error}= await this.#supabaseConection.from(table).select();
+        let {data, error}= await this.#supabaseConection.from("Business").select();
 
         if (error) {
             console.log(error);
