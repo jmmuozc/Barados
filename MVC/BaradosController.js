@@ -33,7 +33,9 @@ class BaradosController {
 
     fetchData = async (table) => {
 
-        return await this.#supabaseConection.from(table).select();
+        const fetched= await this.#supabaseConection.from(table).select();
+
+        return fetched;
     }
 }
 
