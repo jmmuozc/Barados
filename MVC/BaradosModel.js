@@ -30,7 +30,7 @@ class Barados {
         Events: Eventos que la empresa organiza
     }
     ]
-    EventList: [] Array de Eventos
+    EventsList: [] Array de Eventos
      */
 
     /**
@@ -217,7 +217,7 @@ class Barados {
         // Comprueba que el event no existe 
         if (this.#getEventPosition(event) != -1) throw new EventExists();
         // En caso de que no exista lo introduce
-        this.#EventList.push(event);
+        this.#EventsList.push(event);
     }
 
     /**
