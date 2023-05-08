@@ -16,13 +16,17 @@ class BaradosController {
         // this.onInit();
         console.log(this.#supabaseConection);
         // Enlazamos handlers con la vista
-        this.#baradosView.bindInit(this.handleInit);
+        // this.#baradosView.bindInit(this.handleInit);
     }
 
     onLoad = () => {
 
         let business = this.fetchData("Business");
+        let customers = this.fetchData("Customers");
+        let owners = this.fetchData("Owner");
         console.log(business);
+        console.log(customers.Name);
+        console.log(owners);
 
     }
 
