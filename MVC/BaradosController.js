@@ -43,7 +43,6 @@ class BaradosController {
         // if (data) {
         //     return data;
         // }
-        return fetched;
     }
 }
 
