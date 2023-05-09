@@ -43,6 +43,9 @@ class BaradosController {
         // if (data) {
         //     return data;
         // }
+        console.log(table);
+        console.log(fetched);
+        return fetched;
     }
 }
 
