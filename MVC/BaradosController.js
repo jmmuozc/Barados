@@ -20,9 +20,9 @@ class BaradosController {
 
     onLoad = async () => {
 
-        let business = await this.#supabaseConection.from("Business").select("*");
-        let customers = await this.#supabaseConection.from("Customers").select("*");
-        let owners = await this.#supabaseConection.from("Owner").select("*");
+        let business = await this.#supabaseConection.from("Business").select("Id");
+        let customers = await this.#supabaseConection.from("Customers").select("Id");
+        let owners = await this.#supabaseConection.from("Owner").select("Id");
         console.log(business);
         console.log(customers);
         console.log(owners);
