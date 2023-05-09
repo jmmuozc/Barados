@@ -6,14 +6,16 @@ class Business {
     #description;
     #email;
     #idOwner;
+    #verified
 
-    constructor(id, name, location, description, email, idOwner) {
+    constructor(id, name, location, description, email, idOwner, verified) {
         this.#id = id;
         this.#name = name;
         this.#location = location;
         this.#description = description;
         this.#email = email;
         this.#idOwner = idOwner;
+        this.#verified = verified;
 
     }
 
@@ -64,6 +66,14 @@ class Business {
     set idOwner(newidOwner) {
         if (newidOwner == "") throw exception;
         this.#idOwner = newidOwner;
+    }
+    get verified() {
+        return this.#idOwner;
+    }
+    
+    set verified(verified) {
+        if (verified == "") throw exception;
+        this.#idOwner = verified;
     }
 
 }

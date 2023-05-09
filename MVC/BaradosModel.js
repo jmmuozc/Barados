@@ -264,8 +264,8 @@ class Barados {
       * @param {String} email 
       * @returns Objeto Business creado
     */
-    businessFactory(id, name = "", location, description, email,idOwner) {
-        let createdBusiness = new Business(id, name, location, description, email,idOwner);
+    businessFactory(id, name = "", location, description, email, idOwner, verified) {
+        let createdBusiness = new Business(id, name, location, description, email, idOwner, verified);
         // Comprueba la posicion del business en la Array principal de Business
         let position = this.#getBusinessPosition(createdBusiness);
         if (position === -1) {
