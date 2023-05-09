@@ -23,6 +23,18 @@ class BaradosController {
         let business = await this.#supabaseConection.from("Business").select();
         let customers = await this.#supabaseConection.from("Customers").select();
         let owners = await this.#supabaseConection.from("Owner").select();
+        
+        // for (let object of business.data) {
+            
+        // }
+        
+        // for (let object of customers.data) {
+            
+        // }
+        
+        // for (let object of owners.data) {
+            
+        // }
         console.log(business.data);
         console.log(customers.data);
         console.log(owners.data);
@@ -30,10 +42,10 @@ class BaradosController {
     }
 
 
-    // fetchData = async (table) => {
+    fetchData = async (table) => {
 
-    //     let {data, error}= await this.#supabaseConection.from(table).select();
-        // let fetched= await this.#supabaseConection.from(table).select();
+        // let {data, error}= await this.#supabaseConection.from(table).select();
+        let fetched= await this.#supabaseConection.from(table).select();
 
         // if (error) {
         //     console.log(error);
@@ -42,10 +54,10 @@ class BaradosController {
         // if (data) {
         //     return data;
         // }
-        // console.log(table);
-        // console.log(fetched);
-        // return fetched;
-    // }
+        console.log(table);
+        console.log(fetched);
+        return fetched;
+    }
 }
 
 export default BaradosController;
