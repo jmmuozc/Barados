@@ -262,11 +262,10 @@ class Barados {
       * @param {String} location
       * @param {String} description 
       * @param {String} email 
-      * @param {Number} subscription 
       * @returns Objeto Business creado
     */
-    businessFactory(id, name = "", location, description, email, subscription) {
-        let createdBusiness = new Business(id, name, location, description, email, subscription);
+    businessFactory(id, name = "", location, description, email,idOwner) {
+        let createdBusiness = new Business(id, name, location, description, email,idOwner);
         // Comprueba la posicion del business en la Array principal de Business
         let position = this.#getBusinessPosition(createdBusiness);
         if (position === -1) {
@@ -282,18 +281,37 @@ class Barados {
       * @param {String} name 
       * @param {String} genre
       * @param {Date} birth 
-      * @param {Number} subscription 
       * @param {String} image 
       * @returns Objeto Customer creado
     */
-    customerFactory(id, name = "", email, genre, birth, subscription, image) {
-        let createdCustomer = new Customer(id, name, email, genre, birth, subscription, image);
+    customerFactory(id, name = "", email, genre, birth, image) {
+        let createdCustomer = new Customer(id, name, email, genre, birth, image);
         // Comprueba la posicion del customer en la Array principal de customers
         let position = this.#getCustomerPosition(createdCustomer);
         if (position === -1) {
             // Devuelve el objeto creado
             return createdCustomer;
         } else throw new CustomerExists();
+
+    }
+
+    /**
+      * Crea un objeto Owner
+      * @param {Number} id 
+      * @param {String} name 
+      * @param {String} genre
+      * @param {Date} birth 
+      * @param {String} image 
+      * @returns Objeto Owner creado
+    */
+    ownerFactory(id, name = "", email, genre, birth, image) {
+        let createdOwner = new Owner(id, name, email, genre, birth, image);
+        // Comprueba la posicion del Owner en la Array principal de owner
+        let position = this.#getOwnerPosition(createdOwner);
+        if (position === -1) {
+            // Devuelve el objeto creado
+            return createdOwner;
+        } else throw new OwnerExists();
 
     }
 

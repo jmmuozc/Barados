@@ -20,24 +20,25 @@ class BaradosController {
 
     onLoad = async () => {
 
-        let business = this.fetchData("Business");
-        let customers = this.fetchData("Customers");
-        let owners = this.fetchData("Owner");
-        // let business = await this.#supabaseConection.from("Business").select();
-        // let customers = await this.#supabaseConection.from("Customers").select();
-        // let owners = await this.#supabaseConection.from("Owner").select();
+        // let business = this.fetchData("Business");
+        // let customers = this.fetchData("Customers");
+        // let owners = this.fetchData("Owner");
+        let business = await this.#supabaseConection.from("Business").select();
+        let customers = await this.#supabaseConection.from("Customers").select();
+        let owners = await this.#supabaseConection.from("Owner").select();
         
-        // for (let object of business.data) {
+        for (let object of business.data) {
             
-        // }
+        }
         
-        // for (let object of customers.data) {
+        for (let object of customers.data) {
             
-        // }
+        }
         
-        // for (let object of owners.data) {
+        for (let object of owners.data) {
+            this.#baradosModel.addOwner(this.#baradosModel.ownerFactory(object.id,object.Name,object.Email,object.Genre,object.Birth_Date,object.Image));
             
-        // }
+        }
         console.log(business.data);
         console.log(customers.data);
         console.log(owners.data);
@@ -45,10 +46,10 @@ class BaradosController {
     }
 
 
-    fetchData = async (table) => {
+    // fetchData = async (table) => {
 
         // let {data, error}= await this.#supabaseConection.from(table).select();
-        let fetched= await this.#supabaseConection.from(table).select();
+        // let fetched= await this.#supabaseConection.from(table).select();
 
         // if (error) {
         //     console.log(error);
@@ -57,10 +58,10 @@ class BaradosController {
         // if (data) {
         //     return data;
         // }
-        console.log(table);
-        console.log(fetched);
-        return fetched;
-    }
+        // console.log(table);
+        // console.log(fetched);
+        // return fetched;
+    // }
 }
 
 export default BaradosController;
