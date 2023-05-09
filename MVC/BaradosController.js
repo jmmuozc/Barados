@@ -19,11 +19,11 @@ class BaradosController {
         // this.#baradosView.bindInit(this.handleInit);
     }
 
-    onLoad = () => {
+    onLoad = async () => {
 
-        let business = this.fetchData("Business");
-        let customers = this.fetchData("Customers");
-        let owners = this.fetchData("Owner");
+        let business = await this.#supabaseConection.from("Business").select();
+        let customers = await this.#supabaseConection.from("Customers").select();
+        let owners = await this.#supabaseConection.from("Owner").select();
         console.log(business);
         console.log(customers);
         console.log(owners);
@@ -31,22 +31,22 @@ class BaradosController {
     }
 
 
-    fetchData = async (table) => {
+    // fetchData = async (table) => {
 
-        let {data, error}= await this.#supabaseConection.from(table).select();
+    //     let {data, error}= await this.#supabaseConection.from(table).select();
         // let fetched= await this.#supabaseConection.from(table).select();
 
-        if (error) {
-            console.log(error);
-        }
+        // if (error) {
+        //     console.log(error);
+        // }
 
-        if (data) {
-            return data;
-        }
+        // if (data) {
+        //     return data;
+        // }
         // console.log(table);
         // console.log(fetched);
         // return fetched;
-    }
+    // }
 }
 
 export default BaradosController;
