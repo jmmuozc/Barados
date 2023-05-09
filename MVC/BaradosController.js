@@ -36,7 +36,8 @@ class BaradosController {
         }
         
         for (let object of owners.data) {
-            this.#baradosModel.addOwner(this.#baradosModel.ownerFactory(object.id,object.Name,object.Email,object.Genre,object.Birth_Date,object.Image));
+           console.log(this.#baradosModel.ownerFactory(object.id,object.Name,object.Email,object.Genre,object.Birth_Date,object.Image));
+            // this.#baradosModel.addOwner(this.#baradosModel.ownerFactory(object.id,object.Name,object.Email,object.Genre,object.Birth_Date,object.Image));
             
         }
         console.log(business.data);
