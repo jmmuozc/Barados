@@ -33,19 +33,19 @@ class BaradosController {
 
     fetchData = async (table) => {
 
-        // let {data, error}= await this.#supabaseConection.from("Business").select();
-        let fetched= await this.#supabaseConection.from(table).select();
+        let {data, error}= await this.#supabaseConection.from(table).select();
+        // let fetched= await this.#supabaseConection.from(table).select();
 
-        // if (error) {
-        //     console.log(error);
-        // }
+        if (error) {
+            console.log(error);
+        }
 
-        // if (data) {
-        //     return data;
-        // }
-        console.log(table);
-        console.log(fetched);
-        return fetched;
+        if (data) {
+            return data;
+        }
+        // console.log(table);
+        // console.log(fetched);
+        // return fetched;
     }
 }
 
