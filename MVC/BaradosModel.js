@@ -38,7 +38,7 @@ class Barados {
       * @param {Business} business 
       * @returns Devolvemos la posicion en caso de que se encuentre
     */
-    #getBusinessPosition(business) {
+    #getBusinessPosition(business, businessList = this.#BusinessList) {
         if (!(business instanceof Business)) {
             throw new InvalidObject();
         }
@@ -48,7 +48,7 @@ class Barados {
             return (element.business.email === business.email)
         }
 
-        return this.#BusinessList.findIndex(compareElements);
+        return businessList.findIndex(compareElements);
     }
 
     /**
@@ -166,16 +166,43 @@ class Barados {
         // Comprueba que el objeto introducido es un owner
         if (!(owner instanceof Owner)) throw new InvalidObject();
         // Comprueba que el owner no existe 
-        let ownerPosition=this.#getOwnerPosition(owner);
+        let ownerPosition = this.#getOwnerPosition(owner);
         if (ownerPosition === -1) throw new OwnerNoExists();
         // Recorre todos los business del objeto owner
         for (let business of this.#OwnerList[ownerPosition].business) {
-            this.#BusinessList.splice(this.#getBusinessPosition(business),1);
+            this.#BusinessList.splice(this.#getBusinessPosition(business), 1);
         }
         // Elimina el Owner en cuestión
-        this.#OwnerList.splice(ownerPosition,1);
+        this.#OwnerList.splice(ownerPosition, 1);
 
-     }
+    }
+
+    /**
+     * Vincula un business a un Owner
+     * @param {Owner} owner 
+     * @param {Business} business 
+     */
+    assignBusinessToOwner(owner, ...business) {
+
+        if (!(owner instanceof Owner)) throw InvalidObject();
+        // Consigue la posicion del owner introducido, si no existe lo crea 
+        if (this.#getOwnerPosition(owner) === -1) this.addOwner(owner);
+        let ownerPosition = this.#getOwnerPosition(owner);
+        // Comprueba que no se haya introducido una array
+        if (business instanceof Array) {
+            business = business[0];
+        }
+        business.forEach(element => {
+            // En caso de que no exista el business la agrega al array principal de business
+            if (this.#getBusinessPosition(element) === -1) this.addBusiness(element);
+            // En caso de que no exista el business dentro de los business del owner introducido
+            if (this.#getBusinessPosition(element, this.#OwnerList[ownerPosition].business) === -1) {
+                // Añade la referencia de el business a la array de business del owner
+                this.#OwnerList[ownerPosition].business.push(this.#BusinessList[this.#getBusinessPosition(element)]);
+            }
+        });
+    }
+
 
     /**
      * Añade un objeto business a la array de business
@@ -253,6 +280,45 @@ class Barados {
         eventPosition = this.#getEventPosition(event);
         // Se elimina de la lista principal de producciones
         this.#EventsList.splice(eventPosition, 1);
+    }
+
+    /**
+     * Añade events al customer o business indicado
+     * @param {Customer || Business} destination 
+     * @param  {...Event} event 
+     */
+    assignEvent(destination, ...event) {
+        if (!(destination instanceof Customer) || !(destination instanceof Business)) throw InvalidObject();
+        // Comprueba que se haya introducido una array y en caso de que sea una array la recoge
+        if (event instanceof Array) {
+            event = event[0];
+        }
+        // Consigue la posicion del destination introducido, si no existe lo crea 
+        if (destination instanceof Customer) {
+            if (this.#getCustomerPosition(destination) === -1) this.addCustomer(destination);
+            let destinationPosition = this.#getCustomerPosition(destination);
+            event.forEach(element => {
+                // En caso de que no exista el event la agrega al array principal de event
+                if (this.#getEventPosition(element) === -1) this.addEvent(element);
+                // En caso de que no exista el event dentro de los event del Customer introducido
+                if (this.#getEventPosition(element, this.#CustomersList[destinationPosition].event) === -1) {
+                    // Añade la referencia de el event a la array de event del Customer
+                    this.#CustomersList[destinationPosition].events.push(this.#EventsList[this.#getEventPosition(element)]);
+                }
+            });
+        }else{
+            if (this.#getBusinessPosition(destination) === -1) this.addBusiness(destination);
+            let destinationPosition = this.#getBusinessPosition(destination);
+            event.forEach(element => {
+                // En caso de que no exista el event la agrega al array principal de event
+                if (this.#getEventPosition(element) === -1) this.addEvent(element);
+                // En caso de que no exista el event dentro de los event del Business introducido
+                if (this.#getEventPosition(element, this.#BusinessList[destinationPosition].event) === -1) {
+                    // Añade la referencia de el event a la array de event del Business
+                    this.#BusinessList[destinationPosition].events.push(this.#EventsList[this.#getEventPosition(element)]);
+                }
+            });
+        }
     }
 
     /**
