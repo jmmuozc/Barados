@@ -8,9 +8,9 @@ class Barados {
 
         let fetched= await this.#supabaseConnection.from(table).select();
 
-        console.log(fetched);
+       
 
-        return fetched;
+        return fetched.data;
     }
 }
 
