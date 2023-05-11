@@ -26,26 +26,13 @@ class BaradosController {
         // let business = await this.#supabaseConection.from("Business").select();
         // let customers = await this.#supabaseConection.from("Customers").select();
         // let owners = await this.#supabaseConection.from("Owner").select();
-        console.log(business);
+        // console.log(business);
         // console.log(business.data);
-        console.log(customers);
+        // console.log(customers);
         // console.log(customers.data);
-        console.log(owners);
+        // console.log(owners);
         // console.log(owners.data);
-        
-        for (let object of owners) {
 
-            this.#baradosModel.addOwner(this.#baradosModel.ownerFactory(object.id,object.Name,object.Email,object.Genre,object.Birth_Date,object.Image));         
-        }
-        
-        for (let object of business) {
-            actualBusiness=this.#baradosModel.businessFactory(object.id,object.Name,object.Location,object.Description,object.Email,object.Owner,object.Verified);
-            this.#baradosModel.addBusiness(actualBusiness);
-        }
-        
-        for (let object of customers) {
-            this.#baradosModel.addCustomers(this.#baradosModel.customerFactory(object.id,object.Name,object.Email,object.Genre,object.Birth_Date,object.Image));
-        }
 
     }
 
