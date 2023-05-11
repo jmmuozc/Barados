@@ -26,7 +26,9 @@ class BaradosController {
         let business = this.#baradosModel.fetchData("Business");
         let customers = this.#baradosModel.fetchData("Customers");
         let owners = this.#baradosModel.fetchData("Owner");
-        
+        console.log(business);
+        console.log(customers);
+        console.log(owners);
         for (let object of owners.data) {
 
             this.#baradosModel.addOwner(this.#baradosModel.ownerFactory(object.id,object.Name,object.Email,object.Genre,object.Birth_Date,object.Image));         
@@ -40,9 +42,7 @@ class BaradosController {
         for (let object of customers.data) {
             this.#baradosModel.addCustomers(this.#baradosModel.customerFactory(object.id,object.Name,object.Email,object.Genre,object.Birth_Date,object.Image));
         }
-        console.log(business.data);
-        console.log(customers.data);
-        console.log(owners.data);
+
 
     }
 
