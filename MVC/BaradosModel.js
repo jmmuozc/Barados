@@ -6,7 +6,7 @@ class Barados {
     fetchData = async (table) => {
 
 
-        let fetched= await this.#supabaseConnection.from(table).select();
+        let fetched= this.#supabaseConnection.from(table).select();
 
     //    console.log(fetched.data);
 
