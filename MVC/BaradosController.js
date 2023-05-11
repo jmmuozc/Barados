@@ -26,9 +26,9 @@ class BaradosController {
         let business = this.#baradosModel.fetchData("Business");
         let customers = this.#baradosModel.fetchData("Customers");
         let owners = this.#baradosModel.fetchData("Owner");
-        console.log(business);
-        console.log(customers);
-        console.log(owners);
+        console.log(business.data);
+        console.log(customers.data);
+        console.log(owners.data);
         for (let object of owners.data) {
 
             this.#baradosModel.addOwner(this.#baradosModel.ownerFactory(object.id,object.Name,object.Email,object.Genre,object.Birth_Date,object.Image));         
