@@ -5,7 +5,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 class BaradosController {
     #baradosModel;
     #baradosView;
-    #supabaseConection = createClient('https://wcqazpjgyqxtpiytqezb.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndjcWF6cGpneXF4dHBpeXRxZXpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODIyNTI1NDcsImV4cCI6MTk5NzgyODU0N30.4G_KX9VntK8GeNGZpAdM7CcxqN264hySeaHw3pe5fHg');
+   
     constructor(baradosModel, baradosView) {
         this.#baradosModel = baradosModel;
         this.#baradosView = baradosView;
@@ -23,9 +23,9 @@ class BaradosController {
         // let business = this.fetchData("Business");
         // let customers = this.fetchData("Customers");
         // let owners = this.fetchData("Owner");
-        let business = await this.#supabaseConection.from("Business").select();
-        let customers = await this.#supabaseConection.from("Customers").select();
-        let owners = await this.#supabaseConection.from("Owner").select();
+        let business = this.#baradosModel.fetchData("Business");
+        let customers = this.#baradosModel.fetchData("Customers");
+        let owners = this.#baradosModel.fetchData("Owner");
         
         for (let object of owners.data) {
 
