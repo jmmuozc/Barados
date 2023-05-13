@@ -10,7 +10,7 @@ class Barados {
 
     //    console.log(fetched.data);
 
-        return fetched.data;
+        return JSON.stringify(fetched.data);
     }
 }
 
