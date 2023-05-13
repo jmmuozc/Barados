@@ -16,6 +16,48 @@ class Barados {
 
         return JSON.parse(JSON.stringify(fetched.data));
     }
+
+    logIn = async (email,passwd)=>{
+
+        const {data,error}= await this.#supabaseConnection.auth.signInWithPassword({
+            email: email,
+            password: passwd,
+          });
+
+          if (error) {
+            return false;
+          }
+
+          if (data) {
+            return true;
+          }
+    }
+
+    
+    logOff = async ()=>{
+
+        const {error}= await this.#supabaseConnection.auth.auth.signOut();
+
+          if (error) {
+            return false;
+          }
+
+    }
+    createUser = async (email,passwd)=>{
+
+        const {data,error}= await this.#supabaseConnection.auth.signUp({
+            email: email,
+            password: passwd,
+          });
+
+          if (error) {
+            return false;
+          }
+
+          if (data) {
+            return true;
+          }
+    }
 }
 
 export default Barados;
