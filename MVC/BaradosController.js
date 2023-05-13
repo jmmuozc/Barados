@@ -26,7 +26,7 @@ class BaradosController {
         // let business = await this.#supabaseConection.from("Business").select();
         // let customers = await this.#supabaseConection.from("Customers").select();
         // let owners = await this.#supabaseConection.from("Owner").select();
-        console.log(business);
+        console.log(business[0]);
         // console.log(business.data);
         console.log(customers);
         // console.log(customers.data);
