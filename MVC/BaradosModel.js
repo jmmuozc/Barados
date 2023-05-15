@@ -28,9 +28,7 @@ class Barados {
           }
 
           if (data) {
-            console.log(data.user);
-            console.log(data.user["email"]);
-            return data.user;
+            return data.user["email"];
           }
     }
     
@@ -53,7 +51,7 @@ class Barados {
           }
 
           if (data) {
-            return data.user;
+            return data.user["email"];
           }
 
     }
