@@ -51,7 +51,7 @@ class Barados {
           }
 
           if (data) {
-            return data.session["user"];
+            return data.session["user"].email;
           }
 
     }
