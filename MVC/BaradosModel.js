@@ -28,7 +28,9 @@ class Barados {
           }
 
           if (data) {
-            return data.user.email;
+            console.log(data.user);
+            console.log(data.user["email"]);
+            return data.user;
           }
     }
     
