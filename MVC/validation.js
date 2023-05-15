@@ -22,11 +22,12 @@ function logInValidation(handler) {
         this.email.value = this.email.value.trim();
         if (this.email.value == "") {
             showFeedBack($(this.email), false);
+            isValid = false;
         } else {
             showFeedBack($(this.email), true);
         }
 
-        if (!this.passwd.checkValidity()) {
+        if (!this.passwd.checkValidity() || !isValid) {
             isValid = false;
             showFeedBack($(this.passwd), false);
             firstInvalidElement = this.passwd;

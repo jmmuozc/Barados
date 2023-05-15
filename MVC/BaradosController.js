@@ -41,8 +41,13 @@ class BaradosController {
 
     HandleLogIn = (user, passwd) => {
         console.log("Hola");
-        console.log(this.#baradosModel.Login(user, passwd))
-        console.log(this.#baradosModel.currentUser())
+        try {
+            console.log(this.#baradosModel.Login(user, passwd));
+            console.log(this.#baradosModel.currentUser());
+            
+        } catch (error) {
+            console.log(error);
+        }
         // if () {
             // document.cookie = `Cookie1 = ${user}`;
             // this.onLogIn();
