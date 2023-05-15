@@ -14,7 +14,7 @@ function showFeedBack(input, valid, message) {
 
 function logInValidation(handler) {
     let form = document.forms.flogIn;
-    console.log(document.forms.flogIn);
+    console.log(document.forms);
     $(form).attr('novalidate', true);
     $(form).submit(function (event) {
         let isValid = true;
