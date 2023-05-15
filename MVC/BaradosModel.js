@@ -9,7 +9,6 @@ class Barados {
         let fetched= await this.#supabaseConnection.from(table).select();
 
     //    console.log(fetched.data);
-        console.log(fetched);
         // for (let data of fetched.data) {
         //     data=JSON.stringify(data);
         // }
@@ -29,7 +28,7 @@ class Barados {
           }
 
           if (data) {
-            return data.user;
+            return data.user.email;
           }
     }
     
@@ -52,7 +51,7 @@ class Barados {
           }
 
           if (data) {
-            return data.user;
+            return data.user.email;
           }
 
     }
