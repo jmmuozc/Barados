@@ -53,7 +53,7 @@ class Barados {
           }
 
           if (data) {
-            return data.user.email;
+            return data.user;
           }
 
     }
