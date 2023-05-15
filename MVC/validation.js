@@ -42,3 +42,5 @@ function logInValidation(handler) {
         event.stopPropagation();
     });
 }
+
+export {logInValidation} ;

@@ -33,12 +33,22 @@ class BaradosController {
         console.log(owners);
         // console.log(owners.data);
 
-
+        this.onInit();
     }
 
+    onInit = () => {
+        this.#baradosView.bindLogIn(this.HandleLogIn);
+    }
 
     HandleLogIn = (user, passwd) => {
-
+        console.log(this.#baradosModel.Login(user, passwd))
+        console.log(this.#baradosModel.currentUser())
+        // if () {
+            // document.cookie = `Cookie1 = ${user}`;
+            // this.onLogIn();
+        // } else {
+            // this.failedLogIn();
+        // }
     }
     // fetchData = async (table) => {
 

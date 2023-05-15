@@ -29,20 +29,34 @@ class Barados {
           }
 
           if (data) {
-            return true;
+            return data;
           }
     }
-
     
     logOff = async ()=>{
 
-        const {error}= await this.#supabaseConnection.auth.auth.signOut();
+        const {error}= await this.#supabaseConnection.auth.signOut();
 
           if (error) {
             return false;
           }
 
+    }    
+    
+    currentUser = async ()=>{
+
+        const {data,error}= await this.#supabaseConnectionconst.auth.getSession();
+
+          if (error) {
+            return error;
+          }
+
+          if (data) {
+            return data;
+          }
+
     }
+
     createUser = async (email,passwd)=>{
 
         const {data,error}= await this.#supabaseConnection.auth.signUp({

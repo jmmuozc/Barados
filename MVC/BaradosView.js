@@ -1,11 +1,22 @@
 "use strict";
 
-class BaradosView{
+import { logInValidation } from "./validation";
 
-    constructor() {
-        // Recogemos el main
-        this.main = document.getElementsByTagName("main")[0];
-      }
+class BaradosView {
+
+  constructor() {
+    // Recogemos el main
+    this.main = document.getElementsByTagName("main")[0];
+  }
+
+  /**
+* Funcion que llama al nuevo logIn
+* @param {Function} handler 
+*/
+  bindLogIn(handler) {
+    logInValidation(handler);
+  }
+
 }
 
 export default BaradosView;
