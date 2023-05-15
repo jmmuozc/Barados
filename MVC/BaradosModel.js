@@ -45,7 +45,7 @@ class Barados {
     
     currentUser = async ()=>{
 
-        const {data,error}= await this.#supabaseConnectionconst.auth.getSession();
+        const {data,error}= await this.#supabaseConnection.auth.getSession();
 
           if (error) {
             return error;
