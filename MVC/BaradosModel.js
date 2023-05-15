@@ -29,7 +29,7 @@ class Barados {
           }
 
           if (data) {
-            return data;
+            return data.user;
           }
     }
     
@@ -52,7 +52,7 @@ class Barados {
           }
 
           if (data) {
-            return data;
+            return data.user;
           }
 
     }
