@@ -40,6 +40,7 @@ class BaradosController {
     }
 
     HandleLogIn = (user, passwd) => {
+        console.log("Hola");
         console.log(this.#baradosModel.Login(user, passwd))
         console.log(this.#baradosModel.currentUser())
         // if () {
