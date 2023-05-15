@@ -13,7 +13,7 @@ function showFeedBack(input, valid, message) {
 }
 
 function logInValidation(handler) {
-    let form = document.forms.logIn;
+    let form = document.forms.flogIn;
     console.log(form);
     $(form).attr('novalidate', true);
     $(form).submit(function (event) {
