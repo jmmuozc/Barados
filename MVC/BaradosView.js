@@ -1,6 +1,6 @@
 "use strict";
 
-import { logInValidation } from "./validation,js";
+import { logInValidation } from "./validation.js";
 
 class BaradosView {
 
