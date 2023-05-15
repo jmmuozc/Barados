@@ -39,11 +39,11 @@ class BaradosController {
         this.#baradosView.bindLogIn(this.HandleLogIn);
     }
 
-    HandleLogIn = (user, passwd) => {
+    HandleLogIn = async (user, passwd) => {
         console.log("Hola");
         try {
-            console.log(this.#baradosModel.logIn(user, passwd));
-            console.log(this.#baradosModel.currentUser());
+            console.log(await this.#baradosModel.logIn(user, passwd));
+            console.log(await this.#baradosModel.currentUser());
             
         } catch (error) {
             console.log(error);
