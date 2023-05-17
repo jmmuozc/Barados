@@ -26,12 +26,9 @@ class BaradosController {
         // let business = await this.#supabaseConection.from("Business").select();
         // let customers = await this.#supabaseConection.from("Customers").select();
         // let owners = await this.#supabaseConection.from("Owner").select();
-        console.log(business[0].Name);
-        // console.log(business.data);
-        console.log(customers);
-        // console.log(customers.data);
-        console.log(owners);
-        // console.log(owners.data);
+        // console.log(business[0].Name);
+        // console.log(customers);
+        // console.log(owners);
 
     }
 
@@ -40,13 +37,19 @@ class BaradosController {
     }
 
     HandleLogIn = async (user, passwd) => {
-        console.log("Hola");
+        let currentUserEmail;
         try {
-            console.log(await this.#baradosModel.logIn(user, passwd));
-            console.log(await this.#baradosModel.currentUser());
+            currentUserEmail = await this.#baradosModel.logIn(user, passwd);
+            // console.log(await this.#baradosModel.currentUser());
             
         } catch (error) {
             console.log(error);
+        }
+
+        if (currentUserEmail) {
+
+            console.log("loginCorrecto");
+            
         }
         // if () {
             // document.cookie = `Cookie1 = ${user}`;

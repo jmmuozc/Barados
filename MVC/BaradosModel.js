@@ -1,76 +1,87 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 class Barados {
 
-    #supabaseConnection= createClient('https://wcqazpjgyqxtpiytqezb.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndjcWF6cGpneXF4dHBpeXRxZXpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODIyNTI1NDcsImV4cCI6MTk5NzgyODU0N30.4G_KX9VntK8GeNGZpAdM7CcxqN264hySeaHw3pe5fHg');
-    
-    fetchData = async (table) => {
+  #supabaseConnection = createClient('https://wcqazpjgyqxtpiytqezb.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndjcWF6cGpneXF4dHBpeXRxZXpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODIyNTI1NDcsImV4cCI6MTk5NzgyODU0N30.4G_KX9VntK8GeNGZpAdM7CcxqN264hySeaHw3pe5fHg');
+
+  fetchData = async (table) => {
 
 
-        let fetched= await this.#supabaseConnection.from(table).select();
+    let fetched = await this.#supabaseConnection.from(table).select();
 
     //    console.log(fetched.data);
-        // for (let data of fetched.data) {
-        //     data=JSON.stringify(data);
-        // }
+    // for (let data of fetched.data) {
+    //     data=JSON.stringify(data);
+    // }
 
-        return JSON.parse(JSON.stringify(fetched.data));
+    return JSON.parse(JSON.stringify(fetched.data));
+  }
+
+  logIn = async (email, passwd) => {
+
+    const { data, error } = await this.#supabaseConnection.auth.signInWithPassword({
+      email: email,
+      password: passwd,
+    });
+
+    if (error) {
+      return false;
     }
 
-    logIn = async (email,passwd)=>{
-
-        const {data,error}= await this.#supabaseConnection.auth.signInWithPassword({
-            email: email,
-            password: passwd,
-          });
-
-          if (error) {
-            return false;
-          }
-
-          if (data) {
-            return data.user["email"];
-          }
+    if (data) {
+      return JSON.stringify(data.user["email"]);
     }
-    
-    logOff = async ()=>{
+  }
 
-        const {error}= await this.#supabaseConnection.auth.signOut();
+  logOff = async () => {
 
-          if (error) {
-            return false;
-          }
+    const { error } = await this.#supabaseConnection.auth.signOut();
 
-    }    
-    
-    currentUser = async ()=>{
-
-        const {data,error}= await this.#supabaseConnection.auth.getSession();
-
-          if (error) {
-            return error;
-          }
-
-          if (data) {
-            return data.session["user"].email;
-          }
-
+    if (error) {
+      return false;
     }
 
-    createUser = async (email,passwd)=>{
+  }
 
-        const {data,error}= await this.#supabaseConnection.auth.signUp({
-            email: email,
-            password: passwd,
-          });
+  currentUser = async () => {
 
-          if (error) {
-            return false;
-          }
+    const { data, error } = await this.#supabaseConnection.auth.getSession();
 
-          if (data) {
-            return true;
-          }
+    if (error) {
+      return error;
     }
+
+    if (data) {
+      return JSON.stringify(data.session["user"].email);
+    }
+
+  }
+
+  createUser = async (email, passwd) => {
+
+    const { data, error } = await this.#supabaseConnection.auth.signUp({
+      email: email,
+      password: passwd,
+    });
+
+    if (error) {
+      return false;
+    }
+
+    if (data) {
+      return true;
+    }
+  }
+
+  insertInto = async (table, data) => {
+
+    const { error } = await this.#supabaseConnection
+      .from(table)
+      .insert(data)
+
+      if (error) {
+        return error;
+      }
+  }
 }
 
 export default Barados;

@@ -14,7 +14,6 @@ function showFeedBack(input, valid, message) {
 
 function logInValidation(handler) {
     let form = document.forms.flogIn;
-    console.log(document.forms);
     $(form).attr('novalidate', true);
     $(form).submit(function (event) {
         let isValid = true;
@@ -45,4 +44,100 @@ function logInValidation(handler) {
     });
 }
 
-export {logInValidation} ;
+function newBusinessValidation(handler) {
+    let form = document.forms.fBusiness;
+    $(form).attr('novalidate', true);
+    $(form).submit(function (event) {
+        let isValid = true;
+        let firstInvalidElement = null;
+        this.name.value = this.name.value.trim();
+        if (this.name.value == "") {
+            showFeedBack($(this.name), false);
+            isValid = false;
+        } else {
+            showFeedBack($(this.name), true);
+        }
+
+        if (!this.location.checkValidity() || !isValid) {
+            isValid = false;
+            showFeedBack($(this.location), false);
+            firstInvalidElement = this.location;
+        } else {
+            showFeedBack($(this.location), true);
+        }
+
+        if (!this.description.checkValidity() || !isValid) {
+            isValid = false;
+            showFeedBack($(this.description), false);
+            firstInvalidElement = this.description;
+        } else {
+            showFeedBack($(this.description), true);
+        }
+
+        if (!this.email.checkValidity() || !isValid) {
+            isValid = false;
+            showFeedBack($(this.email), false);
+            firstInvalidElement = this.email;
+        } else {
+            showFeedBack($(this.email), true);
+        }
+
+        if (!isValid) {
+            firstInvalidElement.focus();
+        } else {
+            handler(this.email.value, this.location.value);
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    });
+}
+
+function newClientValidation(handler) {
+    let form = document.forms.fBusiness;
+    $(form).attr('novalidate', true);
+    $(form).submit(function (event) {
+        let isValid = true;
+        let firstInvalidElement = null;
+        this.name.value = this.name.value.trim();
+        if (this.name.value == "") {
+            showFeedBack($(this.name), false);
+            isValid = false;
+        } else {
+            showFeedBack($(this.name), true);
+        }
+
+        if (!this.location.checkValidity() || !isValid) {
+            isValid = false;
+            showFeedBack($(this.location), false);
+            firstInvalidElement = this.location;
+        } else {
+            showFeedBack($(this.location), true);
+        }
+
+        if (!this.description.checkValidity() || !isValid) {
+            isValid = false;
+            showFeedBack($(this.description), false);
+            firstInvalidElement = this.description;
+        } else {
+            showFeedBack($(this.description), true);
+        }
+
+        if (!this.email.checkValidity() || !isValid) {
+            isValid = false;
+            showFeedBack($(this.email), false);
+            firstInvalidElement = this.email;
+        } else {
+            showFeedBack($(this.email), true);
+        }
+
+        if (!isValid) {
+            firstInvalidElement.focus();
+        } else {
+            handler(this.email.value, this.location.value);
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    });
+}
+
+export {logInValidation, newBusinessValidation} ;
