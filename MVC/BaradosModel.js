@@ -18,20 +18,21 @@ class Barados {
 
   logIn = async (email, passwd) => {
 
-    let data;
-    try {
-      data = await this.#supabaseConnection.auth.signInWithPassword({
-        email: email,
-        password: passwd,
-      });
+    // let result;
+    // try {
+    //   result = await this.#supabaseConnection.auth.signInWithPassword({
+    //     email: email,
+    //     password: passwd,
+    //   });
 
-    } catch (error) {
+    // } catch (error) {
 
-    }
+    // }
 
-      console.log(data.error);
-    if (data.error == null) {
-      return JSON.stringify(data.data.user["email"]);
+    const { result, error } = await this.#supabaseConnection.auth.signInWithPassword({email: email,password: passwd});
+
+    if (result.error == null) {
+      return JSON.stringify(result.user["email"]);
     } else {
       return false;
     }
@@ -49,21 +50,21 @@ class Barados {
 
   currentUser = async () => {
 
-    const { data, error } = await this.#supabaseConnection.auth.getSession();
+    const { result, error } = await this.#supabaseConnection.auth.getSession();
 
     if (error) {
       return error;
     }
 
-    if (data) {
-      return JSON.stringify(data.session["user"].email);
+    if (result) {
+      return JSON.stringify(result.session["user"].email);
     }
 
   }
 
   createUser = async (email, passwd) => {
 
-    const { data, error } = await this.#supabaseConnection.auth.signUp({
+    const { result, error } = await this.#supabaseConnection.auth.signUp({
       email: email,
       password: passwd,
     });
@@ -72,7 +73,7 @@ class Barados {
       return false;
     }
 
-    if (data) {
+    if (result) {
       return true;
     }
   }
