@@ -17,15 +17,19 @@ class Barados {
   }
 
   logIn = async (email, passwd) => {
-
-    const { data, error } = await this.#supabaseConnection.auth.signInWithPassword({
-      email: email,
-      password: passwd,
-    });
-
-    if (error) {
+    try {
+      const { data, error } = await this.#supabaseConnection.auth.signInWithPassword({
+        email: email,
+        password: passwd,
+      });
+      
+    } catch (error) {
+      
       return false;
     }
+
+    // if (error) {
+    // }
 
     if (data) {
       return JSON.stringify(data.user["email"]);
