@@ -30,7 +30,7 @@ class Barados {
     }
 
       console.log(data);
-    if (data.user != null) {
+    if (error == null) {
       return JSON.stringify(data.user["email"]);
     } else {
       return false;
