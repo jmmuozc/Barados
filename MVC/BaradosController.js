@@ -49,7 +49,7 @@ class BaradosController {
         if (currentUserEmail!= false) {
 
             console.log("loginCorrecto");
-            
+            this.#baradosView.infoUserHeader("Berenjena");
         }else{
             console.log("loginIncorrecto");
         }
