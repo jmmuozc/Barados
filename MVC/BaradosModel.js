@@ -32,6 +32,7 @@ class Barados {
     const { result, error } = await this.#supabaseConnection.auth.signInWithPassword({email: email,password: passwd});
 
     if (error == null) {
+      console.log(result);
       return JSON.stringify(result.user["email"]);
     } else {
       return false;
