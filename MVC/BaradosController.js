@@ -46,10 +46,12 @@ class BaradosController {
             console.log(error);
         }
 
-        if (currentUserEmail) {
+        if (currentUserEmail!= false) {
 
             console.log("loginCorrecto");
             
+        }else{
+            console.log("loginIncorrecto");
         }
         // if () {
             // document.cookie = `Cookie1 = ${user}`;
