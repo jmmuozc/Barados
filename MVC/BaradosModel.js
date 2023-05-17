@@ -18,15 +18,21 @@ class Barados {
 
   logIn = async (email, passwd) => {
 
-      const { data, error } = await this.#supabaseConnection.auth.signInWithPassword({
+    let data;
+    try {
+      data = await this.#supabaseConnection.auth.signInWithPassword({
         email: email,
         password: passwd,
       });
 
+    } catch (error) {
 
-    if (data.user!=null) {
+    }
+
+
+    if (data.user != null) {
       return JSON.stringify(data.user["email"]);
-    }else {
+    } else {
       return false;
     }
   }
@@ -77,9 +83,9 @@ class Barados {
       .from(table)
       .insert(data)
 
-      if (error) {
-        return error;
-      }
+    if (error) {
+      return error;
+    }
   }
 }
 
