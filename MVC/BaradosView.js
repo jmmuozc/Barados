@@ -19,7 +19,7 @@ class BaradosView {
     <img src="${image}" class="img-thumbnail" alt="user Image" />
     </div>
     <div class="col-md-8">
-    <a href="" class="nav-link align-middle">${name}</a>
+    <a href="">${name}</a>
     </div>
     </div>`;
     header.appendChild(userIl);
