@@ -14,7 +14,7 @@ class BaradosView {
     let header=document.getElementById("headerContent");
     let userIl=document.createElement("div");
     userIl.setAttribute("class", "col-md-2")
-    userIl.innerHTML=`<div class="d-flex justify-content-md-end">
+    userIl.innerHTML=`<div class="d-flex justify-content-md-end align-items-center">
     <div>
     <a href="" class="nav-link align-middle">${name}</a>
     </div>
