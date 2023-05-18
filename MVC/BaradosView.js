@@ -12,8 +12,8 @@ class BaradosView {
 
   infoUserHeader(name,image="/Media/default-user-icon.jpg"){
     let header=document.getElementById("headerContent");
-    let userIl=document.createElement("li");
-    userIl.setAttribute("class", "list-unstyled mb-0")
+    let userIl=document.createElement("div");
+    userIl.setAttribute("class", "col-md-2")
     userIl.innerHTML=`<div class="row">
     <div class="col-md-4">
     <img src="${image}" class="img-thumbnail" alt="user Image" />
