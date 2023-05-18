@@ -14,9 +14,13 @@ class BaradosView {
     let header=document.getElementById("headerContent");
     let userIl=document.createElement("li");
     userIl.setAttribute("class", "list-unstyled mb-0")
-    userIl.innerHTML=`<div class="container">
-    <img src="${image}" class="align-middle" alt="user Image" />
+    userIl.innerHTML=`<div class="row">
+    <div class="col-md-4">
+    <img src="${image}" class="img-thumbnail" alt="user Image" />
+    </div>
+    <div class="col-md-8">
     <a href="" class="nav-link align-middle">${name}</a>
+    </div>
     </div>`;
     header.appendChild(userIl);
     // class="img-thumbnail"
