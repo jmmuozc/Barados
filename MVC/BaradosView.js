@@ -14,16 +14,18 @@ class BaradosView {
     let header=document.getElementById("headerContent");
     let userIl=document.createElement("div");
     userIl.setAttribute("class", "col-md-2")
-    userIl.innerHTML=`<div class="row">
-    <div class="col-md-4">
-    <img src="${image}" class="img-thumbnail" alt="user Image" />
-    </div>
-    <div class="col-md-8">
+    userIl.innerHTML=`<div class="d-flex justify-content-md-end">
+    <div>
     <a href="" class="nav-link align-middle">${name}</a>
+    </div>
+    <div">
+    <img src="${image}" class="img-thumbnail" alt="user Image" />
     </div>
     </div>`;
     header.appendChild(userIl);
     // class="img-thumbnail"
+    // class="col-md-8"
+    // class="col-md-4
   }
 
   /**
