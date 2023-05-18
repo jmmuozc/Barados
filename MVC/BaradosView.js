@@ -16,10 +16,10 @@ class BaradosView {
     userIl.setAttribute("class", "col-md-2")
     userIl.innerHTML=`<div class="d-flex justify-content-md-end align-items-center">
     <div>
-    <a href="" class="nav-link align-middle">${name}</a>
+    <a href="" class="nav-link align-middle mr-1">${name}</a>
     </div>
     <div">
-    <img src="${image}" class="img-thumbnail" alt="user Image" />
+    <img src="${image}" class="img-thumbnail" alt="user Image" width=200px height=200px />
     </div>
     </div>`;
     header.appendChild(userIl);
