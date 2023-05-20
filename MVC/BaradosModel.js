@@ -6,32 +6,61 @@ class Barados {
   fetchData = async (table) => {
 
 
-    let fetched = await this.#supabaseConnection.from(table).select();
+    const { data, error } = await this.#supabaseConnection.from(table).select();
 
     //    console.log(fetched.data);
     // for (let data of fetched.data) {
     //     data=JSON.stringify(data);
     // }
+    if (error) {
+      return error;
+    }
+    console.log(data);
 
-    return JSON.parse(JSON.stringify(fetched.data));
+    return JSON.parse(JSON.stringify(data));
+    // return JSON.parse(JSON.stringify(data));
+  }
+
+  fetchDataWhere = async (table,condition) => {
+
+    console.log(condition);
+    const { data, error } = await this.#supabaseConnection.from(table).select().match(condition);
+
+      //  console.log(fetched.data);
+    // for (let data of fetched.data) {
+    //     data=JSON.stringify(data);
+    // }
+    if (error) {
+      return error;
+    }
+
+    return JSON.parse(JSON.stringify(data));
+  }
+  
+  insertInto = async (table, data) => {
+
+    const { error } = await this.#supabaseConnection
+      .from(table)
+      .insert(data)
+
+    if (error) {
+      return error;
+    }
   }
 
   logIn = async (email, passwd) => {
 
-    let result;
-    try {
-      result = await this.#supabaseConnection.auth.signInWithPassword({
+    const { data, error } = await this.#supabaseConnection.auth.signInWithPassword({
         email: email,
         password: passwd,
       });
 
-    } catch (error) {
 
-    }
 
     
-    if (result.error == null) {
-      return JSON.stringify(result.data.user["email"]);
+    if (error == null) {
+      return data.user["email"];
+      // return JSON.stringify(data.user["email"]);
     } else {
       return false;
     }
@@ -49,21 +78,21 @@ class Barados {
 
   currentUser = async () => {
 
-    const { result, error } = await this.#supabaseConnection.auth.getSession();
+    const { data, error } = await this.#supabaseConnection.auth.getSession();
 
     if (error) {
       return error;
     }
 
-    if (result) {
-      return JSON.stringify(result.session["user"].email);
+    if (data) {
+      return JSON.stringify(data.session["user"].email);
     }
 
   }
 
   createUser = async (email, passwd) => {
 
-    const { result, error } = await this.#supabaseConnection.auth.signUp({
+    const { data, error } = await this.#supabaseConnection.auth.signUp({
       email: email,
       password: passwd,
     });
@@ -72,21 +101,11 @@ class Barados {
       return false;
     }
 
-    if (result) {
+    if (data) {
       return true;
     }
   }
 
-  insertInto = async (table, data) => {
-
-    const { error } = await this.#supabaseConnection
-      .from(table)
-      .insert(data)
-
-    if (error) {
-      return error;
-    }
-  }
 }
 
 export default Barados;

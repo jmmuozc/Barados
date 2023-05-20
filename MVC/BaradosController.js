@@ -38,6 +38,7 @@ class BaradosController {
 
     HandleLogIn = async (user, passwd) => {
         let currentUserEmail;
+        let img="/Media/default-user-icon.jpg";
         try {
             currentUserEmail = await this.#baradosModel.logIn(user, passwd);
             // console.log(await this.#baradosModel.currentUser());
@@ -47,9 +48,10 @@ class BaradosController {
         }
 
         if (currentUserEmail!= false) {
-
-            console.log("loginCorrecto");
-            this.#baradosView.infoUserHeader("Berenjena");
+            let currentUser= await this.#baradosModel.fetchDataWhere("Owner",{Email : currentUserEmail});;
+            console.log(currentUser);
+            if (currentUser[0].Image != null) img=currentUser[0].Image;
+            this.#baradosView.infoUserHeader(currentUser[0].Name, img);
         }else{
             console.log("loginIncorrecto");
         }
