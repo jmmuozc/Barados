@@ -80,8 +80,8 @@ class Barados {
 
     const { data, error } = await this.#supabaseConnection.auth.getSession();
 
-    if (error) {
-      return error;
+    if (data.session==null) {
+      return false;
     }
 
     if (data) {

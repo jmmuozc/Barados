@@ -29,6 +29,8 @@ class BaradosController {
         console.log(business);
         // console.log(customers);
         // console.log(owners);
+        console.log(await this.#baradosModel.currentUser());
+        if (await this.#baradosModel.currentUser()!=false) this.#baradosView.removeLogInForm();
 
         this.#baradosView.ShowBusinessCards(business);
 
@@ -51,9 +53,7 @@ class BaradosController {
 
         if (currentUserEmail!= false) {
             let currentUser= await this.#baradosModel.fetchDataWhere("Owner",{Email : currentUserEmail});
-            console.log(currentUser);
             if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Customers",{Email : currentUserEmail});
-            console.log(currentUser);
             img=currentUser[0].Image;
             this.#baradosView.infoUserHeader(currentUser[0].Name, img);
         }else{

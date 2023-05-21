@@ -12,12 +12,7 @@ class BaradosView {
 
   infoUserHeader(name,image){
     // console.log(document.getElementById("LogInForm"));
-    if (document.getElementsByClassName("LogInForm")) {
-      let logInElements=Array.from(document.getElementsByClassName("LogInForm"));
-
-      logInElements.forEach(element => {
-        element.parentElement.removeChild(element);
-      });
+    
       // for (let child of document.getElementsByClassName("LogInForm")) {
       //   console.log("Parent");
       //   console.log(child.parentElement);
@@ -25,7 +20,7 @@ class BaradosView {
       //   console.log(child);
       //   child.parentElement.removeChild(child);
       // }
-      }
+    this.removeLogInForm();
     // if (document.getElementById("LogInForm")) logInDiv.removeChild(document.getElementById("LogInForm"));
     if (document.getElementById("user-header")==null) {
       let header=document.getElementById("navbarSupportedContent");
@@ -46,6 +41,17 @@ class BaradosView {
     // class="col-md-8"
     // class="col-md-4
   }
+
+
+  removeLogInForm(){
+    if (document.getElementsByClassName("LogInForm")) {
+      let logInElements=Array.from(document.getElementsByClassName("LogInForm"));
+
+      logInElements.forEach(element => {
+        element.parentElement.removeChild(element);
+      });
+  }
+}
 
   ShowBusinessCards(business){
     let barImg= Array.from(document.getElementsByClassName("bar-img"));
