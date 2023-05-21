@@ -30,7 +30,7 @@ class BaradosController {
         // console.log(customers);
         // console.log(owners);
 
-        this.#baradosView.ShowBusinessOnIndex(business);
+        this.#baradosView.ShowBusinessCards(business);
 
     }
 
@@ -40,7 +40,7 @@ class BaradosController {
 
     HandleLogIn = async (user, passwd) => {
         let currentUserEmail;
-        let img="/Media/default-user-icon.jpg";
+        let img;
         try {
             currentUserEmail = await this.#baradosModel.logIn(user, passwd);
             // console.log(await this.#baradosModel.currentUser());
@@ -50,9 +50,11 @@ class BaradosController {
         }
 
         if (currentUserEmail!= false) {
-            let currentUser= await this.#baradosModel.fetchDataWhere("Owner",{Email : currentUserEmail});;
+            let currentUser= await this.#baradosModel.fetchDataWhere("Owner",{Email : currentUserEmail});
             console.log(currentUser);
-            if (currentUser[0].Image != null) img=currentUser[0].Image;
+            if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Customers",{Email : currentUserEmail});
+            console.log(currentUser);
+            img=currentUser[0].Image;
             this.#baradosView.infoUserHeader(currentUser[0].Name, img);
         }else{
             console.log("loginIncorrecto");

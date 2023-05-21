@@ -47,7 +47,7 @@ class BaradosView {
     // class="col-md-4
   }
 
-  ShowBusinessOnIndex(business){
+  ShowBusinessCards(business){
     let barImg= Array.from(document.getElementsByClassName("bar-img"));
     let barTitle= Array.from(document.getElementsByClassName("bar-title"));
     let barDescription= Array.from(document.getElementsByClassName("bar-description"));
@@ -64,7 +64,25 @@ class BaradosView {
       barDescription[index].innerHTML=`${business[rng].Description}`;
       
     }
-    console.log(business);
+  }
+
+  ShowEventsCards(events){
+    let eventImg= Array.from(document.getElementsByClassName("event-img"));
+    let eventTitle= Array.from(document.getElementsByClassName("event-title"));
+    let eventDescription= Array.from(document.getElementsByClassName("event-description"));
+    let arrayExistent = [];
+    let rng;
+    for (let index = 0; index < eventImg.length; index++) {
+      do {
+        rng = Math.floor(Math.random() * (events.length));
+      } while (arrayExistent.includes(rng));
+      arrayExistent.push(rng);
+
+      // eventImg[index].innerHTML=`${events[rng].image}`;
+      eventTitle[index].innerHTML=`${events[rng].Name}`;
+      eventDescription[index].innerHTML=`${events[rng].Description}`;
+      
+    }
   }
 
   /**
