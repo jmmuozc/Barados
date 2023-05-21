@@ -47,6 +47,26 @@ class BaradosView {
     // class="col-md-4
   }
 
+  ShowBusinessOnIndex(business){
+    let barImg= Array.from(document.getElementsByClassName("bar-img"));
+    let barTitle= Array.from(document.getElementsByClassName("bar-title"));
+    let barDescription= Array.from(document.getElementsByClassName("bar-description"));
+    let arrayExistent = [];
+    let rng;
+    for (let index = 0; index < barImg.length; index++) {
+      do {
+        rng = Math.floor(Math.random() * (business.length));
+      } while (arrayExistent.includes(rng));
+      arrayExistent.push(rng);
+
+      // barImg[index].innerHTML=`${business[rng].image}`;
+      barTitle[index].innerHTML=`${business[rng].Name}`;
+      barDescription[index].innerHTML=`${business[rng].Description}`;
+      
+    }
+    console.log(business);
+  }
+
   /**
 * Funcion que llama al nuevo logIn
 * @param {Function} handler 

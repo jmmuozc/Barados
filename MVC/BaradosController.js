@@ -26,9 +26,11 @@ class BaradosController {
         // let business = await this.#supabaseConection.from("Business").select();
         // let customers = await this.#supabaseConection.from("Customers").select();
         // let owners = await this.#supabaseConection.from("Owner").select();
-        // console.log(business[0].Name);
+        console.log(business);
         // console.log(customers);
         // console.log(owners);
+
+        this.#baradosView.ShowBusinessOnIndex(business);
 
     }
 
@@ -62,22 +64,6 @@ class BaradosController {
             // this.failedLogIn();
         // }
     }
-    // fetchData = async (table) => {
-
-        // let {data, error}= await this.#supabaseConection.from(table).select();
-        // let fetched= await this.#supabaseConection.from(table).select();
-
-        // if (error) {
-        //     console.log(error);
-        // }
-
-        // if (data) {
-        //     return data;
-        // }
-        // console.log(table);
-        // console.log(fetched);
-        // return fetched;
-    // }
 }
 
 export default BaradosController;
