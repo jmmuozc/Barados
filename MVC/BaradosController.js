@@ -1,6 +1,4 @@
 "use strict"
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-// Crear un cliente para interactuar con la bbdd de supabase
 
 class BaradosController {
     #baradosModel;
@@ -38,7 +36,9 @@ class BaradosController {
 
             this.#baradosView.removeLogInForm();
 
-            this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image)
+            this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
+
+            this.#baradosView.bindLogOff(this.HandleLogOff);
 
         } 
 
@@ -64,6 +64,7 @@ class BaradosController {
             let currentUser= await this.#baradosModel.fetchDataWhere("Owner",{Email : currentUserEmail});
             if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Customers",{Email : currentUserEmail});
             this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
+            this.#baradosView.bindLogOff(this.HandleLogOff);
         }else{
             console.log("loginIncorrecto");
         }
@@ -73,6 +74,12 @@ class BaradosController {
         // } else {
             // this.failedLogIn();
         // }
+    }
+
+    HandleLogOff = async () => {
+       await this.#baradosModel.logOff();
+       this.#baradosView.setUpLogIn();
+       this.#baradosView.bindLogIn(this.HandleLogIn);
     }
 }
 

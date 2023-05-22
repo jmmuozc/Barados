@@ -48,7 +48,7 @@ class BaradosView {
           <p>Editar Perfil</p>
           <span>></span>
       </a>
-      <a href="#" class="sub-menu-link">
+      <a href="#" class="sub-menu-link" id="LogOff">
           <img src="/Media/logout-icon.png">
           <p>Cerrar Sesión</p>
           <span>></span>
@@ -122,6 +122,53 @@ ShowUserSubMenu(){
   console.log("Prueba");
 }
 
+setUpLogIn(){
+  let userHeader=document.getElementById("user-header");
+  let userSubMenu=document.getElementById("sub-menu");
+  let infoDiv=document.getElementsByClassName("infoDiv");
+  
+  userSubMenu.classList.toggle("open-menu");
+  userSubMenu.innerHTML="";
+  userHeader.parentElement.removeChild(userHeader);
+  infoDiv[0].innerHTML=`                <div class="col-md-6 LogInForm">
+  <form action="" role="form" name="flogIn">
+      <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" class="form-control" autocomplete="email" required />
+      </div>
+      <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+              required />
+      </div>
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary">Iniciar</button>
+      </div>
+  </form>
+</div>
+<div class="col-md-6">
+  <div class="card">
+      <div class="card-body">
+          <h3 class="card-title">Información de contacto</h3>
+          <p class="card-text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              blandit justo in tincidunt mattis. Nulla ac lorem id est
+              ultricies laoreet.
+          </p>
+          <p class="card-text">
+              <strong>Teléfono:</strong> (123) 456-7890
+          </p>
+          <p class="card-text">
+              <strong>Email:</strong> barados@gmail.com
+          </p>
+          <p class="card-text">
+              <strong>Dirección:</strong> 123 Fake St, Anytown USA
+          </p>
+      </div>
+  </div>
+</div>`;
+}
+
   /**
 * Funcion que llama al nuevo logIn
 * @param {Function} handler 
@@ -129,8 +176,9 @@ ShowUserSubMenu(){
   bindLogIn(handler) {
     logInValidation(handler);
   }
-  bindUserSubMenu(handler) {
-    document.getElementById("user-header").addEventListener("click", (event) => {
+
+  bindLogOff(handler) {
+    document.getElementById("LogOff").addEventListener("click", (event) => {
       handler()
     });
   }
