@@ -20,6 +20,7 @@ class BaradosController {
 
     onLoad = async () => {
 
+        let currentUserEmail=await this.#baradosModel.currentUser();
         let business = await this.#baradosModel.fetchData("Business");
         let customers = await this.#baradosModel.fetchData("Customers");
         let owners = await this.#baradosModel.fetchData("Owner");
@@ -30,7 +31,16 @@ class BaradosController {
         // console.log(customers);
         // console.log(owners);
         console.log(await this.#baradosModel.currentUser());
-        if (await this.#baradosModel.currentUser()!=false) this.#baradosView.removeLogInForm();
+        if (currentUserEmail!=false){
+
+            let currentUser= await this.#baradosModel.fetchDataWhere("Owner",{Email : currentUserEmail});
+            if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Customers",{Email : currentUserEmail});
+
+            this.#baradosView.removeLogInForm();
+
+            this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image)
+
+        } 
 
         this.#baradosView.ShowBusinessCards(business);
 
@@ -42,7 +52,6 @@ class BaradosController {
 
     HandleLogIn = async (user, passwd) => {
         let currentUserEmail;
-        let img;
         try {
             currentUserEmail = await this.#baradosModel.logIn(user, passwd);
             // console.log(await this.#baradosModel.currentUser());
@@ -54,8 +63,7 @@ class BaradosController {
         if (currentUserEmail!= false) {
             let currentUser= await this.#baradosModel.fetchDataWhere("Owner",{Email : currentUserEmail});
             if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Customers",{Email : currentUserEmail});
-            img=currentUser[0].Image;
-            this.#baradosView.infoUserHeader(currentUser[0].Name, img);
+            this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
         }else{
             console.log("loginIncorrecto");
         }

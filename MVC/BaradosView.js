@@ -24,17 +24,40 @@ class BaradosView {
     // if (document.getElementById("LogInForm")) logInDiv.removeChild(document.getElementById("LogInForm"));
     if (document.getElementById("user-header")==null) {
       let header=document.getElementById("navbarSupportedContent");
+      let userSubMenu=document.getElementById("sub-menu");
       let userDiv=document.createElement("div");
       userDiv.setAttribute("class", "d-flex align-items-center ms-3 me-3");
       userDiv.setAttribute("id", "user-header");
       userDiv.innerHTML=`
       <div>
-      <img src="${image}" class="me-3" alt="user Image" width=50px height=50px />
+      <img src="${image}" class="me-3 user-image" alt="user Image" width=50px height=50px />
       </div>
       <div">
       <a href="" class="nav-link align-middle ">${name}</a>
       </div>`;
       header.appendChild(userDiv);
+
+      userSubMenu.innerHTML=`<div class="sub-menu">
+      <div class="user-info">
+          <img src="${image}" class="me-3 user-image" alt="user Image" />
+          <h3>${name}</h3>
+      </div>
+      <hr/>
+      <a href="#" class="sub-menu-link">
+          <img src="/Media/edit-user-icon.png">
+          <p>Editar Perfil</p>
+          <span>></span>
+      </a>
+      <a href="#" class="sub-menu-link">
+          <img src="/Media/logout-icon.png">
+          <p>Cerrar Sesión</p>
+          <span>></span>
+      </a>
+  </div>`;
+
+      document.getElementById("user-header").addEventListener("click", (event) => {
+        this.ShowUserSubMenu()
+      });
       
     }
     // class="img-thumbnail"
@@ -91,13 +114,25 @@ class BaradosView {
     }
   }
 
+ShowUserSubMenu(){
+  let subMenu= document.getElementById("sub-menu");
+
+  subMenu.classList.toggle("open-menu");
+
+  console.log("Prueba");
+}
+
   /**
 * Funcion que llama al nuevo logIn
 * @param {Function} handler 
 */
   bindLogIn(handler) {
-    console.log("Vinculado");
     logInValidation(handler);
+  }
+  bindUserSubMenu(handler) {
+    document.getElementById("user-header").addEventListener("click", (event) => {
+      handler()
+    });
   }
 
 }

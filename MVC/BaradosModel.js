@@ -85,7 +85,7 @@ class Barados {
     }
 
     if (data) {
-      return JSON.stringify(data.session["user"].email);
+      return data.session["user"].email;
     }
 
   }
