@@ -225,6 +225,11 @@ nav a:hover {
 	width: 100%;
 }
 
+.LogInForm-change{
+	color: rgb(34, 34, 233);
+	cursor: pointer;
+}
+
 #contacto input[type="submit"] {
 	background-color: #333;
 	color: #fff;

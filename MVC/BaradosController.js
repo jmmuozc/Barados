@@ -33,12 +33,15 @@ class BaradosController {
 
             let currentUser= await this.#baradosModel.fetchDataWhere("Owner",{Email : currentUserEmail});
             if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Customers",{Email : currentUserEmail});
+            if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Business",{Email : currentUserEmail});
 
             this.#baradosView.removeLogInForm();
 
             this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
 
             this.#baradosView.bindLogOff(this.HandleLogOff);
+
+            this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
 
         } 
 
@@ -63,8 +66,10 @@ class BaradosController {
         if (currentUserEmail!= false) {
             let currentUser= await this.#baradosModel.fetchDataWhere("Owner",{Email : currentUserEmail});
             if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Customers",{Email : currentUserEmail});
+            if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Business",{Email : currentUserEmail});
             this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
             this.#baradosView.bindLogOff(this.HandleLogOff);
+            this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
         }else{
             console.log("loginIncorrecto");
         }
@@ -80,6 +85,12 @@ class BaradosController {
        await this.#baradosModel.logOff();
        this.#baradosView.setUpLogIn();
        this.#baradosView.bindLogIn(this.HandleLogIn);
+    }
+
+    HandleUserSubMenu =() =>{
+        let subMenu= document.getElementById("sub-menu");
+
+        subMenu.classList.toggle("open-menu");
     }
 }
 

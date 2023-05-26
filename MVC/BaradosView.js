@@ -54,10 +54,6 @@ class BaradosView {
           <span>></span>
       </a>
   </div>`;
-
-      document.getElementById("user-header").addEventListener("click", (event) => {
-        this.ShowUserSubMenu()
-      });
       
     }
     // class="img-thumbnail"
@@ -115,9 +111,7 @@ class BaradosView {
   }
 
 ShowUserSubMenu(){
-  let subMenu= document.getElementById("sub-menu");
 
-  subMenu.classList.toggle("open-menu");
 
   console.log("Prueba");
 }
@@ -136,6 +130,7 @@ setUpLogIn(){
           <label for="email">Email</label>
           <input type="email" name="email" class="form-control" autocomplete="email" required />
       </div>
+      <span class="LogInForm-change">¿No tienes cuenta? Registrate</span>
       <div class="form-group">
           <label for="password">Contraseña</label>
           <input type="password" name="passwd" class="form-control" autocomplete="current-password"
@@ -177,9 +172,15 @@ setUpLogIn(){
     logInValidation(handler);
   }
 
+  bindShowUserSubMenu(handler){
+    document.getElementById("user-header").addEventListener("click", (event) => {
+      handler();
+    });
+  }
+
   bindLogOff(handler) {
     document.getElementById("LogOff").addEventListener("click", (event) => {
-      handler()
+      handler();
     });
   }
 
