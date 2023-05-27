@@ -243,6 +243,17 @@ nav a:hover {
 	background-color: #444;
 }
 
+/*Estilos para el sign up*/
+
+.signUpCard{
+	border-top-left-radius: 0% !important; 
+	border-top-right-radius: 0% !important;
+}
+
+.signUpCard:hover{
+	background-color: #999da1 !important;
+	cursor: pointer;
+}
 /* Estilos para el footer */
 
 footer {

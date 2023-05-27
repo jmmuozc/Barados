@@ -164,6 +164,64 @@ setUpLogIn(){
 </div>`;
 }
 
+// Users functions
+
+showOwnerForm(){
+  let placeHolder =document.getElementById("signUp");
+  placeHolder.innerHTML=` <form action="" role="form" name="fOwner">
+  <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" name="email" class="form-control" autocomplete="email" required />
+  </div>
+  <div class="form-group">
+      <label for="password">Contraseña</label>
+      <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+          required />
+  </div>
+  <div class="form-group">
+      <button type="submit" class="btn btn-primary">Iniciar</button>
+  </div>
+</form>`;
+}
+
+showBusinessForm(){
+  let placeHolder =document.getElementById("signUp");
+  placeHolder.innerHTML=` <form action="" role="form" name="fBusiness">
+  <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" name="email" class="form-control" autocomplete="email" required />
+  </div>
+  <div class="form-group">
+      <label for="password">Contraseña</label>
+      <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+          required />
+  </div>
+  <div class="form-group">
+      <button type="submit" class="btn btn-primary">Iniciar</button>
+  </div>
+</form>`;
+  
+}
+
+showUserForm(){
+  let placeHolder =document.getElementById("signUp");
+  placeHolder.innerHTML=` <form action="" role="form" name="fUser">
+  <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" name="email" class="form-control" autocomplete="email" required />
+  </div>
+  <div class="form-group">
+      <label for="password">Contraseña</label>
+      <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+          required />
+  </div>
+  <div class="form-group">
+      <button type="submit" class="btn btn-primary">Iniciar</button>
+  </div>
+</form>`;
+
+}
+
   /**
 * Funcion que llama al nuevo logIn
 * @param {Function} handler 
@@ -180,6 +238,24 @@ setUpLogIn(){
 
   bindLogOff(handler) {
     document.getElementById("LogOff").addEventListener("click", (event) => {
+      handler();
+    });
+  }
+
+  bindShowOwnerForm(handler) {
+    document.getElementById("showOwnerForm").addEventListener("click", (event) => {
+      handler();
+    });
+  }
+  
+    bindShowBusinessForm(handler) {
+      document.getElementById("showBusinessForm").addEventListener("click", (event) => {
+        handler();
+      });
+    }
+
+  bindShowUserForm(handler) {
+    document.getElementById("showUserForm").addEventListener("click", (event) => {
       handler();
     });
   }
