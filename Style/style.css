@@ -45,7 +45,6 @@ nav a:hover {
 .sub-menu-wrap{
 	position:absolute;
 	top: 100%;
-	right: 0%;
 	width: 320px;
 	max-height: 0px;
 	overflow: hidden;
@@ -258,6 +257,27 @@ nav a:hover {
 #signUpContainer{
 	max-width: 1025px;
 }
+
+@media screen and (max-width: 1025px) {
+	/* Estilos a aplicar para pantallas menores a 1025px /
+	/ Por ejemplo: */
+	#formContainer {
+		width: 90%
+	}
+	#signUpForm{
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+  }
+
+@media screen and (min-width: 991px) {
+	/* Estilos a aplicar para pantallas menores a 991px /
+	/ Por ejemplo: */
+	.sub-menu-wrap {
+		right: 0%;
+	}
+
+  }
 /* Estilos para el footer */
 
 footer {

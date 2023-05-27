@@ -169,11 +169,11 @@ class BaradosView {
   showOwnerForm() {
     let placeHolder = document.getElementById("signUp");
     placeHolder.innerHTML = ` <section class="py-5 px-5 my-5 container" id="signUpContainer">
-  <form class="border border-3 py-5 px-5 row justify-content-center" action="" role="form" name="fOwner">
+  <form class="border border-3 py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fOwner">
   <div class="form-group col-12">
       <h2>Nuevo Propietario</h2>
   </div>
-  <div class="row justify-content-center" style="width: 90%" id="formContainer">
+  <div class="row justify-content-center" id="formContainer">
   <div class="form-group col-12 ">
       <label for="name">Nombre</label>
       <input type="text" name="name" class="form-control" autocomplete="name" required />
@@ -188,7 +188,7 @@ class BaradosView {
   </select>
   </div>
   <div class="form-group col-6 ">
-      <label for="birth">Fecha Nacimiento</label>
+      <label for="birth">Nacido</label>
       <input type="date" name="birth" class="form-control" autocomplete="birth" required />
   </div>
   <div class="form-group col-12 ">
@@ -201,11 +201,10 @@ class BaradosView {
           required />
   </div>
  
-  <div class="form-group col-8 ">
+  <div class="form-group col-12 ">
       <label for="profilePic">Imagen de perfil</label>
       <input type="file" name="profilePic" class="form-control"/>
   </div>
-  <div class="form-group col-4"></div>
   <div class="form-group col-12">
       <button type="submit" class="btn btn-primary mt-3">Registrarse</button>
   </div>
