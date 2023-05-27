@@ -254,6 +254,10 @@ nav a:hover {
 	background-color: #999da1 !important;
 	cursor: pointer;
 }
+
+#signUpContainer{
+	max-width: 1025px;
+}
 /* Estilos para el footer */
 
 footer {
