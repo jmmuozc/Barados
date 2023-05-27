@@ -130,7 +130,7 @@ setUpLogIn(){
           <label for="email">Email</label>
           <input type="email" name="email" class="form-control" autocomplete="email" required />
       </div>
-      <span class="LogInForm-change">¿No tienes cuenta? Registrate</span>
+      <a href="users.html" class="LogInForm-change">¿No tienes cuenta? Registrate</a>
       <div class="form-group">
           <label for="password">Contraseña</label>
           <input type="password" name="passwd" class="form-control" autocomplete="current-password"
@@ -168,7 +168,24 @@ setUpLogIn(){
 
 showOwnerForm(){
   let placeHolder =document.getElementById("signUp");
-  placeHolder.innerHTML=` <form action="" role="form" name="fOwner">
+  placeHolder.innerHTML=` <section class="py-5 px-5 mx-5 my-5">
+  <form class="border" action="" role="form" name="fOwner">
+  <div class="form-group">
+      <label for="name">Nombre</label>
+      <input type="text" name="name" class="form-control" autocomplete="name" required />
+  </div>
+  <div class="form-group">
+      <label for="genre">Género</label>
+      <select class="form-select" name="genre">
+      <option value="Hombre">Hombre</option>
+      <option value="Mujer">Mujer</option>
+      <option value="N/A">No binario</option>
+      </select>
+  </div>
+  <div class="form-group">
+      <label for="birth">Fecha Nacimiento</label>
+      <input type="date" name="birth" class="form-control" autocomplete="birth" required />
+  </div>
   <div class="form-group">
       <label for="email">Email</label>
       <input type="email" name="email" class="form-control" autocomplete="email" required />
@@ -179,9 +196,14 @@ showOwnerForm(){
           required />
   </div>
   <div class="form-group">
-      <button type="submit" class="btn btn-primary">Iniciar</button>
+      <label for="profilePic">Imagen de perfil</label>
+      <input type="file" name="profilePic" class="form-control"/>
   </div>
-</form>`;
+  <div class="form-group">
+      <button type="submit" class="btn btn-primary">Registrarse</button>
+  </div>
+</form>
+</section>`;
 }
 
 showBusinessForm(){
