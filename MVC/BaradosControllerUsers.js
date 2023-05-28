@@ -18,7 +18,7 @@ class BaradosControllerUsers {
     onLoad = () => {
 
         this.#baradosView.bindShowOwnerForm(this.HandleshowOwnerForm);
-        this.#baradosView.bindShowBusinessForm(this.HandleshowBusinessForm);
+        // this.#baradosView.bindShowBusinessForm(this.HandleshowBusinessForm);
         this.#baradosView.bindShowUserForm(this.HandleshowUserForm);
     }
 

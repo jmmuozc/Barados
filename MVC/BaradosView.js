@@ -215,39 +215,97 @@ class BaradosView {
 
   showBusinessForm() {
     let placeHolder = document.getElementById("signUp");
-    placeHolder.innerHTML = ` <form action="" role="form" name="fBusiness">
-  <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" name="email" class="form-control" autocomplete="email" required />
-  </div>
-  <div class="form-group">
-      <label for="password">Contraseña</label>
-      <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-          required />
-  </div>
-  <div class="form-group">
-      <button type="submit" class="btn btn-primary">Iniciar</button>
-  </div>
-</form>`;
+    placeHolder.innerHTML = ` <section class="py-5 px-5 my-5 container" id="signUpContainer">
+    <form class="border border-3 py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fOwner">
+    <div class="form-group col-12">
+        <h2>Nuevo Negocio</h2>
+    </div>
+    <div class="row justify-content-center" id="formContainer">
+    <div class="form-group col-12 ">
+        <label for="name">Nombre</label>
+        <input type="text" name="name" class="form-control" autocomplete="name" required />
+    </div>
+   
+    <div class="form-group col-6 ">
+    <label for="genre">Género</label>
+    <select class="form-select" name="genre">
+    <option value="Hombre">Hombre</option>
+    <option value="Mujer">Mujer</option>
+    <option value="N/A">No binario</option>
+    </select>
+    </div>
+    <div class="form-group col-6 ">
+        <label for="birth">Nacido</label>
+        <input type="date" name="birth" class="form-control" autocomplete="birth" required />
+    </div>
+    <div class="form-group col-12 ">
+        <label for="email">Email</label>
+        <input type="email" name="email" class="form-control" autocomplete="email" required />
+    </div>
+    <div class="form-group col-12 ">
+        <label for="password">Contraseña</label>
+        <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+            required />
+    </div>
+   
+    <div class="form-group col-12 ">
+        <label for="profilePic">Imagen de perfil</label>
+        <input type="file" name="profilePic" class="form-control"/>
+    </div>
+    <div class="form-group col-12">
+        <button type="submit" class="btn btn-primary mt-3">Registrarse</button>
+    </div>
+    </div>
+  </form>
+  </section>`;
 
   }
 
   showUserForm() {
     let placeHolder = document.getElementById("signUp");
-    placeHolder.innerHTML = ` <form action="" role="form" name="fUser">
-  <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" name="email" class="form-control" autocomplete="email" required />
-  </div>
-  <div class="form-group">
-      <label for="password">Contraseña</label>
-      <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-          required />
-  </div>
-  <div class="form-group">
-      <button type="submit" class="btn btn-primary">Iniciar</button>
-  </div>
-</form>`;
+    placeHolder.innerHTML = ` <section class="py-5 px-5 my-5 container" id="signUpContainer">
+    <form class="border border-3 py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUser">
+    <div class="form-group col-12">
+        <h2>Nuevo Usuario</h2>
+    </div>
+    <div class="row justify-content-center" id="formContainer">
+    <div class="form-group col-12 ">
+        <label for="name">Nombre</label>
+        <input type="text" name="name" class="form-control" autocomplete="name" required />
+    </div>
+   
+    <div class="form-group col-6 ">
+    <label for="genre">Género</label>
+    <select class="form-select" name="genre">
+    <option value="Hombre">Hombre</option>
+    <option value="Mujer">Mujer</option>
+    <option value="N/A">No binario</option>
+    </select>
+    </div>
+    <div class="form-group col-6 ">
+        <label for="birth">Nacido</label>
+        <input type="date" name="birth" class="form-control" autocomplete="birth" required />
+    </div>
+    <div class="form-group col-12 ">
+        <label for="email">Email</label>
+        <input type="email" name="email" class="form-control" autocomplete="email" required />
+    </div>
+    <div class="form-group col-12 ">
+        <label for="password">Contraseña</label>
+        <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+            required />
+    </div>
+   
+    <div class="form-group col-12 ">
+        <label for="profilePic">Imagen de perfil</label>
+        <input type="file" name="profilePic" class="form-control"/>
+    </div>
+    <div class="form-group col-12">
+        <button type="submit" class="btn btn-primary mt-3">Registrarse</button>
+    </div>
+    </div>
+  </form>
+  </section>`;
 
   }
 
@@ -277,11 +335,11 @@ class BaradosView {
     });
   }
 
-  bindShowBusinessForm(handler) {
-    document.getElementById("showBusinessForm").addEventListener("click", (event) => {
-      handler();
-    });
-  }
+  // bindShowBusinessForm(handler) {
+  //   document.getElementById("showBusinessForm").addEventListener("click", (event) => {
+  //     handler();
+  //   });
+  // }
 
   bindShowUserForm(handler) {
     document.getElementById("showUserForm").addEventListener("click", (event) => {

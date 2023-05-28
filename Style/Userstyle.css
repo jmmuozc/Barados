@@ -1,0 +1,315 @@
+html {
+	height: 100%;
+  }
+  
+  body {
+	display: grid;
+	min-height: 100%;
+	grid-template:
+	  "header" min-content
+	  "main" auto
+	  "footer" min-content;
+  }
+  
+  header {
+	grid-area: header;
+  }
+  
+  /*La clase de tu secction*/
+  section.main {
+	grid-area: main;
+  }
+  
+  footer {
+	grid-area: footer;
+  }
+
+/* Estilos para el header */
+
+header {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+}
+
+header h1 {
+	margin: 0;
+}
+
+nav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+}
+
+nav li {
+	margin-right: 20px;
+}
+
+nav li:last-child {
+	margin-right: 0;
+}
+
+nav a {
+	color: #fff;
+	text-decoration: none;
+}
+
+nav a:hover {
+	text-decoration: underline;
+}
+
+/* .user-image{
+
+	width: 50px; 
+	height: 50px;
+	cursor: pointer;
+	border-radius: 50%;
+} */
+
+.sub-menu-wrap{
+	position:absolute;
+	top: 100%;
+	width: 320px;
+	max-height: 0px;
+	overflow: hidden;
+	transition: max-height 0.5s;
+}
+
+.sub-menu-wrap.open-menu{
+	max-height: 400px;
+}
+
+.sub-menu{
+	background: #333;
+	padding: 20px;
+	margin-top: 18px;
+    border-radius: 2%;
+}
+
+.sub-menu hr{
+	border: 0;
+	height: 1px;
+	width: 100%;
+	background: #ffffff;
+	margin: 15px 0 10px;
+}
+
+.sub-menu-link{
+	display: flex;
+	align-items: center;
+	text-decoration: none !important;
+	color: #fff;
+	margin: 12px 0;
+}
+
+.sub-menu-link p{
+	width: 100%;
+	margin-bottom: 0;
+
+}
+
+.sub-menu-link:hover p{
+	font-weight: 600;
+	color: white;
+	text-decoration: none;
+
+}
+
+.sub-menu-link img{
+	width: 40px;
+	height: 40px;
+	background-color: #e5e5e5;
+	border-radius: 50%;
+	padding: 8px;
+	margin-right: 15px;
+}
+
+.sub-menu-link span{
+	font-size: 22px;
+	transition: transform 0.5s;
+	margin-bottom: 5px;
+}
+
+.sub-menu-link:hover span{
+	transform: translateX(5px);
+	color: white;
+	text-decoration: none;
+} 
+
+.user-info{
+	display: flex;
+	align-items: center;
+}
+
+.user-info h3{
+	font-weight: 500;
+}
+
+.user-info img{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	margin-right: 15;
+}
+/* Estilos para la sección de inicio */
+
+#inicio {
+	background-color: #eee;
+	padding: 50px;
+	text-align: center;
+}
+
+#inicio h2 {
+	margin: 0;
+}
+
+.boton {
+	background-color: #333;
+	color: #fff;
+	padding: 10px 20px;
+	text-decoration: none;
+	border-radius: 5px;
+	margin-top: 20px;
+	display: inline-block;
+}
+
+.boton:hover {
+	background-color: #444;
+}
+
+/* Estilos para la sección de bares */
+
+#bares {
+	background-color: #fff;
+	padding: 50px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.bar {
+	width: calc(50% - 20px);
+	margin-bottom: 40px;
+}
+
+.bar img {
+	max-width: 100%;
+}
+
+.bar h3 {
+	margin: 20px 0;
+}
+
+/* Estilos para la sección de eventos */
+
+#eventos {
+	background-color: #eee;
+	padding: 50px;
+}
+
+#eventos h2 {
+	margin: 0;
+}
+
+#eventos ul {
+	margin: 20px 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* Estilos para la sección de contacto */
+
+#contacto {
+	background-color: #fff;
+	padding: 50px;
+	text-align: center;
+}
+
+#contacto h2 {
+	margin: 0;
+}
+
+#contacto form {
+	margin-top: 40px;
+}
+
+#contacto label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+#contacto input,
+#contacto textarea {
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	width: 100%;
+}
+
+.LogInForm-change{
+	color: rgb(34, 34, 233);
+	cursor: pointer;
+}
+
+#contacto input[type="submit"] {
+	background-color: #333;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	cursor: pointer;
+}
+
+#contacto input[type="submit"]:hover {
+	background-color: #444;
+}
+
+/*Estilos para el sign up*/
+
+.signUpCard{
+	border-top-left-radius: 0% !important; 
+	border-top-right-radius: 0% !important;
+}
+
+.signUpCard:hover{
+	background-color: #999da1 !important;
+	cursor: pointer;
+}
+
+#signUpContainer{
+	max-width: 1025px;
+}
+
+@media screen and (max-width: 1025px) {
+	/* Estilos a aplicar para pantallas menores a 1025px /
+	/ Por ejemplo: */
+	#formContainer {
+		width: 90%
+	}
+	#signUpForm{
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+  }
+
+@media screen and (min-width: 991px) {
+	/* Estilos a aplicar para pantallas menores a 991px /
+	/ Por ejemplo: */
+	.sub-menu-wrap {
+		right: 0%;
+	}
+
+  }
+/* Estilos para el footer */
+
+footer {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
+	margin-top: 40px;
+}
