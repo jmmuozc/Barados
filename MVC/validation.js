@@ -89,11 +89,19 @@ function newBusinessValidation(handler) {
         } else {
             showFeedBack($(this.email), true);
         }
+        
+        if (!this.password.checkValidity() || !isValid) {
+            isValid = false;
+            showFeedBack($(this.password), false);
+            firstInvalidElement = this.password;
+        } else {
+            showFeedBack($(this.password), true);
+        }
 
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(this.email.value, this.location.value);
+            handler(this.name.value, this.location.value, this.description.value, this.email.value, this.password.value);
         }
         event.preventDefault();
         event.stopPropagation();
@@ -114,20 +122,20 @@ function newClientValidation(handler) {
             showFeedBack($(this.name), true);
         }
 
-        if (!this.location.checkValidity() || !isValid) {
+        if (!this.birth.checkValidity() || !isValid) {
             isValid = false;
-            showFeedBack($(this.location), false);
-            firstInvalidElement = this.location;
+            showFeedBack($(this.birth), false);
+            firstInvalidElement = this.birth;
         } else {
-            showFeedBack($(this.location), true);
+            showFeedBack($(this.birth), true);
         }
 
-        if (!this.description.checkValidity() || !isValid) {
+        if (!this.genre.checkValidity() || !isValid) {
             isValid = false;
-            showFeedBack($(this.description), false);
-            firstInvalidElement = this.description;
+            showFeedBack($(this.genre), false);
+            firstInvalidElement = this.genre;
         } else {
-            showFeedBack($(this.description), true);
+            showFeedBack($(this.genre), true);
         }
 
         if (!this.email.checkValidity() || !isValid) {
@@ -137,11 +145,27 @@ function newClientValidation(handler) {
         } else {
             showFeedBack($(this.email), true);
         }
+        
+        if (!this.profilePic.checkValidity() || !isValid) {
+            isValid = false;
+            showFeedBack($(this.profilePic), false);
+            firstInvalidElement = this.profilePic;
+        } else {
+            showFeedBack($(this.profilePic), true);
+        }
+        
+        if (!this.password.checkValidity() || !isValid) {
+            isValid = false;
+            showFeedBack($(this.password), false);
+            firstInvalidElement = this.password;
+        } else {
+            showFeedBack($(this.password), true);
+        }
 
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(this.email.value, this.location.value);
+            handler(this.name.value, this.email.value, this.genre.value, this.birth.value, this.profilePic.value, this.password.value);
         }
         event.preventDefault();
         event.stopPropagation();
@@ -161,20 +185,20 @@ function newOwnerValidation(handler) {
             showFeedBack($(this.name), true);
         }
 
-        if (!this.location.checkValidity() || !isValid) {
+        if (!this.birth.checkValidity() || !isValid) {
             isValid = false;
-            showFeedBack($(this.location), false);
-            firstInvalidElement = this.location;
+            showFeedBack($(this.birth), false);
+            firstInvalidElement = this.birth;
         } else {
-            showFeedBack($(this.location), true);
+            showFeedBack($(this.birth), true);
         }
 
-        if (!this.description.checkValidity() || !isValid) {
+        if (!this.genre.checkValidity() || !isValid) {
             isValid = false;
-            showFeedBack($(this.description), false);
-            firstInvalidElement = this.description;
+            showFeedBack($(this.genre), false);
+            firstInvalidElement = this.genre;
         } else {
-            showFeedBack($(this.description), true);
+            showFeedBack($(this.genre), true);
         }
 
         if (!this.email.checkValidity() || !isValid) {
@@ -185,14 +209,30 @@ function newOwnerValidation(handler) {
             showFeedBack($(this.email), true);
         }
 
+        if (!this.profilePic.checkValidity() || !isValid) {
+            isValid = false;
+            showFeedBack($(this.profilePic), false);
+            firstInvalidElement = this.profilePic;
+        } else {
+            showFeedBack($(this.profilePic), true);
+        }
+        
+        if (!this.password.checkValidity() || !isValid) {
+            isValid = false;
+            showFeedBack($(this.password), false);
+            firstInvalidElement = this.password;
+        } else {
+            showFeedBack($(this.password), true);
+        }
+
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(this.email.value, this.location.value);
+            handler(this.name.value, this.email.value, this.genre.value, this.birth.value, this.profilePic.value, this.password.value);
         }
         event.preventDefault();
         event.stopPropagation();
     });
 }
 
-export {logInValidation, newBusinessValidation} ;
+export {logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation} ;

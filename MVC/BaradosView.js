@@ -1,6 +1,6 @@
 "use strict";
 
-import { logInValidation } from "./validation.js";
+import { logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation } from "./validation.js";
 
 class BaradosView {
 
@@ -315,6 +315,16 @@ class BaradosView {
 */
   bindLogIn(handler) {
     logInValidation(handler);
+  }
+
+  bindNewOwner(handler) {
+    newOwnerValidation(handler);
+  }
+  bindNewClient(handler) {
+    newClientValidation(handler);
+  }
+  bindNewBusiness(handler) {
+    newBusinessValidation(handler);
   }
 
   bindShowUserSubMenu(handler) {
