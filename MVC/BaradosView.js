@@ -110,12 +110,6 @@ class BaradosView {
     }
   }
 
-  ShowUserSubMenu() {
-
-
-    console.log("Prueba");
-  }
-
   setUpLogIn() {
     let userHeader = document.getElementById("user-header");
     let userSubMenu = document.getElementById("sub-menu");
@@ -128,13 +122,13 @@ class BaradosView {
   <form action="" role="form" name="flogIn">
       <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" name="email" class="form-control" autocomplete="email" required />
+          <input type="email" name="email" class="form-control" autocomplete="email" required id="email/>
       </div>
       <a href="users.html" class="LogInForm-change">¿No tienes cuenta? Registrate</a>
       <div class="form-group">
           <label for="password">Contraseña</label>
           <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-              required />
+              required id="password"/>
       </div>
       <div class="form-group">
           <button type="submit" class="btn btn-primary">Iniciar</button>
@@ -170,18 +164,19 @@ class BaradosView {
     let placeHolder = document.getElementById("signUp");
     placeHolder.innerHTML = ` <section class="py-5 px-5 my-5 container" id="signUpContainer">
   <form class="border border-3 py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fOwner">
+  <span id="returnSpan">< Volver</span>
   <div class="form-group col-12">
       <h2>Nuevo Propietario</h2>
   </div>
   <div class="row justify-content-center" id="formContainer">
   <div class="form-group col-12 ">
       <label for="name">Nombre</label>
-      <input type="text" name="name" class="form-control" autocomplete="name" required />
+      <input type="text" name="name" class="form-control" autocomplete="name" required id="name"/>
   </div>
  
   <div class="form-group col-6 ">
   <label for="genre">Género</label>
-  <select class="form-select" name="genre">
+  <select class="form-select" name="genre" id=genre>
   <option value="Hombre">Hombre</option>
   <option value="Mujer">Mujer</option>
   <option value="N/A">No binario</option>
@@ -189,21 +184,21 @@ class BaradosView {
   </div>
   <div class="form-group col-6 ">
       <label for="birth">Nacido</label>
-      <input type="date" name="birth" class="form-control" autocomplete="birth" required />
+      <input type="date" name="birth" class="form-control" autocomplete="birth" required id="birth"/>
   </div>
   <div class="form-group col-12 ">
       <label for="email">Email</label>
-      <input type="email" name="email" class="form-control" autocomplete="email" required />
+      <input type="email" name="email" class="form-control" autocomplete="email" required id="email"/>
   </div>
   <div class="form-group col-12 ">
       <label for="password">Contraseña</label>
       <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-          required />
+          required id="password"/>
   </div>
  
   <div class="form-group col-12 ">
       <label for="profilePic">Imagen de perfil</label>
-      <input type="file" name="profilePic" class="form-control"/>
+      <input type="file" name="profilePic" class="form-control" id="profilePic"/>
   </div>
   <div class="form-group col-12">
       <button type="submit" class="btn btn-primary mt-3">Registrarse</button>
@@ -217,13 +212,14 @@ class BaradosView {
     let placeHolder = document.getElementById("signUp");
     placeHolder.innerHTML = ` <section class="py-5 px-5 my-5 container" id="signUpContainer">
     <form class="border border-3 py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fOwner">
+    <span id="returnSpan">< Volver</span>
     <div class="form-group col-12">
         <h2>Nuevo Negocio</h2>
     </div>
     <div class="row justify-content-center" id="formContainer">
     <div class="form-group col-12 ">
         <label for="name">Nombre</label>
-        <input type="text" name="name" class="form-control" autocomplete="name" required />
+        <input type="text" name="name" class="form-control" autocomplete="name" required id="name"/>
     </div>
    
     <div class="form-group col-6 ">
@@ -265,18 +261,19 @@ class BaradosView {
     let placeHolder = document.getElementById("signUp");
     placeHolder.innerHTML = ` <section class="py-5 px-5 my-5 container" id="signUpContainer">
     <form class="border border-3 py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUser">
+    <span id="returnSpan">< Volver</span>
     <div class="form-group col-12">
         <h2>Nuevo Usuario</h2>
     </div>
     <div class="row justify-content-center" id="formContainer">
     <div class="form-group col-12 ">
         <label for="name">Nombre</label>
-        <input type="text" name="name" class="form-control" autocomplete="name" required />
+        <input type="text" name="name" class="form-control" autocomplete="name" required id="name"/>
     </div>
    
     <div class="form-group col-6 ">
     <label for="genre">Género</label>
-    <select class="form-select" name="genre">
+    <select class="form-select" name="genre" id="genre">
     <option value="Hombre">Hombre</option>
     <option value="Mujer">Mujer</option>
     <option value="N/A">No binario</option>
@@ -284,21 +281,21 @@ class BaradosView {
     </div>
     <div class="form-group col-6 ">
         <label for="birth">Nacido</label>
-        <input type="date" name="birth" class="form-control" autocomplete="birth" required />
+        <input type="date" name="birth" class="form-control" autocomplete="birth" required id="birth"/>
     </div>
     <div class="form-group col-12 ">
         <label for="email">Email</label>
-        <input type="email" name="email" class="form-control" autocomplete="email" required />
+        <input type="email" name="email" class="form-control" autocomplete="email" required id="email"/>
     </div>
     <div class="form-group col-12 ">
         <label for="password">Contraseña</label>
         <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-            required />
+            required id="password"/>
     </div>
    
     <div class="form-group col-12 ">
         <label for="profilePic">Imagen de perfil</label>
-        <input type="file" name="profilePic" class="form-control"/>
+        <input type="file" name="profilePic" class="form-control" id="profilePic"/>
     </div>
     <div class="form-group col-12">
         <button type="submit" class="btn btn-primary mt-3">Registrarse</button>
@@ -307,6 +304,31 @@ class BaradosView {
   </form>
   </section>`;
 
+  }
+
+  ShowSignUpForms(){
+    let placeHolder = document.getElementById("signUp");
+    placeHolder.innerHTML=`<div class="container">
+    <div class="row text-center">
+        <h2>Registrarse Como...</h2>
+    </div>
+   
+        <div class="row justify-content-center">
+            <div class="col-md-5 col-lg-4 mt-2">
+                <div class="card-header text-bg-secondary text-center">Propietario</div>
+                <div class="card text-bg-secondary rounded-bottom signUpCard" id="showOwnerForm">
+                    <img src="Media/owner-icon.png" class="card-img  rounded-bottom" alt="...">
+                </div>
+            </div>
+
+            <div class="col-md-5 col-lg-4 mt-2">
+                <div class="card-header text-bg-secondary text-center">Usuario</div>
+                <div class="card text-bg-secondary signUpCard" id="showUserForm">
+                    <img src="Media/client-icon.png" class="card-img" alt="...">
+                </div>
+            </div>
+
+        </div>`;
   }
 
   /**
@@ -329,6 +351,12 @@ class BaradosView {
 
   bindShowUserSubMenu(handler) {
     document.getElementById("user-header").addEventListener("click", (event) => {
+      handler();
+    });
+  }
+
+  bindShowFormReturn(handler) {
+    document.getElementById("returnSpan").addEventListener("click", (event) => {
       handler();
     });
   }

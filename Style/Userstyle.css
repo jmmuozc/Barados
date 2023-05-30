@@ -179,93 +179,9 @@ nav a:hover {
 	background-color: #444;
 }
 
-/* Estilos para la sección de bares */
-
-#bares {
-	background-color: #fff;
-	padding: 50px;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.bar {
-	width: calc(50% - 20px);
-	margin-bottom: 40px;
-}
-
-.bar img {
-	max-width: 100%;
-}
-
-.bar h3 {
-	margin: 20px 0;
-}
-
-/* Estilos para la sección de eventos */
-
-#eventos {
-	background-color: #eee;
-	padding: 50px;
-}
-
-#eventos h2 {
-	margin: 0;
-}
-
-#eventos ul {
-	margin: 20px 0;
-	padding: 0;
-	list-style: none;
-}
-
-/* Estilos para la sección de contacto */
-
-#contacto {
-	background-color: #fff;
-	padding: 50px;
-	text-align: center;
-}
-
-#contacto h2 {
-	margin: 0;
-}
-
-#contacto form {
-	margin-top: 40px;
-}
-
-#contacto label {
-	display: block;
-	margin-bottom: 10px;
-}
-
-#contacto input,
-#contacto textarea {
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	margin-bottom: 20px;
-	width: 100%;
-}
-
-.LogInForm-change{
-	color: rgb(34, 34, 233);
+#returnSpan{
+	color: blue;
 	cursor: pointer;
-}
-
-#contacto input[type="submit"] {
-	background-color: #333;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	padding: 10px 20px;
-	cursor: pointer;
-}
-
-#contacto input[type="submit"]:hover {
-	background-color: #444;
 }
 
 /*Estilos para el sign up*/
@@ -283,6 +199,7 @@ nav a:hover {
 #signUpContainer{
 	max-width: 1025px;
 }
+
 
 @media screen and (max-width: 1025px) {
 	/* Estilos a aplicar para pantallas menores a 1025px /

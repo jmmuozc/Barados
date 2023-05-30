@@ -8,14 +8,19 @@ class Owner {
     #birth;
     #image;
 
-    constructor(id, name, email, genre, birth, image) {
+    constructor(id, name) {
         this.#id = id;
         this.#name = name;
-        this.#email = email;
-        this.#genre = genre;
-        this.#birth = birth;
-        this.#image = image;
     }
+
+    // constructor(id, name, email, genre, birth, image) {
+    //     this.#id = id;
+    //     this.#name = name;
+    //     this.#email = email;
+    //     this.#genre = genre;
+    //     this.#birth = birth;
+    //     this.#image = image;
+    // }
 
     get id(){
         return this.#id;

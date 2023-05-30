@@ -8,16 +8,21 @@ class Business {
     #idOwner;
     #verified
 
-    constructor(id, name, location, description, email, idOwner, verified) {
+    constructor(id, name) {
         this.#id = id;
         this.#name = name;
-        this.#location = location;
-        this.#description = description;
-        this.#email = email;
-        this.#idOwner = idOwner;
-        this.#verified = verified;
-
     }
+
+    // constructor(id, name, location, description, email, idOwner, verified) {
+    //     this.#id = id;
+    //     this.#name = name;
+    //     this.#location = location;
+    //     this.#description = description;
+    //     this.#email = email;
+    //     this.#idOwner = idOwner;
+    //     this.#verified = verified;
+
+    // }
 
     get id(){
         return this.#id;

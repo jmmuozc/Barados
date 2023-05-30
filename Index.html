@@ -206,17 +206,18 @@
             </div>
             <div class="row justify-content-center infoDiv">
                 <div class="col-md-6 LogInForm">
-                    <form action="" role="form" name="flogIn">
+                    <!-- enctype='multipart/form-data' -->
+                    <form action="" role="form" name="flogIn" >
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control" autocomplete="email" required />
+                            <input type="email" name="email" class="form-control" autocomplete="email" required id="email"/>
                         </div>
                         <a href="users.html" class="LogInForm-change">¿No tienes cuenta? Registrate</a>
                         <!-- <span class="LogInForm-change">¿No tienes cuenta? Registrate</span> -->
                         <div class="form-group">
                             <label for="password">Contraseña</label>
                             <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-                                required />
+                                required id="password"/>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Iniciar</button>

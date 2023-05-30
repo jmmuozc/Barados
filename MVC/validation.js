@@ -34,14 +34,6 @@ function logInValidation(handler) {
             showFeedBack($(this.passwd), true);
         }
 
-        if (!this.name.checkValidity() || !isValid) {
-            isValid = false;
-            showFeedBack($(this.name), false);
-            firstInvalidElement = this.name;
-        } else {
-            showFeedBack($(this.name), true);
-        }
-
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
@@ -90,18 +82,18 @@ function newBusinessValidation(handler) {
             showFeedBack($(this.email), true);
         }
         
-        if (!this.password.checkValidity() || !isValid) {
+        if (!this.passwd.checkValidity() || !isValid) {
             isValid = false;
-            showFeedBack($(this.password), false);
-            firstInvalidElement = this.password;
+            showFeedBack($(this.passwd), false);
+            firstInvalidElement = this.passwd;
         } else {
-            showFeedBack($(this.password), true);
+            showFeedBack($(this.passwd), true);
         }
 
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(this.name.value, this.location.value, this.description.value, this.email.value, this.password.value);
+            handler(this.name.value, this.location.value, this.description.value, this.email.value, this.passwd.value);
         }
         event.preventDefault();
         event.stopPropagation();
@@ -154,18 +146,20 @@ function newClientValidation(handler) {
             showFeedBack($(this.profilePic), true);
         }
         
-        if (!this.password.checkValidity() || !isValid) {
+        if (!this.passwd.checkValidity() || !isValid) {
             isValid = false;
-            showFeedBack($(this.password), false);
-            firstInvalidElement = this.password;
+            showFeedBack($(this.passwd), false);
+            firstInvalidElement = this.passwd;
         } else {
-            showFeedBack($(this.password), true);
+            showFeedBack($(this.passwd), true);
         }
+        console.log(passwd);
+        console.log(passwd.checkValidity());
 
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(this.name.value, this.email.value, this.genre.value, this.birth.value, this.profilePic.value, this.password.value);
+            handler(this.name.value, this.email.value, this.genre.value, this.birth.value, this.profilePic.value, this.passwd.value);
         }
         event.preventDefault();
         event.stopPropagation();
@@ -173,6 +167,7 @@ function newClientValidation(handler) {
 }
 function newOwnerValidation(handler) {
     let form = document.forms.fOwner;
+    console.log(form);
     $(form).attr('novalidate', true);
     $(form).submit(function (event) {
         let isValid = true;
@@ -217,18 +212,18 @@ function newOwnerValidation(handler) {
             showFeedBack($(this.profilePic), true);
         }
         
-        if (!this.password.checkValidity() || !isValid) {
+        if (!this.passwd.checkValidity() || !isValid) {
             isValid = false;
-            showFeedBack($(this.password), false);
-            firstInvalidElement = this.password;
+            showFeedBack($(this.passwd), false);
+            firstInvalidElement = this.passwd;
         } else {
-            showFeedBack($(this.password), true);
+            showFeedBack($(this.passwd), true);
         }
 
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(this.name.value, this.email.value, this.genre.value, this.birth.value, this.profilePic.value, this.password.value);
+            handler(this.name.value, this.email.value, this.genre.value, this.birth.value, this.profilePic.files[0], this.passwd.value);
         }
         event.preventDefault();
         event.stopPropagation();
