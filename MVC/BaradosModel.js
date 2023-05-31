@@ -2,10 +2,14 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import Owner from '../Js/Owner.js';
 import Customer from "../Js/Customer.js";
 import Business from "../Js/Business.js";
+
 class Barados {
 
   #supabaseConnection = createClient('https://wcqazpjgyqxtpiytqezb.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndjcWF6cGpneXF4dHBpeXRxZXpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODIyNTI1NDcsImV4cCI6MTk5NzgyODU0N30.4G_KX9VntK8GeNGZpAdM7CcxqN264hySeaHw3pe5fHg');
-  #currentUser;
+
+  constructor(){
+    console.log("Creado Barados");
+  }
 
   fetchData = async (table) => {
 
@@ -19,7 +23,7 @@ class Barados {
     if (error) {
       return error;
     }
-    console.log(data);
+    // console.log(data);
 
     return JSON.parse(JSON.stringify(data));
     // return JSON.parse(JSON.stringify(data));
@@ -82,7 +86,7 @@ class Barados {
     if (error) {
       return false;
     }
-
+   return false;
   }
 
   currentUser = async () => {
@@ -143,20 +147,22 @@ class Barados {
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
-    console.log(reader.result);
+    // console.log(reader.result);
   }
 
 
-  OwnerFactory(id,name){
-    this.#currentUser=new Owner(id,name);
-  }
+  // OwnerFactory(id,name){
+  //   return new Owner(id,name);
+  // }
 
-  CustomerFactory(id,name){
-    this.#currentUser=new Customer(id,name);  
-  }
-  BusinessFactory(id,name){
-    this.#currentUser=new Business(id,name);
-  }
+  // CustomerFactory(id,name){
+  //  return new Customer(id,name);  
+  // }
+  // BusinessFactory(id,name){
+  //  return new Business(id,name);
+  // }
+
 }
+
 
 export default Barados;

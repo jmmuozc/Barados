@@ -3,7 +3,7 @@
 class BaradosController {
     #baradosModel;
     #baradosView;
-   
+
     constructor(baradosModel, baradosView) {
         this.#baradosModel = baradosModel;
         this.#baradosView = baradosView;
@@ -18,22 +18,35 @@ class BaradosController {
 
     onLoad = async () => {
 
-        let currentUserEmail=await this.#baradosModel.currentUser();
+        let currentUserEmail = await this.#baradosModel.currentUser();
         let business = await this.#baradosModel.fetchData("Business");
         let customers = await this.#baradosModel.fetchData("Customers");
         let owners = await this.#baradosModel.fetchData("Owner");
+        let user;
         // let business = await this.#supabaseConection.from("Business").select();
         // let customers = await this.#supabaseConection.from("Customers").select();
         // let owners = await this.#supabaseConection.from("Owner").select();
         console.log(business);
         // console.log(customers);
         // console.log(owners);
-        console.log(await this.#baradosModel.currentUser());
-        if (currentUserEmail!=false){
 
-            let currentUser= await this.#baradosModel.fetchDataWhere("Owner",{Email : currentUserEmail});
-            if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Customers",{Email : currentUserEmail});
-            if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Business",{Email : currentUserEmail});
+        if (currentUserEmail != false) {
+
+            let currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Email: currentUserEmail });
+            if (currentUser.lenght == 0) {
+                currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Email: currentUserEmail });
+                user =  "Customers " + currentUser[0].id+ " "+currentUser[0].Name;
+            } else {
+                user =  "Owner " + currentUser[0].id+ " "+currentUser[0].Name;
+            }
+            if (currentUser.lenght == 0) {
+                currentUser = await this.#baradosModel.fetchDataWhere("Business", { Email: currentUserEmail });
+
+                user = "Business " + currentUser[0].id + " "+currentUser[0].Name;
+            }
+            sessionStorage.setItem("currentUser", user);
+
+            console.log(sessionStorage.getItem("currentUser"));
 
             this.#baradosView.removeLogInForm();
 
@@ -43,7 +56,7 @@ class BaradosController {
 
             this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
 
-        } 
+        }
 
         this.#baradosView.ShowBusinessCards(business);
 
@@ -58,37 +71,51 @@ class BaradosController {
         try {
             currentUserEmail = await this.#baradosModel.logIn(user, passwd);
             // console.log(await this.#baradosModel.currentUser());
-            
+
         } catch (error) {
             console.log(error);
         }
 
-        if (currentUserEmail!= false) {
-            let currentUser= await this.#baradosModel.fetchDataWhere("Owner",{Email : currentUserEmail});
-            if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Customers",{Email : currentUserEmail});
-            if (currentUser.lenght==0) currentUser= await this.#baradosModel.fetchDataWhere("Business",{Email : currentUserEmail});
+        if (currentUserEmail != false) {
+            let currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Email: currentUserEmail });
+            if (currentUser.lenght == 0) {
+                currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Email: currentUserEmail });
+                user =  "Customers " + currentUser[0].id+ " "+currentUser[0].Name;
+                
+            } else {
+                user =  "Owner " + currentUser[0].id+ " "+currentUser[0].Name;
+                
+            }
+            if (currentUser.lenght == 0) {
+                currentUser = await this.#baradosModel.fetchDataWhere("Business", { Email: currentUserEmail });
+                
+                user = "Business " + currentUser[0].id + " "+currentUser[0].Name;
+               
+            } 
+            sessionStorage.setItem("currentUser", user);
             this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
             this.#baradosView.bindLogOff(this.HandleLogOff);
             this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
-        }else{
+        } else {
             console.log("loginIncorrecto");
         }
         // if () {
-            // document.cookie = `Cookie1 = ${user}`;
-            // this.onLogIn();
+        // document.cookie = `Cookie1 = ${user}`;
+        // this.onLogIn();
         // } else {
-            // this.failedLogIn();
+        // this.failedLogIn();
         // }
     }
 
     HandleLogOff = async () => {
-       await this.#baradosModel.logOff();
-       this.#baradosView.setUpLogIn();
-       this.#baradosView.bindLogIn(this.HandleLogIn);
+        await this.#baradosModel.logOff();
+        sessionStorage.setItem("currentUser", "");
+        this.#baradosView.setUpLogIn();
+        this.#baradosView.bindLogIn(this.HandleLogIn);
     }
 
-    HandleUserSubMenu =() =>{
-        let subMenu= document.getElementById("sub-menu");
+    HandleUserSubMenu = () => {
+        let subMenu = document.getElementById("sub-menu");
 
         subMenu.classList.toggle("open-menu");
     }

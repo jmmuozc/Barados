@@ -1,4 +1,6 @@
-import Owner from "/Js/Owner.js";
+import Owner from '../Js/Owner.js';
+import Customer from "../Js/Customer.js";
+import Business from "../Js/Business.js";
 class BaradosControllerUsers {
     #baradosModel;
     #baradosView;
@@ -15,11 +17,36 @@ class BaradosControllerUsers {
         // this.#baradosView.bindInit(this.handleInit);
     }
 
-    onLoad = () => {
+    onLoad = async () => {
+        let user=sessionStorage.getItem("currentUser").split(" ");
+        let currentUser;
+        console.log(user);
+       
+        if ( user.length>1) {
+            if (user[0]=="Owner"){
+                currentUser=await this.#baradosModel.fetchDataWhere("Owner",{id: user[1]});
+                this.#baradosView.showOwnerInfo(currentUser); 
+            } 
+            if (user[0]=="Customers"){
+                currentUser=await this.#baradosModel.fetchDataWhere("Customers",{id: user[1]});
+                this.#baradosView.showCustomerInfo(currentUser); 
+            } 
+            if (user[0]=="Business"){
+                currentUser=await this.#baradosModel.fetchDataWhere("Business",{id: user[1]});
+                this.#baradosView.showBusinessInfo(currentUser); 
+            } 
 
-        this.#baradosView.bindShowOwnerForm(this.HandleshowOwnerForm);
-        // this.#baradosView.bindShowBusinessForm(this.HandleshowBusinessForm);
-        this.#baradosView.bindShowUserForm(this.HandleshowUserForm);
+            this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
+
+            this.#baradosView.bindLogOff(this.HandleLogOff);
+
+            this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
+        }else{
+            this.#baradosView.ShowSignUpForms();
+            this.#baradosView.bindShowOwnerForm(this.HandleshowOwnerForm);
+            // this.#baradosView.bindShowBusinessForm(this.HandleshowBusinessForm);
+            this.#baradosView.bindShowUserForm(this.HandleshowUserForm);
+        }
     }
 
     HandleshowOwnerForm = () => {
@@ -114,6 +141,20 @@ class BaradosControllerUsers {
         this.#baradosView.ShowSignUpForms();
         this.#baradosView.bindShowOwnerForm(this.HandleshowOwnerForm);
         this.#baradosView.bindShowUserForm(this.HandleshowUserForm);
+    }
+
+    HandleLogOff = async () => {
+        await this.#baradosModel.logOff();
+        sessionStorage.setItem("currentUser", "");
+        this.#baradosView.ShowSignUpForms();
+        this.#baradosView.bindShowOwnerForm(this.HandleshowOwnerForm);
+        this.#baradosView.bindShowUserForm(this.HandleshowUserForm);
+    }
+
+    HandleUserSubMenu = () => {
+        let subMenu = document.getElementById("sub-menu");
+
+        subMenu.classList.toggle("open-menu");
     }
 }
 

@@ -43,7 +43,7 @@ class BaradosView {
           <h3>${name}</h3>
       </div>
       <hr/>
-      <a href="#" class="sub-menu-link">
+      <a href="users.html" class="sub-menu-link">
           <img src="/Media/edit-user-icon.png">
           <p>Editar Perfil</p>
           <span>></span>
@@ -118,49 +118,54 @@ class BaradosView {
     userSubMenu.classList.toggle("open-menu");
     userSubMenu.innerHTML = "";
     userHeader.parentElement.removeChild(userHeader);
-    infoDiv[0].innerHTML = `                <div class="col-md-6 LogInForm">
-  <form action="" role="form" name="flogIn">
-      <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" name="email" class="form-control" autocomplete="email" required id="email/>
-      </div>
-      <a href="users.html" class="LogInForm-change">¿No tienes cuenta? Registrate</a>
-      <div class="form-group">
-          <label for="password">Contraseña</label>
-          <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-              required id="password"/>
-      </div>
-      <div class="form-group">
-          <button type="submit" class="btn btn-primary">Iniciar</button>
-      </div>
-  </form>
+    infoDiv[0].innerHTML = ` <div class="col-md-6 LogInForm">
+    <!-- enctype='multipart/form-data' -->
+    <form action="" role="form" name="flogIn" >
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control" autocomplete="email" required id="email"/>
+        </div>
+        <a href="users.html" class="LogInForm-change">¿No tienes cuenta? Registrate</a>
+        <!-- <span class="LogInForm-change">¿No tienes cuenta? Registrate</span> -->
+        <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+                required id="password"/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Iniciar</button>
+        </div>
+    </form>
 </div>
 <div class="col-md-6">
-  <div class="card">
-      <div class="card-body">
-          <h3 class="card-title">Información de contacto</h3>
-          <p class="card-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-              blandit justo in tincidunt mattis. Nulla ac lorem id est
-              ultricies laoreet.
-          </p>
-          <p class="card-text">
-              <strong>Teléfono:</strong> (123) 456-7890
-          </p>
-          <p class="card-text">
-              <strong>Email:</strong> barados@gmail.com
-          </p>
-          <p class="card-text">
-              <strong>Dirección:</strong> 123 Fake St, Anytown USA
-          </p>
-      </div>
-  </div>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">Información de contacto</h3>
+            <p class="card-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                blandit justo in tincidunt mattis. Nulla ac lorem id est
+                ultricies laoreet.
+            </p>
+            <p class="card-text">
+                <strong>Teléfono:</strong> (123) 456-7890
+            </p>
+            <p class="card-text">
+                <strong>Email:</strong> barados@gmail.com
+            </p>
+            <p class="card-text">
+                <strong>Dirección:</strong> 123 Fake St, Anytown USA
+            </p>
+        </div>
+    </div>
 </div>`;
   }
 
   // Users functions
 
   showOwnerForm() {
+    let userSubMenu = document.getElementById("sub-menu");
+    userSubMenu.innerHTML = "";
+
     let placeHolder = document.getElementById("signUp");
     placeHolder.innerHTML = ` <section class="py-5 px-5 my-5 container" id="signUpContainer">
   <form class="border border-3 py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fOwner">
@@ -330,6 +335,71 @@ class BaradosView {
 
         </div>`;
   }
+
+  showOwnerInfo(user){
+    console.log(user);
+ let placeHolder = document.getElementById("signUp");
+    placeHolder.innerHTML = `<div class="container row border border-3">
+     <div class="container col-4 d-flex justify-content-center align-items-center">
+     <img src="${user[0].Image}" class="me-3 " alt="user Image" >
+     </div>
+     <div class="container col-6">
+     <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
+     <div class="form-group col-12">
+     <h2>Actualizar Propietario</h2>
+ </div>
+ <div class="row justify-content-center" id="formContainer">
+ <div class="form-group col-12 ">
+     <label for="name">Nombre</label>
+     <input type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${user[0].Name}"/>
+ </div>
+
+ <div class="form-group col-6 ">
+ <label for="genre">Género</label>
+ <select class="form-select" name="genre" id=genre>
+ <option value="${user[0].Genre}" selected disabled>${user[0].Genre}</option>
+ <option value="Hombre">Hombre</option>
+ <option value="Mujer">Mujer</option>
+ <option value="N/A">No binario</option>
+ </select>
+ </div>
+ <div class="form-group col-6 ">
+     <label for="birth">Nacido</label>
+     <input type="date" name="birth" class="form-control" autocomplete="birth" required id="birth" value="${user[0].Birth_Date}" readonly/>
+ </div>
+ <div class="form-group col-12 ">
+     <label for="email">Email</label>
+     <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
+ </div>
+ <div class="form-group col-12 ">
+     <label for="password">Contraseña</label>
+     <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+         required id="password"/>
+ </div>
+
+ <div class="form-group col-12 ">
+     <label for="profilePic">Nueva Imagen de perfil</label>
+     <input type="file" name="profilePic" class="form-control" id="profilePic"/>
+ </div>
+ <div class="form-group col-12">
+     <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
+ </div>
+ </div>
+     </form>
+     </div>
+    </div>`;
+  }
+
+  showCustomerInfo(user){
+ let placeHolder = document.getElementById("signUp");
+    placeHolder.innerHTML = ``;
+  }
+
+  showBusinessInfo(user){
+ let placeHolder = document.getElementById("signUp");
+    placeHolder.innerHTML = ``;
+  }
+
 
   /**
 * Funcion que llama al nuevo logIn

@@ -5,7 +5,9 @@ import BaradosControllerUsers from "./BaradosControllerUsers.js";
 let baradosApp;
 
 (function () {
+	
 	baradosApp = new BaradosControllerUsers(new Barados(),new BaradosView());
+	// console.log(BaradosSystem.currentUserData);
 })();
 
 export default baradosApp;

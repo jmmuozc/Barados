@@ -7,6 +7,7 @@ let baradosApp;
 
 (function () {
 	baradosApp = new BaradosController(new Barados(),new BaradosView());
+	// console.log(BaradosSystem.currentUserData);
 })();
 
 export default baradosApp;
