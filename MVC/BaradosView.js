@@ -72,40 +72,91 @@ class BaradosView {
     }
   }
 
-  ShowBusinessCards(business) {
-    let barImg = Array.from(document.getElementsByClassName("bar-img"));
-    let barTitle = Array.from(document.getElementsByClassName("bar-title"));
-    let barDescription = Array.from(document.getElementsByClassName("bar-description"));
+  ShowBusinessCards(business, MAX) {
+    let businessContainer = document.getElementById("bares");
+    businessContainer.innerHTML = `
+    <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <h2 class="mb-3">Centros de ocio</h2>
+          </div>
+      </div>
+      <div class="row d-flex justify-content-center" id="baresDisplay">
+    
+      </div>
+    </div>`;
+
+    let businessDiv = document.getElementById("baresDisplay");
     let arrayExistent = [];
     let rng;
-    for (let index = 0; index < barImg.length; index++) {
+    for (let index = 0; index < MAX; index++) {
       do {
         rng = Math.floor(Math.random() * (business.length));
-      } while (arrayExistent.includes(rng));
-      arrayExistent.push(rng);
+      } while (arrayExistent.includes(rng) && arrayExistent.length != business.length);
+      if (!arrayExistent.includes(rng)) {
+        arrayExistent.push(rng);
 
-      // barImg[index].innerHTML=`${business[rng].image}`;
-      barTitle[index].innerHTML = `${business[rng].Name}`;
-      barDescription[index].innerHTML = `${business[rng].Description}`;
-
+        let newBusiness = document.createElement("div");
+        newBusiness.setAttribute("class", "col-md-6 col-lg-4");
+        newBusiness.innerHTML = `
+        <div class="card mb-4">
+            <img src="https://via.placeholder.com/400x250" class="card-img-top bar-img" alt="..." />
+            <div class="card-body">
+              <h3 class="card-title bar-title">${business[rng].Name}</h3>
+              <p class="card-text bar-description">
+                ${business[rng].Description}
+              </p>
+            </div>
+        </div>
+        `;
+        businessDiv.appendChild(newBusiness);
+      }
     }
+          // eventImg[index].innerHTML=`${events[rng].image}`;
   }
 
-  ShowEventsCards(events) {
-    let eventImg = Array.from(document.getElementsByClassName("event-img"));
-    let eventTitle = Array.from(document.getElementsByClassName("event-title"));
-    let eventDescription = Array.from(document.getElementsByClassName("event-description"));
+  ShowEventsCards(events, MAX) {
+    let eventContainer = document.getElementById("eventos");
+    eventContainer.innerHTML = `
+    <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <h2 class="mb-3">Eventos</h2>
+          </div>
+      </div>
+      <div class="row d-flex justify-content-center" id="eventosDisplay">
+    
+      </div>
+    </div>`;
+
+    let eventsDiv = document.getElementById("eventosDisplay");
     let arrayExistent = [];
     let rng;
-    for (let index = 0; index < eventImg.length; index++) {
+    for (let index = 0; index < MAX; index++) {
       do {
         rng = Math.floor(Math.random() * (events.length));
-      } while (arrayExistent.includes(rng));
-      arrayExistent.push(rng);
+      } while (arrayExistent.includes(rng) && arrayExistent.length != events.length);
+      if (!arrayExistent.includes(rng)) {
+        arrayExistent.push(rng);
 
+        let newEvent = document.createElement("div");
+        newEvent.setAttribute("class", "col-md-6 col-lg-4");
+        newEvent.innerHTML = `
+        <div class="card mb-4">
+            <img src="https://via.placeholder.com/400x250" class="card-img-top event-img" alt="..." />
+            <div class="card-body">
+                <h3 class="card-title event-name">${events[rng].Name}</h3>
+                <p class="card-text event-description">
+                  ${events[rng].Description}
+                </p>
+            </div>
+        </div>
+        `;
+        eventsDiv.appendChild(newEvent);
+      }
       // eventImg[index].innerHTML=`${events[rng].image}`;
-      eventTitle[index].innerHTML = `${events[rng].Name}`;
-      eventDescription[index].innerHTML = `${events[rng].Description}`;
+      // eventTitle[index].innerHTML = `${events[rng].Name}`;
+      // eventDescription[index].innerHTML = `${events[rng].Description}`;
 
     }
   }
@@ -311,9 +362,9 @@ class BaradosView {
 
   }
 
-  ShowSignUpForms(){
+  ShowSignUpForms() {
     let placeHolder = document.getElementById("signUp");
-    placeHolder.innerHTML=`<div class="container">
+    placeHolder.innerHTML = `<div class="container">
     <div class="row text-center">
         <h2>Registrarse Como...</h2>
     </div>
@@ -336,9 +387,8 @@ class BaradosView {
         </div>`;
   }
 
-  showOwnerInfo(user){
-    console.log(user);
- let placeHolder = document.getElementById("signUp");
+  showOwnerInfo(user, bar) {
+    let placeHolder = document.getElementById("signUp");
     placeHolder.innerHTML = `<div class="container row border border-3">
      <div class="container col-4 d-flex justify-content-center align-items-center">
      <img src="${user[0].Image}" class="me-3 " alt="user Image" >
@@ -387,16 +437,72 @@ class BaradosView {
  </div>
      </form>
      </div>
-    </div>`;
+    </div>
+    <section id="bares" class="py-5 bg-light">
+    
+    </section>`;
+
+    let barPlaceHolder = document.getElementById("bares");
   }
 
-  showCustomerInfo(user){
- let placeHolder = document.getElementById("signUp");
-    placeHolder.innerHTML = ``;
+  showCustomerInfo(user) {
+    let placeHolder = document.getElementById("signUp");
+    placeHolder.innerHTML = `<div class="container row border border-3">
+     <div class="container col-4 d-flex justify-content-center align-items-center">
+     <img src="${user[0].Image}" class="me-3 " alt="user Image" >
+     </div>
+     <div class="container col-6">
+     <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
+     <div class="form-group col-12">
+     <h2>Actualizar Propietario</h2>
+ </div>
+ <div class="row justify-content-center" id="formContainer">
+ <div class="form-group col-12 ">
+     <label for="name">Nombre</label>
+     <input type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${user[0].Name}"/>
+ </div>
+
+ <div class="form-group col-6 ">
+ <label for="genre">Género</label>
+ <select class="form-select" name="genre" id=genre>
+ <option value="${user[0].Genre}" selected disabled>${user[0].Genre}</option>
+ <option value="Hombre">Hombre</option>
+ <option value="Mujer">Mujer</option>
+ <option value="N/A">No binario</option>
+ </select>
+ </div>
+ <div class="form-group col-6 ">
+     <label for="birth">Nacido</label>
+     <input type="date" name="birth" class="form-control" autocomplete="birth" required id="birth" value="${user[0].Birth_Date}" readonly/>
+ </div>
+ <div class="form-group col-12 ">
+     <label for="email">Email</label>
+     <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
+ </div>
+ <div class="form-group col-12 ">
+     <label for="password">Contraseña</label>
+     <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+         required id="password"/>
+ </div>
+
+ <div class="form-group col-12 ">
+     <label for="profilePic">Nueva Imagen de perfil</label>
+     <input type="file" name="profilePic" class="form-control" id="profilePic"/>
+ </div>
+ <div class="form-group col-12">
+     <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
+ </div>
+ </div>
+     </form>
+     </div>
+    </div>
+    <section id="bares" class="py-5 bg-light">
+    
+    </section>`;
   }
 
-  showBusinessInfo(user){
- let placeHolder = document.getElementById("signUp");
+  showBusinessInfo(user) {
+    let placeHolder = document.getElementById("signUp");
     placeHolder.innerHTML = ``;
   }
 

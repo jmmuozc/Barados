@@ -20,19 +20,34 @@ class BaradosControllerUsers {
     onLoad = async () => {
         let user=sessionStorage.getItem("currentUser").split(" ");
         let currentUser;
+        let userBar;
+        let eventsId;
+        let userEvent=[];
         console.log(user);
        
         if ( user.length>1) {
             if (user[0]=="Owner"){
-                currentUser=await this.#baradosModel.fetchDataWhere("Owner",{id: user[1]});
-                this.#baradosView.showOwnerInfo(currentUser); 
+                currentUser=await this.#baradosModel.fetchDataWhere("Owner",{Id: user[1]});
+                if (currentUser[0].Email=="admin@barados.com") {
+                    userBar = await this.#baradosModel.fetchData("Business"); 
+                }else{
+                    userBar = await this.#baradosModel.fetchDataWhere("Business",{Owner_Id: user[1]});
+                    
+                }
+                this.#baradosView.showOwnerInfo(currentUser,userBar); 
             } 
             if (user[0]=="Customers"){
-                currentUser=await this.#baradosModel.fetchDataWhere("Customers",{id: user[1]});
-                this.#baradosView.showCustomerInfo(currentUser); 
+                currentUser=await this.#baradosModel.fetchDataWhere("Customers",{Id: user[1]});
+                eventsId = await this.#baradosModel.fetchDataWhere("Event_Customers",{Customer_Id: user[1]});
+                for (let event of eventsId) {
+                    let currentEvent=await this.#baradosModel.fetchDataWhere("Events",{Id: event.Event_Id});
+                    userEvent.push(currentEvent[0]);
+                }
+                console.log(userEvent)
+                this.#baradosView.showCustomerInfo(currentUser,userEvent); 
             } 
             if (user[0]=="Business"){
-                currentUser=await this.#baradosModel.fetchDataWhere("Business",{id: user[1]});
+                currentUser=await this.#baradosModel.fetchDataWhere("Business",{Id: user[1]});
                 this.#baradosView.showBusinessInfo(currentUser); 
             } 
 
