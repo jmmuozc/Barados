@@ -389,9 +389,10 @@ class BaradosView {
 
   showOwnerInfo(user, bar) {
     let placeHolder = document.getElementById("signUp");
+    placeHolder.setAttribute("class","py-3 bg-light main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `<div class="container row border border-3">
      <div class="container col-4 d-flex justify-content-center align-items-center">
-     <img src="${user[0].Image}" class="me-3 " alt="user Image" >
+     <img src="${user[0].Image}" class="me-3 " alt="user Image" id="userInfo" >
      </div>
      <div class="container col-6">
      <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
@@ -438,18 +439,23 @@ class BaradosView {
      </form>
      </div>
     </div>
-    <section id="bares" class="py-5 bg-light">
+    <section id="bares" class="py-5 flex-column">
     
     </section>`;
 
     let barPlaceHolder = document.getElementById("bares");
+
+    placeHolder.appendChild(barPlaceHolder);
+
+    this.ShowBusinessCards(bar,bar.length);
   }
 
-  showCustomerInfo(user) {
+  showCustomerInfo(user,events) {
     let placeHolder = document.getElementById("signUp");
+    placeHolder.setAttribute("class","py-3 bg-light main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `<div class="container row border border-3">
      <div class="container col-4 d-flex justify-content-center align-items-center">
-     <img src="${user[0].Image}" class="me-3 " alt="user Image" >
+     <img src="${user[0].Image}" class="me-3 " alt="user Image" id="userInfo">
      </div>
      <div class="container col-6">
      <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
@@ -496,14 +502,72 @@ class BaradosView {
      </form>
      </div>
     </div>
-    <section id="bares" class="py-5 bg-light">
+    <section id="events" class="py-5">
     
     </section>`;
+
+    let eventsPlaceHolder = document.getElementById("events");
+
+    placeHolder.appendChild(eventsPlaceHolder);
+
+    this.ShowBusinessCards(events,events.length);
   }
 
-  showBusinessInfo(user) {
+  showBusinessInfo(business,events,images) {
     let placeHolder = document.getElementById("signUp");
-    placeHolder.innerHTML = ``;
+    placeHolder.setAttribute("class","py-3 bg-light main d-flex justify-content-center flex-column m-auto");
+    placeHolder.innerHTML = `
+    <div class="container row border border-3">
+     <div class="container col-4 d-flex justify-content-center align-items-center">
+     <img src="${images[0].Name}" class="me-3 " alt="user Image" id="userInfo" >
+     </div>
+     <div class="container col-6">
+     <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
+     <div class="form-group col-12">
+     <h2>Actualizar Propietario</h2>
+ </div>
+ <div class="row justify-content-center" id="formContainer">
+ <div class="form-group col-12 ">
+     <label for="name">Nombre</label>
+     <input type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${business[0].Name}"/>
+ </div>
+
+ <div class="form-group col-6 ">
+ <label for="businessDesc">Descripcion</label>
+ <textarea name="description">
+ ${business[0].Description}
+ </textarea>
+ </div>
+ <div class="form-group col-12 ">
+     <label for="email">Email</label>
+     <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
+ </div>
+ <div class="form-group col-12 ">
+     <label for="password">Contraseña</label>
+     <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+         required id="password"/>
+ </div>
+
+ <div class="form-group col-12 ">
+     <label for="profilePic">Nueva Imagen de perfil</label>
+     <input type="file" name="profilePic" class="form-control" id="profilePic"/>
+ </div>
+ <div class="form-group col-12">
+     <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
+ </div>
+ </div>
+     </form>
+     </div>
+    </div>
+    <section id="events" class="py-5">
+    
+    </section>`
+    
+    let eventsPlaceHolder = document.getElementById("events");
+
+    placeHolder.appendChild(eventsPlaceHolder);
+
+    this.ShowBusinessCards(events,events.length);
   }
 
 

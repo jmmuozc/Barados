@@ -200,6 +200,9 @@ nav a:hover {
 	max-width: 1025px;
 }
 
+#userInfo{
+	max-width: 100%;
+}
 
 @media screen and (max-width: 1025px) {
 	/* Estilos a aplicar para pantallas menores a 1025px /
