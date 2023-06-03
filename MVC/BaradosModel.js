@@ -50,7 +50,7 @@ class Barados {
     const {data, error } = await this.#supabaseConnection
       .from(table)
       .insert(newData)
-      .select(Id);
+      .select('Id');
 
     if (error) {
       return error;
@@ -118,6 +118,16 @@ class Barados {
     if (data) {
       return true;
     }
+  }
+
+  uploadInTo =async (imgName,img,storage)=>{
+
+    const { data, error } = await this.#supabaseConnection.storage.from(storage).
+    upload(imgName,img);
+
+    let publicUrl= await this.#supabaseConnection.storage.from(storage).getPublicUrl(imgName);
+
+    return publicUrl.data.publicUrl;
   }
 
   getBase64FromFile(img, callback) {

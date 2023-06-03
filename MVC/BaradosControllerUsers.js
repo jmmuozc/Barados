@@ -102,11 +102,14 @@ class BaradosControllerUsers {
         }
         // console.log(pic);
 
-        if (exists.lenght==0) {
-            exists= this.#baradosModel.createUser({email:email, password: passwd});
-            this.#baradosModel.insertInto("Owner",{Name:name, Email:email, Genre:genre, Birth_Date:birth,Picture: picture});
+        console.log(exists.length);
+        if (exists.length==0) {
+            exists= await this.#baradosModel.createUser({email:email, password: passwd});
+            picture= await this.#baradosModel.uploadInTo(picture.name,picture,"BaradosMedia/UsersImages");
+            console.log(picture);
+            // pic= await this.#baradosModel.insertInto("Owner",{Name:name, Email:email, Genre:genre, Birth_Date:birth,Image: picture});
 
-            console.log("No existe");
+            console.log(pic);
         }
     }
 
