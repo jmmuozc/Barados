@@ -451,6 +451,7 @@ class BaradosView {
   }
 
   showCustomerInfo(user,events) {
+    console.log("Mamapinga");
     let placeHolder = document.getElementById("signUp");
     placeHolder.setAttribute("class","py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `<div class="container row border border-3">
@@ -502,15 +503,16 @@ class BaradosView {
      </form>
      </div>
     </div>
-    <section id="events" class="py-5">
+    <section id="eventos" class="py-5">
     
     </section>`;
 
-    let eventsPlaceHolder = document.getElementById("events");
+    let eventsPlaceHolder = document.getElementById("eventos");
 
     placeHolder.appendChild(eventsPlaceHolder);
 
-    this.ShowBusinessCards(events,events.length);
+    this.ShowEventsCards(events,events.length);
+    
   }
 
   showBusinessInfo(business,events,images) {

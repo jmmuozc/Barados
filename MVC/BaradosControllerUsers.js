@@ -155,6 +155,7 @@ class BaradosControllerUsers {
     HandleLogOff = async () => {
         await this.#baradosModel.logOff();
         sessionStorage.setItem("currentUser", "");
+        document.getElementById("signUp").setAttribute("class","py-3 bg-light main d-flex justify-content-center");
         this.#baradosView.ShowSignUpForms();
         this.#baradosView.bindShowOwnerForm(this.HandleshowOwnerForm);
         this.#baradosView.bindShowUserForm(this.HandleshowUserForm);
