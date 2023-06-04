@@ -83,76 +83,67 @@ class BaradosControllerUsers {
     }
 
     HandleNewOwner = async (name, email, genre, birth, picture, passwd) => {
-        if (picture=="") picture="/Media/default-user-icon.jpg";
+        
         let exists=[];
-        let pic;
         try {
            exists= await this.#baradosModel.fetchDataWhere("Owner",{Email: email});
-        //    pic= this.#baradosModel.getBase64FromFile(picture,function(base64){});
-            // return base64;
-        //   });
-        //   console.log("getBase64FromFile");
-        //   console.log(pic);
-        //   console.log("getBase");
-        //   pic= await this.#baradosModel.toBase64(picture);
-        //   pic= await this.#baradosModel.getBase64(picture);
-        //   console.log(pic);
         } catch (error) {
             console.log(error);
         }
         // console.log(pic);
-
+        console.log(picture);
         console.log(exists.length);
         if (exists.length==0) {
             exists= await this.#baradosModel.createUser({email:email, password: passwd});
-            picture= await this.#baradosModel.uploadInTo(picture.name,picture,"BaradosMedia/BusinessImages");
-            console.log(picture);
-            // pic= await this.#baradosModel.insertInto("Owner",{Name:name, Email:email, Genre:genre, Birth_Date:birth,Image: picture});
+            if (picture==undefined) {
+                picture="/Media/default-user-icon.jpg";
+            }else{
+                picture= await this.#baradosModel.uploadInTo(picture.name,picture,"BaradosMedia/BusinessImages");
+            } 
+            await this.#baradosModel.insertInto("Owner",{Name:name, Email:email, Genre:genre, Birth_Date:birth,Image: picture});
 
-            console.log(pic);
         }
     }
 
     HandleNewClient = async (name, email, genre, birth, picture, passwd) => {
-        if (picture=="") picture="/Media/default-user-icon.jpg";
-                try {
-            currentUserEmail = await this.#baradosModel.logIn(user, passwd);
-            // console.log(await this.#baradosModel.currentUser());
-
+        let exists=[];
+        try {
+           exists= await this.#baradosModel.fetchDataWhere("Customers",{Email: email});
         } catch (error) {
             console.log(error);
+        }
+        // console.log(pic);
+        if (exists.length==0) {
+            exists= await this.#baradosModel.createUser({email:email, password: passwd});
+            if (picture==undefined) {
+                picture="/Media/default-user-icon.jpg";
+            }else{
+                picture= await this.#baradosModel.uploadInTo(picture.name,picture,"BaradosMedia/BusinessImages");
+            } 
+            await this.#baradosModel.insertInto("Customers",{Name:name, Email:email, Genre:genre, Birth_Date:birth,Image: picture});
 
-            this.#baradosModel.insertInto("Customers",{Name:name, Email:email, Genre:genre, Birth_Date:birth,Picture: picture});
         }
 
     }
 
-    HandleNewBusiness = async (name, location, description, email, password) => {
-        let currentUserEmail;
+    HandleNewBusiness = async (name, location, description, email, passwd,picture) => {
+        let exists=[];
         try {
-            currentUserEmail = await this.#baradosModel.logIn(user, passwd);
-            // console.log(await this.#baradosModel.currentUser());
-
+           exists= await this.#baradosModel.fetchDataWhere("Business",{Email: email});
         } catch (error) {
             console.log(error);
         }
+        // console.log(pic);
+        if (exists.length==0) {
+            exists= await this.#baradosModel.createUser({email:email, password: passwd});
+            if (picture==undefined) {
+                picture="/Media/default-user-icon.jpg";
+            }else{
+                picture= await this.#baradosModel.uploadInTo(picture.name,picture,"BaradosMedia/BusinessImages");
+            } 
+            await this.#baradosModel.insertInto("Business",{Name:name, Location:location,Description:description,Email:email, Main_Image: picture});
 
-        if (currentUserEmail != false) {
-            let currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Email: currentUserEmail });
-            if (currentUser.lenght == 0) currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Email: currentUserEmail });
-            if (currentUser.lenght == 0) currentUser = await this.#baradosModel.fetchDataWhere("Business", { Email: currentUserEmail });
-            this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
-            this.#baradosView.bindLogOff(this.HandleLogOff);
-            this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
-        } else {
-            console.log("loginIncorrecto");
         }
-        // if () {
-        // document.cookie = `Cookie1 = ${user}`;
-        // this.onLogIn();
-        // } else {
-        // this.failedLogIn();
-        // }
     }
 
     HandleFormReturn = () => {

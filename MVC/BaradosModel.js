@@ -104,14 +104,11 @@ class Barados {
 
   }
 
-  createUser = async (email, passwd) => {
-
-    const { data, error } = await this.#supabaseConnection.auth.signUp({
-      email: email,
-      password: passwd,
-    });
+  createUser = async (newUser) => {
+    const { data, error } = await this.#supabaseConnection.auth.signUp(newUser);
 
     if (error) {
+      console.log(error);
       return false;
     }
 
@@ -129,37 +126,6 @@ class Barados {
 
     return publicUrl.data.publicUrl;
   }
-
-  getBase64FromFile(img, callback) {
-    let fileReader = new FileReader();
-    fileReader.addEventListener('load', function (evt) {
-      callback(fileReader.result);
-    });
-    fileReader.readAsDataURL(img);
-    return fileReader.result;
-  }
-  getBase64(file) {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      // console.log(reader.result);
-      return reader.result;
-    };
-    reader.onerror = function (error) {
-      console.log('Error: ', error);
-    };
-
-  }
-
-  toBase64(file) {
-    const reader = new FileReader();
-    let reject;
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    // console.log(reader.result);
-  }
-
 
   // OwnerFactory(id,name){
   //   return new Owner(id,name);
