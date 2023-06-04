@@ -105,7 +105,7 @@ class BaradosControllerUsers {
         console.log(exists.length);
         if (exists.length==0) {
             exists= await this.#baradosModel.createUser({email:email, password: passwd});
-            picture= await this.#baradosModel.uploadInTo(picture.name,picture,"BaradosMedia/UsersImages");
+            picture= await this.#baradosModel.uploadInTo(picture.name,picture,"BaradosMedia/BusinessImages");
             console.log(picture);
             // pic= await this.#baradosModel.insertInto("Owner",{Name:name, Email:email, Genre:genre, Birth_Date:birth,Image: picture});
 

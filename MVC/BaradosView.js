@@ -100,7 +100,7 @@ class BaradosView {
         newBusiness.setAttribute("class", "col-md-6 col-lg-4");
         newBusiness.innerHTML = `
         <div class="card mb-4">
-            <img src="https://via.placeholder.com/400x250" class="card-img-top bar-img" alt="..." />
+            <img src="${business[rng].Main_Image}" class="card-img-top bar-img" alt="..." width=350px height=250px/>
             <div class="card-body">
               <h3 class="card-title bar-title">${business[rng].Name}</h3>
               <p class="card-text bar-description">
@@ -143,7 +143,7 @@ class BaradosView {
         newEvent.setAttribute("class", "col-md-6 col-lg-4");
         newEvent.innerHTML = `
         <div class="card mb-4">
-            <img src="https://via.placeholder.com/400x250" class="card-img-top event-img" alt="..." />
+            <img src="${events[rng].Image}" class="card-img-top event-img" alt="..." width=350px height=250px/>
             <div class="card-body">
                 <h3 class="card-title event-name">${events[rng].Name}</h3>
                 <p class="card-text event-description">
