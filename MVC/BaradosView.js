@@ -30,7 +30,7 @@ class BaradosView {
       userDiv.setAttribute("id", "user-header");
       userDiv.innerHTML = `
       <div>
-      <img src="${image}" class="me-3 user-image" alt="user Image" width=50px height=50px />
+      <img src="${image}" class="me-3 user-image user-img" alt="user Image" />
       </div>
       <div">
       <a href="" class="nav-link align-middle ">${name}</a>
@@ -389,7 +389,7 @@ class BaradosView {
 
   showOwnerInfo(user, bar) {
     let placeHolder = document.getElementById("signUp");
-    placeHolder.setAttribute("class","py-3 bg-light main d-flex justify-content-center flex-column m-auto");
+    placeHolder.setAttribute("class","py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `<div class="container row border border-3">
      <div class="container col-4 d-flex justify-content-center align-items-center">
      <img src="${user[0].Image}" class="me-3 " alt="user Image" id="userInfo" >
@@ -452,7 +452,7 @@ class BaradosView {
 
   showCustomerInfo(user,events) {
     let placeHolder = document.getElementById("signUp");
-    placeHolder.setAttribute("class","py-3 bg-light main d-flex justify-content-center flex-column m-auto");
+    placeHolder.setAttribute("class","py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `<div class="container row border border-3">
      <div class="container col-4 d-flex justify-content-center align-items-center">
      <img src="${user[0].Image}" class="me-3 " alt="user Image" id="userInfo">
@@ -515,7 +515,7 @@ class BaradosView {
 
   showBusinessInfo(business,events,images) {
     let placeHolder = document.getElementById("signUp");
-    placeHolder.setAttribute("class","py-3 bg-light main d-flex justify-content-center flex-column m-auto");
+    placeHolder.setAttribute("class","py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `
     <div class="container row border border-3">
      <div class="container col-4 d-flex justify-content-center align-items-center">
