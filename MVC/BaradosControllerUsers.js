@@ -19,11 +19,13 @@ class BaradosControllerUsers {
 
     onLoad = async () => {
         let user = sessionStorage.getItem("currentUser").split(" ");
+        if (user.length==1) user= sessionStorage.getItem("currentUser").split(",");
         let currentUser;
         let userBar;
         let eventsId;
         let userEvent = [];
         console.log(user);
+        console.log(user.length);
 
         if (user.length > 1) {
             if (user[0] == "Owner") {

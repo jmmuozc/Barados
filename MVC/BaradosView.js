@@ -159,6 +159,68 @@ class BaradosView {
     // eventImg[index].innerHTML=`${events[rng].image}`;
   }
 
+  ShowBusinessCardsOfOwners(business, MAX) {
+    let businessContainer = document.getElementById("bares");
+    businessContainer.innerHTML = `
+    <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <h2 class="mb-3">Centros de ocio</h2>
+          </div>
+      </div>
+      <div class="row d-flex justify-content-center" id="baresDisplay">
+    
+      </div>
+    </div>`;
+
+    let businessDiv = document.getElementById("baresDisplay");
+    let arrayExistent = [];
+    let rng;
+    if (business.length == 0) {
+      console.log("vasio");
+      let newBusiness = document.createElement("div");
+      newBusiness.setAttribute("class", "container");
+      newBusiness.innerHTML = `<h3>Oops... parece que no hay ningun centro de ocio</h3>
+      <p>Los centros de ocio disponibles aparecerán aquí</p>`;
+      businessDiv.appendChild(newBusiness);
+    } else {
+
+      for (let index = 0; index < MAX; index++) {
+        do {
+          rng = Math.floor(Math.random() * (business.length));
+        } while (arrayExistent.includes(rng) && arrayExistent.length != business.length);
+        if (!arrayExistent.includes(rng)) {
+          arrayExistent.push(rng);
+
+          let newBusiness = document.createElement("div");
+          newBusiness.setAttribute("class", "col-md-6 col-lg-4");
+          newBusiness.innerHTML = `
+          <div class="card mb-4">
+          <img src="${business[rng].Main_Image}" class="card-img-top bar-img" alt="..." width=350px height=250px/>
+          <div class="card-body">
+          <h3 class="card-title bar-title">${business[rng].Name}</h3>
+          <p class="card-text bar-description">
+          ${business[rng].Description}
+          </p>
+          <a href="users.html" class="btn btn-primary btn-lg showBusinessInfo" data-business='${business[rng].Name}'>Ver</a>
+          </div>
+          </div>
+          `;
+          businessDiv.appendChild(newBusiness);
+        }
+        let cardBody=document.getElementsByClassName("card-body");
+          cardBody[index].innerHTML=`<h3 class="card-title event-name">${business[rng].Name}</h3>
+          <p class="card-text event-description">
+            ${business[rng].Description}
+          </p>
+          <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-business='${business[rng].Name}'>Ver</a>
+          <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-business='${business[rng].Name}'>Eliminar</a>
+          `;
+      }
+    }
+    // eventImg[index].innerHTML=`${events[rng].image}`;
+  }
+
   ShowEventsCards(events, MAX) {
     let eventContainer = document.getElementById("eventos");
     eventContainer.innerHTML = `
@@ -256,8 +318,8 @@ class BaradosView {
         </div>
         `;
         eventsDiv.appendChild(newEvent);
-        
-        if (user[0]=="Customer") {
+        console.log(user[0]);
+        if (user[0]=="Customers") {
           let cardBody=document.getElementsByClassName("card-body");
           cardBody[index].innerHTML=`<h3 class="card-title event-name">${events[rng].Name}</h3>
           <p class="card-text event-description">
@@ -573,7 +635,7 @@ class BaradosView {
 
     placeHolder.appendChild(barPlaceHolder);
 
-    this.ShowBusinessCards(bar, bar.length);
+    this.ShowBusinessCardsOfOwners(bar, bar.length);
   }
 
   showCustomerInfo(user, events) {
@@ -756,6 +818,17 @@ class BaradosView {
     for (let element of document.getElementsByClassName('allBusiness')) {
       element.addEventListener("click", (event) => {
         handler()
+      });
+    // document.getElementById("allBusiness").addEventListener("click", (event) => {
+    //   handler();
+    // });
+  }
+}
+
+  bindShowABusiness(handler) {
+    for (let element of document.getElementsByClassName('showBusinessInfo')) {
+      element.addEventListener("click", (event) => {
+        handler(element.dataset.business)
       });
     // document.getElementById("allBusiness").addEventListener("click", (event) => {
     //   handler();
