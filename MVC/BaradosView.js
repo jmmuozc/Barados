@@ -149,6 +149,7 @@ class BaradosView {
           <p class="card-text bar-description">
           ${business[rng].Description}
           </p>
+          <a href="users.html" class="btn btn-primary btn-lg showBusinessInfo" data-business='${business[rng].Name}'>Ver</a>
           </div>
           </div>
           `;
@@ -201,10 +202,83 @@ class BaradosView {
                 <p class="card-text event-description">
                   ${events[rng].Description}
                 </p>
+                <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
             </div>
         </div>
         `;
+
           eventsDiv.appendChild(newEvent);
+        }
+      }
+    }
+  }
+
+  ShowEventsCardsOfUsersInfo(events, MAX) {
+    let user=sessionStorage.getItem("currentUser").split(" ");
+    let eventContainer = document.getElementById("eventos");
+    eventContainer.innerHTML = `
+    <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <h2 class="mb-3">Eventos</h2>
+          </div>
+      </div>
+      <div class="row d-flex justify-content-center" id="eventosDisplay">
+    
+      </div>
+    </div>`;
+
+    let eventsDiv = document.getElementById("eventosDisplay");
+    let arrayExistent = [];
+    let rng;
+    if (events.length == 0) {
+      console.log("vasio");
+      let newEvent = document.createElement("div");
+      newEvent.setAttribute("class", "container");
+      newEvent.innerHTML = `<h3>Oops... parece que no hay ningun evento disponible</h3>
+      <p>Los eventos disponibles aparecerán aquí</p>`;
+      eventsDiv.appendChild(newEvent);
+    } else {
+      for (let index = 0; index < MAX; index++) {
+        do {
+          rng = Math.floor(Math.random() * (events.length));
+        } while (arrayExistent.includes(rng) && arrayExistent.length != events.length);
+        if (!arrayExistent.includes(rng)) {
+          arrayExistent.push(rng);
+
+          let newEvent = document.createElement("div");
+          newEvent.setAttribute("class", "col-md-6 col-lg-4");
+          newEvent.innerHTML = `
+        <div class="card mb-4">
+            <img src="${events[rng].Image}" class="card-img-top event-img" alt="..." width=350px height=250px/>
+            <div class="card-body">
+
+            </div>
+        </div>
+        `;
+        eventsDiv.appendChild(newEvent);
+        
+        if (user[0]=="Customer") {
+          let cardBody=document.getElementsByClassName("card-body");
+          cardBody[index].innerHTML=`<h3 class="card-title event-name">${events[rng].Name}</h3>
+          <p class="card-text event-description">
+            ${events[rng].Description}
+          </p>
+          <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
+          <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-events='${events[rng].Name}'>Desapuntarse</a>
+          `;
+        }else{
+          let cardBody=document.getElementsByClassName("card-body");
+          console.log(cardBody[0]);
+          cardBody[index].innerHTML=`<h3 class="card-title event-name">${events[rng].Name}</h3>
+          <p class="card-text event-description">
+            ${events[rng].Description}
+          </p>
+          <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
+          <a href="users.html" class="btn btn-danger btn-lg deleteEvent" data-events='${events[rng].Name}'>Eliminar</a>
+          `;
+
+        }
         }
       }
       // eventImg[index].innerHTML=`${events[rng].image}`;
@@ -504,7 +578,6 @@ class BaradosView {
   }
 
   showCustomerInfo(user, events) {
-    console.log("Mamapinga");
     let placeHolder = document.getElementById("signUp");
     placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `<div class="container row border border-3">
@@ -514,7 +587,7 @@ class BaradosView {
      <div class="container col-6">
      <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
      <div class="form-group col-12">
-     <h2>Actualizar Propietario</h2>
+     <h2>Actualizar Usuario</h2>
  </div>
  <div class="row justify-content-center" id="formContainer">
  <div class="form-group col-12 ">
@@ -564,7 +637,7 @@ class BaradosView {
 
     placeHolder.appendChild(eventsPlaceHolder);
 
-    this.ShowEventsCards(events, events.length);
+    this.ShowEventsCardsOfUsersInfo(events, events.length);
 
   }
 
@@ -579,7 +652,7 @@ class BaradosView {
      <div class="container col-6">
      <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
      <div class="form-group col-12">
-     <h2>Actualizar Propietario</h2>
+     <h2>Actualizar Negocio</h2>
  </div>
  <div class="row justify-content-center" id="formContainer">
  <div class="form-group col-12 ">
@@ -622,7 +695,7 @@ class BaradosView {
 
     placeHolder.appendChild(eventsPlaceHolder);
 
-    this.ShowBusinessCards(events, events.length);
+    this.ShowEventsCardsOfUsersInfo(events, events.length);
   }
 
 

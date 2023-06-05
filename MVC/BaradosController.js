@@ -23,6 +23,7 @@ class BaradosController {
         let customers = await this.#baradosModel.fetchData("Customers");
         let events = await this.#baradosModel.fetchData("Events");
         let user;
+        let action=sessionStorage.getItem("action");
         // let business = await this.#supabaseConection.from("Business").select();
         // let customers = await this.#supabaseConection.from("Customers").select();
         // let owners = await this.#supabaseConection.from("Owner").select();
@@ -58,7 +59,10 @@ class BaradosController {
             this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
 
         }
-
+        console.log(action);
+        if(action=="Business")this.HandleShowBusiness();
+        if(action=="Events")this.HandleShowEvents();
+        if(action=="Index")this.HandleShowIndex();
         this.#baradosView.ShowBusinessCards(business, 3);
         this.#baradosView.ShowEventsCards(events, 3)
 
@@ -153,6 +157,7 @@ class BaradosController {
     HandleShowIndex = async () => {
         let businessElement = await this.#baradosModel.fetchData("Business");
         let eventsElement = await this.#baradosModel.fetchData("Events");
+
         let inicio = document.getElementById("inicio");
         let business = document.getElementById("bares");
         let eventos = document.getElementById("eventos");
@@ -162,6 +167,11 @@ class BaradosController {
         this.#baradosView.ShowIndex(businessElement, eventsElement, 3);
     }
 
+    showAllBusiness= async () =>{
+       
+    }
+    showAllEvents(){}
+    showIndex(){}
 }
 
 export default BaradosController;
