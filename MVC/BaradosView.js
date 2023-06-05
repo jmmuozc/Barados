@@ -85,7 +85,6 @@ class BaradosView {
             <p class="lead">
                 Encuentra los mejores centros de ocio de la ciudad en un solo lugar.
             </p>
-            <a href="#Business" class="btn btn-primary btn-lg allBusiness">Ver</a>
         </div>
     </div>
 </div>`;
