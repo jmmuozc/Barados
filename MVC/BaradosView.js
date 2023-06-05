@@ -72,6 +72,40 @@ class BaradosView {
     }
   }
 
+  ShowIndex(businessElement, eventsElement, MAX) {
+    let logIn = document.getElementById("contacto");
+    let parent = document.getElementsByTagName("body");
+    let init = document.createElement("section");
+    init.setAttribute("id", "inicio");
+    init.setAttribute("class", "py-5");
+    init.innerHTML = `<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mb-3">Bienvenido a Barados</h2>
+            <p class="lead">
+                Encuentra los mejores centros de ocio de la ciudad en un solo lugar.
+            </p>
+            <a href="#Business" class="btn btn-primary btn-lg allBusiness">Ver</a>
+        </div>
+    </div>
+</div>`;
+    let business = document.createElement("section");
+    business.setAttribute("id", "bares");
+    business.setAttribute("class", "py-5 bg-light");
+
+    let events = document.createElement("section");
+    events.setAttribute("id", "eventos");
+    events.setAttribute("class", "py-5");
+
+    // parent[0].appendChild(init);
+    if (!document.getElementById("inicio")) parent[0].insertBefore(init, logIn);
+    if (!document.getElementById("bares"))parent[0].insertBefore(business, logIn);
+    if (!document.getElementById("eventos"))parent[0].insertBefore(events, logIn);
+
+    this.ShowBusinessCards(businessElement,MAX);
+    this.ShowEventsCards(eventsElement,MAX);
+  }
+
   ShowBusinessCards(business, MAX) {
     let businessContainer = document.getElementById("bares");
     businessContainer.innerHTML = `
@@ -89,30 +123,40 @@ class BaradosView {
     let businessDiv = document.getElementById("baresDisplay");
     let arrayExistent = [];
     let rng;
-    for (let index = 0; index < MAX; index++) {
-      do {
-        rng = Math.floor(Math.random() * (business.length));
-      } while (arrayExistent.includes(rng) && arrayExistent.length != business.length);
-      if (!arrayExistent.includes(rng)) {
-        arrayExistent.push(rng);
+    if (business.length == 0) {
+      console.log("vasio");
+      let newBusiness = document.createElement("div");
+      newBusiness.setAttribute("class", "container");
+      newBusiness.innerHTML = `<h3>Oops... parece que no hay ningun centro de ocio</h3>
+      <p>Los centros de ocio disponibles aparecerán aquí</p>`;
+      businessDiv.appendChild(newBusiness);
+    } else {
 
-        let newBusiness = document.createElement("div");
-        newBusiness.setAttribute("class", "col-md-6 col-lg-4");
-        newBusiness.innerHTML = `
-        <div class="card mb-4">
-            <img src="${business[rng].Main_Image}" class="card-img-top bar-img" alt="..." width=350px height=250px/>
-            <div class="card-body">
-              <h3 class="card-title bar-title">${business[rng].Name}</h3>
-              <p class="card-text bar-description">
-                ${business[rng].Description}
-              </p>
-            </div>
-        </div>
-        `;
-        businessDiv.appendChild(newBusiness);
+      for (let index = 0; index < MAX; index++) {
+        do {
+          rng = Math.floor(Math.random() * (business.length));
+        } while (arrayExistent.includes(rng) && arrayExistent.length != business.length);
+        if (!arrayExistent.includes(rng)) {
+          arrayExistent.push(rng);
+
+          let newBusiness = document.createElement("div");
+          newBusiness.setAttribute("class", "col-md-6 col-lg-4");
+          newBusiness.innerHTML = `
+          <div class="card mb-4">
+          <img src="${business[rng].Main_Image}" class="card-img-top bar-img" alt="..." width=350px height=250px/>
+          <div class="card-body">
+          <h3 class="card-title bar-title">${business[rng].Name}</h3>
+          <p class="card-text bar-description">
+          ${business[rng].Description}
+          </p>
+          </div>
+          </div>
+          `;
+          businessDiv.appendChild(newBusiness);
+        }
       }
     }
-          // eventImg[index].innerHTML=`${events[rng].image}`;
+    // eventImg[index].innerHTML=`${events[rng].image}`;
   }
 
   ShowEventsCards(events, MAX) {
@@ -132,16 +176,24 @@ class BaradosView {
     let eventsDiv = document.getElementById("eventosDisplay");
     let arrayExistent = [];
     let rng;
-    for (let index = 0; index < MAX; index++) {
-      do {
-        rng = Math.floor(Math.random() * (events.length));
-      } while (arrayExistent.includes(rng) && arrayExistent.length != events.length);
-      if (!arrayExistent.includes(rng)) {
-        arrayExistent.push(rng);
+    if (events.length == 0) {
+      console.log("vasio");
+      let newEvent = document.createElement("div");
+      newEvent.setAttribute("class", "container");
+      newEvent.innerHTML = `<h3>Oops... parece que no hay ningun evento disponible</h3>
+      <p>Los eventos disponibles aparecerán aquí</p>`;
+      eventsDiv.appendChild(newEvent);
+    } else {
+      for (let index = 0; index < MAX; index++) {
+        do {
+          rng = Math.floor(Math.random() * (events.length));
+        } while (arrayExistent.includes(rng) && arrayExistent.length != events.length);
+        if (!arrayExistent.includes(rng)) {
+          arrayExistent.push(rng);
 
-        let newEvent = document.createElement("div");
-        newEvent.setAttribute("class", "col-md-6 col-lg-4");
-        newEvent.innerHTML = `
+          let newEvent = document.createElement("div");
+          newEvent.setAttribute("class", "col-md-6 col-lg-4");
+          newEvent.innerHTML = `
         <div class="card mb-4">
             <img src="${events[rng].Image}" class="card-img-top event-img" alt="..." width=350px height=250px/>
             <div class="card-body">
@@ -152,7 +204,8 @@ class BaradosView {
             </div>
         </div>
         `;
-        eventsDiv.appendChild(newEvent);
+          eventsDiv.appendChild(newEvent);
+        }
       }
       // eventImg[index].innerHTML=`${events[rng].image}`;
       // eventTitle[index].innerHTML = `${events[rng].Name}`;
@@ -389,7 +442,7 @@ class BaradosView {
 
   showOwnerInfo(user, bar) {
     let placeHolder = document.getElementById("signUp");
-    placeHolder.setAttribute("class","py-3 main d-flex justify-content-center flex-column m-auto");
+    placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `<div class="container row border border-3">
      <div class="container col-4 d-flex justify-content-center align-items-center">
      <img src="${user[0].Image}" class="me-3 " alt="user Image" id="userInfo" >
@@ -447,13 +500,13 @@ class BaradosView {
 
     placeHolder.appendChild(barPlaceHolder);
 
-    this.ShowBusinessCards(bar,bar.length);
+    this.ShowBusinessCards(bar, bar.length);
   }
 
-  showCustomerInfo(user,events) {
+  showCustomerInfo(user, events) {
     console.log("Mamapinga");
     let placeHolder = document.getElementById("signUp");
-    placeHolder.setAttribute("class","py-3 main d-flex justify-content-center flex-column m-auto");
+    placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `<div class="container row border border-3">
      <div class="container col-4 d-flex justify-content-center align-items-center">
      <img src="${user[0].Image}" class="me-3 " alt="user Image" id="userInfo">
@@ -511,13 +564,13 @@ class BaradosView {
 
     placeHolder.appendChild(eventsPlaceHolder);
 
-    this.ShowEventsCards(events,events.length);
-    
+    this.ShowEventsCards(events, events.length);
+
   }
 
-  showBusinessInfo(business,events,images) {
+  showBusinessInfo(business, events, images) {
     let placeHolder = document.getElementById("signUp");
-    placeHolder.setAttribute("class","py-3 main d-flex justify-content-center flex-column m-auto");
+    placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `
     <div class="container row border border-3">
      <div class="container col-4 d-flex justify-content-center align-items-center">
@@ -564,12 +617,12 @@ class BaradosView {
     <section id="events" class="py-5">
     
     </section>`
-    
+
     let eventsPlaceHolder = document.getElementById("events");
 
     placeHolder.appendChild(eventsPlaceHolder);
 
-    this.ShowBusinessCards(events,events.length);
+    this.ShowBusinessCards(events, events.length);
   }
 
 
@@ -623,6 +676,29 @@ class BaradosView {
 
   bindShowUserForm(handler) {
     document.getElementById("showUserForm").addEventListener("click", (event) => {
+      handler();
+    });
+  }
+
+  bindShowAllBusiness(handler) {
+    for (let element of document.getElementsByClassName('allBusiness')) {
+      element.addEventListener("click", (event) => {
+        handler()
+      });
+    // document.getElementById("allBusiness").addEventListener("click", (event) => {
+    //   handler();
+    // });
+  }
+}
+
+  bindShowAllEvents(handler) {
+    document.getElementById("allEvents").addEventListener("click", (event) => {
+      handler();
+    });
+  }
+
+  bindShowIndex(handler) {
+    document.getElementById("index").addEventListener("click", (event) => {
       handler();
     });
   }

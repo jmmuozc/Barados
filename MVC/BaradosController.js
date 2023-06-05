@@ -33,17 +33,17 @@ class BaradosController {
         if (currentUserEmail != false) {
 
             let currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Email: currentUserEmail });
-            if (currentUser.length==0) {
+            if (currentUser.length == 0) {
                 currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Email: currentUserEmail });
 
-                if(currentUser.length!=0) user =  "Customers " + currentUser[0].Id+ " "+currentUser[0].Name;
+                if (currentUser.length != 0) user = "Customers " + currentUser[0].Id + " " + currentUser[0].Name;
             } else {
-                user =  "Owner " + currentUser[0].Id+ " "+currentUser[0].Name;
+                user = "Owner " + currentUser[0].Id + " " + currentUser[0].Name;
             }
-            if (currentUser.length==0) {
+            if (currentUser.length == 0) {
                 currentUser = await this.#baradosModel.fetchDataWhere("Business", { Email: currentUserEmail });
 
-                if(currentUser.length!=0) user = "Business " + currentUser[0].Id + " "+currentUser[0].Name;
+                if (currentUser.length != 0) user = "Business " + currentUser[0].Id + " " + currentUser[0].Name;
             }
             sessionStorage.setItem("currentUser", user);
 
@@ -59,8 +59,12 @@ class BaradosController {
 
         }
 
-        this.#baradosView.ShowBusinessCards(business,3);
-        this.#baradosView.ShowEventsCards(events,3)
+        this.#baradosView.ShowBusinessCards(business, 3);
+        this.#baradosView.ShowEventsCards(events, 3)
+
+        this.#baradosView.bindShowAllBusiness(this.HandleShowBusiness);
+        this.#baradosView.bindShowAllEvents(this.HandleShowEvents);
+        this.#baradosView.bindShowIndex(this.HandleShowIndex);
 
     }
 
@@ -83,17 +87,17 @@ class BaradosController {
             console.log(currentUser);
             if (currentUser.length == 0) {
                 currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Email: currentUserEmail });
-                if(currentUser.length!=0) user =  "Customers " + currentUser[0].Id+ " "+currentUser[0].Name;
-                
+                if (currentUser.length != 0) user = "Customers " + currentUser[0].Id + " " + currentUser[0].Name;
+
             } else {
-                user =  "Owner " + currentUser[0].Id+ " "+currentUser[0].Name;
-                
+                user = "Owner " + currentUser[0].Id + " " + currentUser[0].Name;
+
             }
             if (currentUser.length == 0) {
-                currentUser = await this.#baradosModel.fetchDataWhere("Business", { Email: currentUserEmail });              
-                if(currentUser.length!=0) user = "Business " + currentUser[0].Id + " "+currentUser[0].Name;
-               
-            } 
+                currentUser = await this.#baradosModel.fetchDataWhere("Business", { Email: currentUserEmail });
+                if (currentUser.length != 0) user = "Business " + currentUser[0].Id + " " + currentUser[0].Name;
+
+            }
             sessionStorage.setItem("currentUser", user);
             this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
             this.#baradosView.bindLogOff(this.HandleLogOff);
@@ -123,6 +127,41 @@ class BaradosController {
 
         subMenu.classList.toggle("open-menu");
     }
+
+    HandleShowBusiness = async () => {
+        this.#baradosView.ShowIndex([], [], 3);
+        let business = await this.#baradosModel.fetchData("Business");
+        let inicio = document.getElementById("inicio");
+        let eventos = document.getElementById("eventos");
+        console.log(inicio);
+        if (inicio) inicio.parentElement.removeChild(inicio);
+        console.log(eventos)
+        if (eventos) eventos.parentElement.removeChild(eventos);
+        this.#baradosView.ShowBusinessCards(business, business.length);
+    }
+
+    HandleShowEvents = async () => {
+        this.#baradosView.ShowIndex([], [], 3);
+        let events = await this.#baradosModel.fetchData("Events");
+        let inicio = document.getElementById("inicio");
+        let business = document.getElementById("bares");
+        if (inicio) inicio.parentElement.removeChild(inicio);
+        if (business) business.parentElement.removeChild(business);
+        this.#baradosView.ShowEventsCards(events, events.length)
+    }
+
+    HandleShowIndex = async () => {
+        let businessElement = await this.#baradosModel.fetchData("Business");
+        let eventsElement = await this.#baradosModel.fetchData("Events");
+        let inicio = document.getElementById("inicio");
+        let business = document.getElementById("bares");
+        let eventos = document.getElementById("eventos");
+        if (inicio) inicio.parentElement.removeChild(inicio);
+        if (business) business.parentElement.removeChild(business);
+        if (eventos) eventos.parentElement.removeChild(eventos);
+        this.#baradosView.ShowIndex(businessElement, eventsElement, 3);
+    }
+
 }
 
 export default BaradosController;
