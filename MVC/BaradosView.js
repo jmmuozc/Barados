@@ -98,14 +98,15 @@ class BaradosView {
 
     // parent[0].appendChild(init);
     if (!document.getElementById("inicio")) parent[0].insertBefore(init, logIn);
-    if (!document.getElementById("bares"))parent[0].insertBefore(business, logIn);
-    if (!document.getElementById("eventos"))parent[0].insertBefore(events, logIn);
+    if (!document.getElementById("bares")) parent[0].insertBefore(business, logIn);
+    if (!document.getElementById("eventos")) parent[0].insertBefore(events, logIn);
 
-    this.ShowBusinessCards(businessElement,MAX);
-    this.ShowEventsCards(eventsElement,MAX);
+    this.ShowBusinessCards(businessElement, MAX);
+    this.ShowEventsCards(eventsElement, MAX);
   }
 
   ShowBusinessCards(business, MAX) {
+
     let businessContainer = document.getElementById("bares");
     businessContainer.innerHTML = `
     <div class="container">
@@ -148,7 +149,7 @@ class BaradosView {
           <p class="card-text bar-description">
           ${business[rng].Description}
           </p>
-          <a href="users.html" class="btn btn-primary btn-lg showBusinessInfo" data-business='${business[rng].Name}'>Ver</a>
+          <a href="#BusinessInfo" class="btn btn-primary btn-lg showBusinessInfo" data-business='${business[rng].Name}'>Ver</a>
           </div>
           </div>
           `;
@@ -202,14 +203,14 @@ class BaradosView {
           <p class="card-text bar-description">
           ${business[rng].Description}
           </p>
-          <a href="users.html" class="btn btn-primary btn-lg showBusinessInfo" data-business='${business[rng].Name}'>Ver</a>
+          <a href="#BusinessInfo" class="btn btn-primary btn-lg showBusinessInfo" data-business='${business[rng].Name}'>Ver</a>
           </div>
           </div>
           `;
           businessDiv.appendChild(newBusiness);
         }
-        let cardBody=document.getElementsByClassName("card-body");
-          cardBody[index].innerHTML=`<h3 class="card-title event-name">${business[rng].Name}</h3>
+        let cardBody = document.getElementsByClassName("card-body");
+        cardBody[index].innerHTML = `<h3 class="card-title event-name">${business[rng].Name}</h3>
           <p class="card-text event-description">
             ${business[rng].Description}
           </p>
@@ -263,7 +264,7 @@ class BaradosView {
                 <p class="card-text event-description">
                   ${events[rng].Description}
                 </p>
-                <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
+                <a href="#EventInfo" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
             </div>
         </div>
         `;
@@ -275,7 +276,7 @@ class BaradosView {
   }
 
   ShowEventsCardsOfUsersInfo(events, MAX) {
-    let user=sessionStorage.getItem("currentUser").split(" ");
+    let user = sessionStorage.getItem("currentUser").split(" ");
     let eventContainer = document.getElementById("eventos");
     eventContainer.innerHTML = `
     <div class="container">
@@ -317,21 +318,21 @@ class BaradosView {
             </div>
         </div>
         `;
-        eventsDiv.appendChild(newEvent);
-        console.log(user[0]);
-        if (user[0]=="Customers") {
-          let cardBody=document.getElementsByClassName("card-body");
-          cardBody[index].innerHTML=`<h3 class="card-title event-name">${events[rng].Name}</h3>
+          eventsDiv.appendChild(newEvent);
+          console.log(user[0]);
+          if (user[0] == "Customers") {
+            let cardBody = document.getElementsByClassName("card-body");
+            cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
           <p class="card-text event-description">
             ${events[rng].Description}
           </p>
           <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
           <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-events='${events[rng].Name}'>Desapuntarse</a>
           `;
-        }else{
-          let cardBody=document.getElementsByClassName("card-body");
-          console.log(cardBody[0]);
-          cardBody[index].innerHTML=`<h3 class="card-title event-name">${events[rng].Name}</h3>
+          } else {
+            let cardBody = document.getElementsByClassName("card-body");
+            console.log(cardBody[0]);
+            cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
           <p class="card-text event-description">
             ${events[rng].Description}
           </p>
@@ -339,7 +340,7 @@ class BaradosView {
           <a href="users.html" class="btn btn-danger btn-lg deleteEvent" data-events='${events[rng].Name}'>Eliminar</a>
           `;
 
-        }
+          }
         }
       }
       // eventImg[index].innerHTML=`${events[rng].image}`;
@@ -702,13 +703,13 @@ class BaradosView {
 
   }
 
-  showBusinessInfo(business, events, images) {
+  showBusinessInfo(business, events) {
     let placeHolder = document.getElementById("signUp");
     placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `
     <div class="container row border border-3">
      <div class="container col-4 d-flex justify-content-center align-items-center">
-     <img src="${images[0].Name}" class="me-3 " alt="user Image" id="userInfo" >
+     <img src="${business[0].Main_Image}" class="me-3 " alt="user Image" id="userInfo" >
      </div>
      <div class="container col-6">
      <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
@@ -759,6 +760,122 @@ class BaradosView {
     this.ShowEventsCardsOfUsersInfo(events, events.length);
   }
 
+  showBusinessInfoToUsers(business, events) {
+    let logIn = document.getElementById("contacto");
+    let parent = document.getElementsByTagName("body");
+    let businessContainer = document.createElement("section");
+    let eventContainer = document.createElement("section");
+
+    businessContainer.setAttribute("id", "bares");
+    businessContainer.setAttribute("class", "py-5 bg-light");
+
+    if (!document.getElementById("bares")) parent[0].insertBefore(businessContainer, logIn);
+
+    eventContainer.setAttribute("id", "eventos");
+    eventContainer.setAttribute("class", "py-5");
+    if (!document.getElementById("eventos")) parent[0].insertBefore(eventContainer, logIn);
+
+    console.log(business);
+    let placeHolder = document.getElementById("bares");
+    placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
+    placeHolder.innerHTML = `
+    <div class="container row border border-3">
+     <div class="container col-4 d-flex justify-content-center align-items-center">
+     <img src="${business[0].Main_Image}" class="me-3 " alt="user Image" id="userInfo" >
+     </div>
+     <div class="container col-6">
+     <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
+     <div class="form-group col-12">
+     <h2>Negocio</h2>
+ </div>
+ <div class="row justify-content-center" id="formContainer">
+ <div class="form-group col-12 ">
+     <label for="name">Nombre</label>
+     <input readonly type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${business[0].Name}"/>
+ </div>
+
+ <div class="form-group col-12 ">
+ <label for="businessDesc">Descripcion</label>
+ <textarea name="description" readonly="" cols="55" rows="7">
+ ${business[0].Description}
+ </textarea>
+ </div>
+ <div class="form-group col-12 ">
+     <label for="email">Email</label>
+     <input readonly type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${business[0].Email}"/>
+ </div>
+ </div>
+     </form>
+     </div>
+    </div>
+    <section id="events" class="py-5">
+    
+    </section>`
+
+    let eventsPlaceHolder = document.getElementById("events");
+
+    placeHolder.appendChild(eventsPlaceHolder);
+
+    this.ShowEventsCardsOfUsersInfo(events, events.length);
+  }
+
+  showBusiness(business, events) {
+    let placeHolder = document.createElement("section");
+
+    placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
+    placeHolder.innerHTML = `
+    <div class="container row border border-3">
+     <div class="container col-4 d-flex justify-content-center align-items-center">
+     <img src="${images[0].Name}" class="me-3 " alt="user Image" id="userInfo" >
+     </div>
+     <div class="container col-6">
+     <div class=" py-5 px-5 row justify-content-center">
+     <div class="form-group col-12">
+     <h2>Actualizar Negocio</h2>
+ </div>
+ <div class="row justify-content-center" id="formContainer">
+ <div class="form-group col-12 ">
+     <label for="name">Nombre</label>
+     <input type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${business[0].Name}"/>
+ </div>
+
+ <div class="form-group col-6 ">
+ <label for="businessDesc">Descripcion</label>
+ <textarea name="description">
+ ${business[0].Description}
+ </textarea>
+ </div>
+ <div class="form-group col-12 ">
+     <label for="email">Email</label>
+     <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
+ </div>
+ <div class="form-group col-12 ">
+     <label for="password">Contraseña</label>
+     <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+         required id="password"/>
+ </div>
+
+ <div class="form-group col-12 ">
+     <label for="profilePic">Nueva Imagen de perfil</label>
+     <input type="file" name="profilePic" class="form-control" id="profilePic"/>
+ </div>
+ <div class="form-group col-12">
+     <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
+ </div>
+ </div>
+     </div>
+     </div>
+    </div>
+    <section id="events" class="py-5">
+    
+    </section>`
+
+    let eventsPlaceHolder = document.getElementById("events");
+
+    placeHolder.appendChild(eventsPlaceHolder);
+
+    this.ShowEventsCardsOfUsersInfo(events, events.length);
+  }
 
   /**
 * Funcion que llama al nuevo logIn
@@ -819,22 +936,23 @@ class BaradosView {
       element.addEventListener("click", (event) => {
         handler()
       });
-    // document.getElementById("allBusiness").addEventListener("click", (event) => {
-    //   handler();
-    // });
+      // document.getElementById("allBusiness").addEventListener("click", (event) => {
+      //   handler();
+      // });
+    }
   }
-}
 
   bindShowABusiness(handler) {
     for (let element of document.getElementsByClassName('showBusinessInfo')) {
+      console.log(element);
       element.addEventListener("click", (event) => {
         handler(element.dataset.business)
       });
-    // document.getElementById("allBusiness").addEventListener("click", (event) => {
-    //   handler();
-    // });
+      // document.getElementById("allBusiness").addEventListener("click", (event) => {
+      //   handler();
+      // });
+    }
   }
-}
 
   bindShowAllEvents(handler) {
     document.getElementById("allEvents").addEventListener("click", (event) => {

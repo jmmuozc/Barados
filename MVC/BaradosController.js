@@ -64,6 +64,7 @@ class BaradosController {
         if(action=="Events")this.HandleShowEvents();
         if(action=="Index")this.HandleShowIndex();
         this.#baradosView.ShowBusinessCards(business, 3);
+        this.#baradosView.bindShowABusiness(this.HandleShowABusiness);
         this.#baradosView.ShowEventsCards(events, 3)
 
         this.#baradosView.bindShowAllBusiness(this.HandleShowBusiness);
@@ -142,6 +143,7 @@ class BaradosController {
         console.log(eventos)
         if (eventos) eventos.parentElement.removeChild(eventos);
         this.#baradosView.ShowBusinessCards(business, business.length);
+        this.#baradosView.bindShowABusiness(this.HandleShowABusiness);
     }
 
     HandleShowEvents = async () => {
@@ -165,13 +167,22 @@ class BaradosController {
         if (business) business.parentElement.removeChild(business);
         if (eventos) eventos.parentElement.removeChild(eventos);
         this.#baradosView.ShowIndex(businessElement, eventsElement, 3);
+        this.#baradosView.bindShowABusiness(this.HandleShowABusiness);
     }
 
-    showAllBusiness= async () =>{
-       
+    HandleShowABusiness= async (businessToShow)=>{
+        let inicio = document.getElementById("inicio");
+        let business = document.getElementById("bares");
+        let eventos = document.getElementById("eventos");
+        if (inicio) inicio.parentElement.removeChild(inicio);
+        if (business) business.parentElement.removeChild(business);
+        if (eventos) eventos.parentElement.removeChild(eventos);
+
+        let businessData= await this.#baradosModel.fetchDataWhere("Business",{Name:businessToShow});
+        console.log(businessData);
+        let eventsData= await this.#baradosModel.fetchDataWhere("Events",{Business_Id:businessData[0].Id});
+        this.#baradosView.showBusinessInfoToUsers(businessData,eventsData);
     }
-    showAllEvents(){}
-    showIndex(){}
 }
 
 export default BaradosController;

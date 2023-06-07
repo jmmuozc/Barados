@@ -163,6 +163,11 @@ nav a:hover {
 	background-color: #444;
 }
 
+
+#userInfo{
+	max-width: 100%;
+}
+
 /* Estilos para la sección de bares */
 
 #bares {
