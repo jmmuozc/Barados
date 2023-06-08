@@ -149,7 +149,7 @@ class BaradosView {
           <p class="card-text bar-description">
           ${business[rng].Description}
           </p>
-          <a href="#BusinessInfo" class="btn btn-primary btn-lg showBusinessInfo" data-business='${business[rng].Name}'>Ver</a>
+          <a href="#BusinessInfo" class="btn btn-primary btn-lg showBusinessInfo" data-business='${business[rng].Id}'>Ver</a>
           </div>
           </div>
           `;
@@ -203,7 +203,7 @@ class BaradosView {
           <p class="card-text bar-description">
           ${business[rng].Description}
           </p>
-          <a href="#BusinessInfo" class="btn btn-primary btn-lg showBusinessInfo" data-business='${business[rng].Name}'>Ver</a>
+          <a href="#BusinessInfo" class="btn btn-primary btn-lg showBusinessInfo" data-business='${business[rng].Id}'>Ver</a>
           </div>
           </div>
           `;
@@ -214,8 +214,8 @@ class BaradosView {
           <p class="card-text event-description">
             ${business[rng].Description}
           </p>
-          <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-business='${business[rng].Name}'>Ver</a>
-          <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-business='${business[rng].Name}'>Eliminar</a>
+          <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-business='${business[rng].Id}'>Ver</a>
+          <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-business='${business[rng].Id}'>Eliminar</a>
           `;
       }
     }
@@ -264,7 +264,7 @@ class BaradosView {
                 <p class="card-text event-description">
                   ${events[rng].Description}
                 </p>
-                <a href="#EventInfo" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
+                <a href="#EventInfo" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Id}'>Ver</a>
             </div>
         </div>
         `;
@@ -276,7 +276,7 @@ class BaradosView {
   }
 
   ShowEventsCardsOfUsersInfo(events, MAX) {
-    let user = sessionStorage.getItem("currentUser").split(" ");
+    // let user = sessionStorage.getItem("currentUser").split(" ");
     let eventContainer = document.getElementById("eventos");
     eventContainer.innerHTML = `
     <div class="container">
@@ -325,10 +325,10 @@ class BaradosView {
         <p class="card-text event-description">
           ${events[rng].Description}
         </p>
-        <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
+        <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Id}'>Ver</a>
         `;
           // if (user[0] == "Customers") {
-          // // <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-events='${events[rng].Name}'>Desapuntarse</a>
+          // // <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-events='${events[rng].Id}'>Desapuntarse</a>
           // } else {
           //   let cardBody = document.getElementsByClassName("card-body");
           //   // console.log(cardBody[0]);
@@ -336,8 +336,8 @@ class BaradosView {
           // <p class="card-text event-description">
           //   ${events[rng].Description}
           // </p>
-          // <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
-          // <a href="users.html" class="btn btn-danger btn-lg deleteEvent" data-events='${events[rng].Name}'>Eliminar</a>
+          // <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Id}'>Ver</a>
+          // <a href="users.html" class="btn btn-danger btn-lg deleteEvent" data-events='${events[rng].Id}'>Eliminar</a>
           // `;
 
           // }
@@ -816,7 +816,70 @@ class BaradosView {
 
     placeHolder.appendChild(eventsPlaceHolder);
 
-    this.ShowEventsCardsOfUsersInfo(events, events.length);
+    this.ShowEventsCards(events, events.length);
+  }
+
+  showEventInfoToUsers(events, business) {
+    let logIn = document.getElementById("contacto");
+    let parent = document.getElementsByTagName("body");
+    let eventContainer = document.createElement("section");
+    let businessContainer = document.createElement("section");
+
+
+    eventContainer.setAttribute("id", "eventos");
+    eventContainer.setAttribute("class", "py-5");
+    if (!document.getElementById("eventos")) parent[0].insertBefore(eventContainer, logIn);
+    
+    businessContainer.setAttribute("id", "bares");
+    businessContainer.setAttribute("class", "py-5 bg-light");
+    
+    if (!document.getElementById("bares")) parent[0].insertBefore(businessContainer, logIn);
+    let dateStart=events[0].Event_Start.split("T");
+    let dateEnd=events[0].Event_End.split("T");
+    // console.log(date);
+    // console.log(business);
+    let placeHolder = document.getElementById("eventos");
+    placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center m-auto");
+    placeHolder.innerHTML = `
+    <div class="container row border border-3">
+     <div class="container col-4 d-flex justify-content-center align-items-center">
+     <img src="${events[0].Image}" class="me-3 " alt="user Image" id="userInfo" >
+     </div>
+     <div class="container col-6">
+     <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
+     <div class="form-group col-12">
+     <h2>${events[0].Name}</h2>
+ </div>
+ <div class="row justify-content-center" id="formContainer">
+
+ <div class="form-group col-12 ">
+ <h3>Descripcion</h3>
+ <p>${events[0].Description}</p>
+ 
+ </div>
+ <div class="form-group col-6 ">
+     <h3>Fecha de Inicio</h3>
+     <p>${dateStart[0]}</p>
+ </div>
+ <div class="form-group col-6 ">
+ <h3>Fecha fin evento</h3>
+ <p>${dateEnd[0]}</p>
+ </div>
+ </div>
+     </form>
+     </div>
+     </div>
+     `
+    //  let business = document.createElement("section");
+    //  business.setAttribute("id", "bares");
+    //  business.setAttribute("class", "py-5 bg-light");
+    //  <section id="bares" class="py-5">
+     
+    //  </section>
+     
+    // if (!document.getElementById("bares")) parent[0].insertBefore(business, logIn);
+
+    this.ShowBusinessCards(business, business.length);
   }
 
 //   showBusiness(business, events) {
@@ -957,6 +1020,18 @@ showFeedback(mensaje){
       // console.log(element);
       element.addEventListener("click", (event) => {
         handler(element.dataset.business)
+      });
+      // document.getElementById("allBusiness").addEventListener("click", (event) => {
+      //   handler();
+      // });
+    }
+  }
+
+  bindShowAEvent(handler) {
+    for (let element of document.getElementsByClassName('showEventInfo')) {
+      // console.log(element);
+      element.addEventListener("click", (event) => {
+        handler(element.dataset.events)
       });
       // document.getElementById("allBusiness").addEventListener("click", (event) => {
       //   handler();
