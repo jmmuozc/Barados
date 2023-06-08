@@ -27,7 +27,7 @@ class BaradosController {
         // let business = await this.#supabaseConection.from("Business").select();
         // let customers = await this.#supabaseConection.from("Customers").select();
         // let owners = await this.#supabaseConection.from("Owner").select();
-        console.log(business);
+        // console.log(business);
         // console.log(customers);
         // console.log(owners);
         // console.log(await this.#baradosModel.logOff());
@@ -48,7 +48,7 @@ class BaradosController {
             }
             sessionStorage.setItem("currentUser", user);
 
-            console.log(sessionStorage.getItem("currentUser"));
+            // console.log(sessionStorage.getItem("currentUser"));
 
             this.#baradosView.removeLogInForm();
 
@@ -59,7 +59,7 @@ class BaradosController {
             this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
 
         }
-        console.log(action);
+        // console.log(action);
         if(action=="Business")this.HandleShowBusiness();
         if(action=="Events")this.HandleShowEvents();
         if(action=="Index")this.HandleShowIndex();
@@ -84,12 +84,12 @@ class BaradosController {
             // console.log(await this.#baradosModel.currentUser());
 
         } catch (error) {
-            console.log(error);
+            
         }
 
         if (currentUserEmail != false) {
             let currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Email: currentUserEmail });
-            console.log(currentUser);
+            // console.log(currentUser);
             if (currentUser.length == 0) {
                 currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Email: currentUserEmail });
                 if (currentUser.length != 0) user = "Customers " + currentUser[0].Id + " " + currentUser[0].Name;
@@ -108,9 +108,9 @@ class BaradosController {
             this.#baradosView.bindLogOff(this.HandleLogOff);
             this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
 
-            console.log(sessionStorage.getItem("currentUser"));
+            // console.log(sessionStorage.getItem("currentUser"));
         } else {
-            console.log("loginIncorrecto");
+            this.#baradosView.showFeedback("Correo o contraseña incorrectos");
         }
         // if () {
         // document.cookie = `Cookie1 = ${user}`;
@@ -138,9 +138,9 @@ class BaradosController {
         let business = await this.#baradosModel.fetchData("Business");
         let inicio = document.getElementById("inicio");
         let eventos = document.getElementById("eventos");
-        console.log(inicio);
+        // console.log(inicio);
         if (inicio) inicio.parentElement.removeChild(inicio);
-        console.log(eventos)
+        // console.log(eventos)
         if (eventos) eventos.parentElement.removeChild(eventos);
         this.#baradosView.ShowBusinessCards(business, business.length);
         this.#baradosView.bindShowABusiness(this.HandleShowABusiness);
@@ -179,7 +179,7 @@ class BaradosController {
         if (eventos) eventos.parentElement.removeChild(eventos);
 
         let businessData= await this.#baradosModel.fetchDataWhere("Business",{Name:businessToShow});
-        console.log(businessData);
+        // console.log(businessData);
         let eventsData= await this.#baradosModel.fetchDataWhere("Events",{Business_Id:businessData[0].Id});
         this.#baradosView.showBusinessInfoToUsers(businessData,eventsData);
     }

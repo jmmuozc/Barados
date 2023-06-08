@@ -18,23 +18,27 @@ function logInValidation(handler) {
     $(form).submit(function (event) {
         let isValid = true;
         let firstInvalidElement = null;
-        this.email.value = this.email.value.trim();
-        if (this.email.value == "") {
+        
+        if (!this.email.checkValidity()) {
             showFeedBack($(this.email), false);
             isValid = false;
+            firstInvalidElement = this.email;
         } else {
             showFeedBack($(this.email), true);
         }
 
-        if (!this.passwd.checkValidity() || !isValid) {
+        console.log(this.email.checkValidity());
+        
+        if (!this.passwd.checkValidity()) {
             isValid = false;
             showFeedBack($(this.passwd), false);
             firstInvalidElement = this.passwd;
         } else {
             showFeedBack($(this.passwd), true);
         }
-
-        if (!isValid) {
+        console.log(this.passwd.checkValidity());
+        
+        if (!isValid || firstInvalidElement) {
             firstInvalidElement.focus();
         } else {
             handler(this.email.value, this.passwd.value);

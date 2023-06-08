@@ -124,7 +124,7 @@ class BaradosView {
     let arrayExistent = [];
     let rng;
     if (business.length == 0) {
-      console.log("vasio");
+      // console.log("vasio");
       let newBusiness = document.createElement("div");
       newBusiness.setAttribute("class", "container");
       newBusiness.innerHTML = `<h3>Oops... parece que no hay ningun centro de ocio</h3>
@@ -178,7 +178,7 @@ class BaradosView {
     let arrayExistent = [];
     let rng;
     if (business.length == 0) {
-      console.log("vasio");
+      // console.log("vasio");
       let newBusiness = document.createElement("div");
       newBusiness.setAttribute("class", "container");
       newBusiness.innerHTML = `<h3>Oops... parece que no hay ningun centro de ocio</h3>
@@ -240,7 +240,7 @@ class BaradosView {
     let arrayExistent = [];
     let rng;
     if (events.length == 0) {
-      console.log("vasio");
+      // console.log("vasio");
       let newEvent = document.createElement("div");
       newEvent.setAttribute("class", "container");
       newEvent.innerHTML = `<h3>Oops... parece que no hay ningun evento disponible</h3>
@@ -294,7 +294,7 @@ class BaradosView {
     let arrayExistent = [];
     let rng;
     if (events.length == 0) {
-      console.log("vasio");
+      // console.log("vasio");
       let newEvent = document.createElement("div");
       newEvent.setAttribute("class", "container");
       newEvent.innerHTML = `<h3>Oops... parece que no hay ningun evento disponible</h3>
@@ -319,28 +319,28 @@ class BaradosView {
         </div>
         `;
           eventsDiv.appendChild(newEvent);
-          console.log(user[0]);
-          if (user[0] == "Customers") {
-            let cardBody = document.getElementsByClassName("card-body");
-            cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
-          <p class="card-text event-description">
-            ${events[rng].Description}
-          </p>
-          <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
-          <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-events='${events[rng].Name}'>Desapuntarse</a>
-          `;
-          } else {
-            let cardBody = document.getElementsByClassName("card-body");
-            console.log(cardBody[0]);
-            cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
-          <p class="card-text event-description">
-            ${events[rng].Description}
-          </p>
-          <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
-          <a href="users.html" class="btn btn-danger btn-lg deleteEvent" data-events='${events[rng].Name}'>Eliminar</a>
-          `;
+          // console.log(user[0]);
+          let cardBody = document.getElementsByClassName("card-body");
+          cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
+        <p class="card-text event-description">
+          ${events[rng].Description}
+        </p>
+        <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
+        `;
+          // if (user[0] == "Customers") {
+          // // <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-events='${events[rng].Name}'>Desapuntarse</a>
+          // } else {
+          //   let cardBody = document.getElementsByClassName("card-body");
+          //   // console.log(cardBody[0]);
+          //   cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
+          // <p class="card-text event-description">
+          //   ${events[rng].Description}
+          // </p>
+          // <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Name}'>Ver</a>
+          // <a href="users.html" class="btn btn-danger btn-lg deleteEvent" data-events='${events[rng].Name}'>Eliminar</a>
+          // `;
 
-          }
+          // }
         }
       }
       // eventImg[index].innerHTML=`${events[rng].image}`;
@@ -724,7 +724,7 @@ class BaradosView {
 
  <div class="form-group col-6 ">
  <label for="businessDesc">Descripcion</label>
- <textarea name="description">
+ <textarea name="description" cols="55" rows="7" class="descArea">
  ${business[0].Description}
  </textarea>
  </div>
@@ -775,7 +775,7 @@ class BaradosView {
     eventContainer.setAttribute("class", "py-5");
     if (!document.getElementById("eventos")) parent[0].insertBefore(eventContainer, logIn);
 
-    console.log(business);
+    // console.log(business);
     let placeHolder = document.getElementById("bares");
     placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `
@@ -796,7 +796,7 @@ class BaradosView {
 
  <div class="form-group col-12 ">
  <label for="businessDesc">Descripcion</label>
- <textarea name="description" readonly="" cols="55" rows="7">
+ <textarea name="description" readonly="" cols="55" rows="7" class="descArea">
  ${business[0].Description}
  </textarea>
  </div>
@@ -819,63 +819,73 @@ class BaradosView {
     this.ShowEventsCardsOfUsersInfo(events, events.length);
   }
 
-  showBusiness(business, events) {
-    let placeHolder = document.createElement("section");
+//   showBusiness(business, events) {
+//     let placeHolder = document.createElement("section");
 
-    placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
-    placeHolder.innerHTML = `
-    <div class="container row border border-3">
-     <div class="container col-4 d-flex justify-content-center align-items-center">
-     <img src="${images[0].Name}" class="me-3 " alt="user Image" id="userInfo" >
-     </div>
-     <div class="container col-6">
-     <div class=" py-5 px-5 row justify-content-center">
-     <div class="form-group col-12">
-     <h2>Actualizar Negocio</h2>
- </div>
- <div class="row justify-content-center" id="formContainer">
- <div class="form-group col-12 ">
-     <label for="name">Nombre</label>
-     <input type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${business[0].Name}"/>
- </div>
+//     placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
+//     placeHolder.innerHTML = `
+//     <div class="container row border border-3">
+//      <div class="container col-4 d-flex justify-content-center align-items-center">
+//      <img src="${images[0].Name}" class="me-3 " alt="user Image" id="userInfo" >
+//      </div>
+//      <div class="container col-6">
+//      <div class=" py-5 px-5 row justify-content-center">
+//      <div class="form-group col-12">
+//      <h2>Actualizar Negocio</h2>
+//  </div>
+//  <div class="row justify-content-center" id="formContainer">
+//  <div class="form-group col-12 ">
+//      <label for="name">Nombre</label>
+//      <input type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${business[0].Name}"/>
+//  </div>
 
- <div class="form-group col-6 ">
- <label for="businessDesc">Descripcion</label>
- <textarea name="description">
- ${business[0].Description}
- </textarea>
- </div>
- <div class="form-group col-12 ">
-     <label for="email">Email</label>
-     <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
- </div>
- <div class="form-group col-12 ">
-     <label for="password">Contraseña</label>
-     <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-         required id="password"/>
- </div>
+//  <div class="form-group col-6 ">
+//  <label for="businessDesc">Descripcion</label>
+//  <textarea name="description">
+//  ${business[0].Description}
+//  </textarea>
+//  </div>
+//  <div class="form-group col-12 ">
+//      <label for="email">Email</label>
+//      <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
+//  </div>
+//  <div class="form-group col-12 ">
+//      <label for="password">Contraseña</label>
+//      <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+//          required id="password"/>
+//  </div>
 
- <div class="form-group col-12 ">
-     <label for="profilePic">Nueva Imagen de perfil</label>
-     <input type="file" name="profilePic" class="form-control" id="profilePic"/>
- </div>
- <div class="form-group col-12">
-     <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
- </div>
- </div>
-     </div>
-     </div>
-    </div>
-    <section id="events" class="py-5">
+//  <div class="form-group col-12 ">
+//      <label for="profilePic">Nueva Imagen de perfil</label>
+//      <input type="file" name="profilePic" class="form-control" id="profilePic"/>
+//  </div>
+//  <div class="form-group col-12">
+//      <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
+//  </div>
+//  </div>
+//      </div>
+//      </div>
+//     </div>
+//     <section id="events" class="py-5">
     
-    </section>`
+//     </section>`
 
-    let eventsPlaceHolder = document.getElementById("events");
+//     let eventsPlaceHolder = document.getElementById("events");
 
-    placeHolder.appendChild(eventsPlaceHolder);
+//     placeHolder.appendChild(eventsPlaceHolder);
 
-    this.ShowEventsCardsOfUsersInfo(events, events.length);
-  }
+//     this.ShowEventsCardsOfUsersInfo(events, events.length);
+//   }
+
+showFeedback(mensaje){
+  let form=document.forms[0];
+
+  let errorDiv=document.createElement("div");
+  errorDiv.setAttribute("class","alert alert-danger my-2");
+  errorDiv.innerHTML=`<p>${mensaje}</p>`;
+
+  form.appendChild(errorDiv);
+}
 
   /**
 * Funcion que llama al nuevo logIn
@@ -944,7 +954,7 @@ class BaradosView {
 
   bindShowABusiness(handler) {
     for (let element of document.getElementsByClassName('showBusinessInfo')) {
-      console.log(element);
+      // console.log(element);
       element.addEventListener("click", (event) => {
         handler(element.dataset.business)
       });

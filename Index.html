@@ -35,12 +35,12 @@
                             <a class="nav-link active" href="#Events" id="allEvents">Eventos</a>
                         </li>
                     </ul>
-                    <form class="d-flex mb-2 mb-lg-0" role="search">
+                    <!-- <form class="d-flex mb-2 mb-lg-0" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                         <button class="btn btn-outline-success" type="submit">
                             Search
                         </button>
-                    </form>
+                    </form> -->
                 </div>
             </div>
             <div class="sub-menu-wrap" id="sub-menu">
@@ -206,7 +206,11 @@
                     <form action="" role="form" name="flogIn" >
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control" autocomplete="email" required id="email"/>
+                            <!-- ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$ -->
+                            <input type="email" name="email" class="form-control" autocomplete="email" required id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+                            <div class="invalid-feedback">
+                                Por favor introduce un correo electrónico válido.
+                              </div>
                         </div>
                         <a href="users.html" class="LogInForm-change">¿No tienes cuenta? Registrate</a>
                         <!-- <span class="LogInForm-change">¿No tienes cuenta? Registrate</span> -->
@@ -214,6 +218,9 @@
                             <label for="password">Contraseña</label>
                             <input type="password" name="passwd" class="form-control" autocomplete="current-password"
                                 required id="password"/>
+                                <div class="invalid-feedback">
+                                   Por favor introduce una contraseña.
+                                </div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Iniciar</button>

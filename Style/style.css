@@ -168,6 +168,10 @@ nav a:hover {
 	max-width: 100%;
 }
 
+.descArea{
+	max-width: 100%;
+}
+
 /* Estilos para la sección de bares */
 
 #bares {
