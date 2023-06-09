@@ -18,8 +18,9 @@ class BaradosControllerUsers {
     }
 
     onLoad = async () => {
-        let user = sessionStorage.getItem("currentUser").split(" ");
-        if (user.length==1) user= sessionStorage.getItem("currentUser").split(",");
+        let user = [];
+        if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(" ");
+        if (user.length == 1) user = sessionStorage.getItem("currentUser").split(",");
         let currentUser;
         let userBar;
         let eventsId;
@@ -65,9 +66,9 @@ class BaradosControllerUsers {
             // this.#baradosView.bindShowBusinessForm(this.HandleshowBusinessForm);
             this.#baradosView.bindShowUserForm(this.HandleshowUserForm);
         }
-        this.#baradosView.bindShowAllBusiness(this.HandleShowBusiness)
-        this.#baradosView.bindShowAllEvents(this.HandleShowEvents)
-        this.#baradosView.bindShowIndex(this.HandleShowIndex)
+        this.#baradosView.bindShowAllBusinessFromUser(this.HandleShowBusiness)
+        this.#baradosView.bindShowAllEventsFromUser(this.HandleShowEvents)
+        this.#baradosView.bindShowIndexFromUser(this.HandleShowIndex)
     }
 
     HandleshowOwnerForm = () => {
@@ -176,15 +177,24 @@ class BaradosControllerUsers {
     }
 
     HandleShowBusiness = async () => {
-        sessionStorage.setItem("action","Business");
+        sessionStorage.setItem("action", "Business");
+        window.location.href="index.html";
+        // window.open("index.html");
+        // window.close();
     }
 
     HandleShowEvents = async () => {
-       sessionStorage.setItem("action","Events");
+        sessionStorage.setItem("action", "Events");
+        window.location.href="index.html";
+        // window.open("index.html");
+        // window.close();
     }
-
+    
     HandleShowIndex = async () => {
-       sessionStorage.setItem("action","Index");
+        sessionStorage.setItem("action", "Index");
+        window.location.href="index.html";
+        // window.open("index.html");
+        // window.close();
     }
 }
 

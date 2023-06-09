@@ -10,6 +10,13 @@ class BaradosView {
 
   }
 
+  #excecuteHandler(handler, handlerArguments, scrollElement, data, url, event) {
+    handler(handlerArguments);
+    $(scrollElement).get(0).scrollIntoView();
+    history.pushState(data, null, url);
+    event.preventDefault();
+  }
+
   infoUserHeader(name, image) {
     // console.log(document.getElementById("LogInForm"));
 
@@ -1007,7 +1014,18 @@ showFeedback(mensaje){
   bindShowAllBusiness(handler) {
     for (let element of document.getElementsByClassName('allBusiness')) {
       element.addEventListener("click", (event) => {
-        handler()
+        this.#excecuteHandler(handler, [], 'body', { action: 'ShowBusiness' }, '#Negocios', event);
+      });
+      // document.getElementById("allBusiness").addEventListener("click", (event) => {
+      //   handler();
+      // });
+    }
+  }
+
+  bindShowAllBusiness(handler) {
+    for (let element of document.getElementsByClassName('allBusiness')) {
+      element.addEventListener("click", (event) => {
+        handler();
       });
       // document.getElementById("allBusiness").addEventListener("click", (event) => {
       //   handler();
@@ -1019,19 +1037,19 @@ showFeedback(mensaje){
     for (let element of document.getElementsByClassName('showBusinessInfo')) {
       // console.log(element);
       element.addEventListener("click", (event) => {
-        handler(element.dataset.business)
+        this.#excecuteHandler(handler, element.dataset.business, 'body', { action: 'showABusiness', shown: element.dataset.business }, '#NegocioInfo', event);
       });
       // document.getElementById("allBusiness").addEventListener("click", (event) => {
       //   handler();
       // });
     }
   }
-
+//
   bindShowAEvent(handler) {
     for (let element of document.getElementsByClassName('showEventInfo')) {
       // console.log(element);
-      element.addEventListener("click", (event) => {
-        handler(element.dataset.events)
+      element.addEventListener("click", (event) => {  
+        this.#excecuteHandler(handler, element.dataset.events, 'body', { action: 'showAEvent', shown: element.dataset.events }, '#EventoInfo', event);
       });
       // document.getElementById("allBusiness").addEventListener("click", (event) => {
       //   handler();
@@ -1041,16 +1059,41 @@ showFeedback(mensaje){
 
   bindShowAllEvents(handler) {
     document.getElementById("allEvents").addEventListener("click", (event) => {
+      this.#excecuteHandler(handler, [], 'body', { action: 'ShowEvents' }, '#Eventos', event);
+    });
+  }
+
+  bindShowAllEventsFromUser(handler) {
+    document.getElementById("allEvents").addEventListener("click", (event) => {
       handler();
     });
   }
+
+  // bindShowIndex(handler) {
+  //   document.getElementById("index").addEventListener("click", (event) => {
+  //     handler();
+  //   });
+  // }
 
   bindShowIndex(handler) {
-    document.getElementById("index").addEventListener("click", (event) => {
-      handler();
-    });
+    console.log("Berenjena")
+     document.getElementById('index').addEventListener("click", (event) => {
+        this.#excecuteHandler(handler, [], 'body', { action: 'init' }, '#Inicio', event);
+        // handler();
+      });
+
+    }
+
+  bindShowIndexFromUser(handler) {
+    console.log("Berenjena")
+     document.getElementById('index').addEventListener("click", (event) => {
+        handler();
+        // handler();
+      });
+
+    }
   }
 
-}
+
 
 export default BaradosView;
