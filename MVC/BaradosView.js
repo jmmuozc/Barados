@@ -122,7 +122,7 @@ class BaradosView {
               <h2 class="mb-3">Centros de ocio</h2>
           </div>
       </div>
-      <div class="row d-flex justify-content-center" id="baresDisplay">
+      <div class="row d-flex justify-content-center gap-5" id="baresDisplay">
     
       </div>
     </div>`;
@@ -147,24 +147,24 @@ class BaradosView {
           arrayExistent.push(rng);
 
           let newBusiness = document.createElement("div");
-          newBusiness.setAttribute("class", "col-md-6 col-lg-4");
+          newBusiness.setAttribute("class", "card col-md-3 col-lg-3");
           newBusiness.innerHTML = `
-          <div class="card mb-4">
-          <img src="${business[rng].Main_Image}" class="card-img-top bar-img" alt="..." width=350px height=250px/>
-          <div class="card-body">
+          <img src="${business[rng].Main_Image}" class="card-img-top bar-img" alt="${business[rng].Name}" width=350px height=250px/>
           <h3 class="card-title bar-title">${business[rng].Name}</h3>
-          <p class="card-text bar-description">
+          <div class="card-body d-flex flex-column justify-content-between">
+          <span class="card-text bar-description">
           ${business[rng].Description}
-          </p>
+          </span>
           <a href="#BusinessInfo" class="btn btn-primary btn-lg showBusinessInfo" data-business='${business[rng].Id}'>Ver</a>
           </div>
-          </div>
+      
           `;
           businessDiv.appendChild(newBusiness);
         }
       }
     }
-    // eventImg[index].innerHTML=`${events[rng].image}`;
+
+   
   }
 
   ShowBusinessCardsOfOwners(business, MAX) {
@@ -176,7 +176,7 @@ class BaradosView {
               <h2 class="mb-3">Centros de ocio</h2>
           </div>
       </div>
-      <div class="row d-flex justify-content-center" id="baresDisplay">
+      <div class="row d-flex justify-content-center gap-5" id="baresDisplay">
     
       </div>
     </div>`;
@@ -201,10 +201,9 @@ class BaradosView {
           arrayExistent.push(rng);
 
           let newBusiness = document.createElement("div");
-          newBusiness.setAttribute("class", "col-md-6 col-lg-4");
+          newBusiness.setAttribute("class", "card mb-4 col-md-3 col-lg-3");
           newBusiness.innerHTML = `
-          <div class="card mb-4">
-          <img src="${business[rng].Main_Image}" class="card-img-top bar-img" alt="..." width=350px height=250px/>
+          <img src="${business[rng].Main_Image}" class="card-img-top bar-img" alt="${business[rng].Name}" width=350px height=250px/>
           <div class="card-body">
           <h3 class="card-title bar-title">${business[rng].Name}</h3>
           <p class="card-text bar-description">
@@ -212,17 +211,20 @@ class BaradosView {
           </p>
           <a href="#BusinessInfo" class="btn btn-primary btn-lg showBusinessInfo" data-business='${business[rng].Id}'>Ver</a>
           </div>
-          </div>
           `;
           businessDiv.appendChild(newBusiness);
         }
         let cardBody = document.getElementsByClassName("card-body");
-        cardBody[index].innerHTML = `<h3 class="card-title event-name">${business[rng].Name}</h3>
-          <p class="card-text event-description">
+        cardBody[index].setAttribute("class","card-body d-flex flex-column justify-content-between");
+        cardBody[index].innerHTML = `
+        <h3 class="card-title event-name">${business[rng].Name}</h3>
+          <span class="card-text event-description">
             ${business[rng].Description}
-          </p>
+          </span>
+          <div class="d-flex justify-content-around">
           <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-business='${business[rng].Id}'>Ver</a>
           <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-business='${business[rng].Id}'>Eliminar</a>
+          </div>
           `;
       }
     }
@@ -238,7 +240,7 @@ class BaradosView {
               <h2 class="mb-3">Eventos</h2>
           </div>
       </div>
-      <div class="row d-flex justify-content-center" id="eventosDisplay">
+      <div class="row d-flex justify-content-center gap-5" id="eventosDisplay">
     
       </div>
     </div>`;
@@ -262,17 +264,15 @@ class BaradosView {
           arrayExistent.push(rng);
 
           let newEvent = document.createElement("div");
-          newEvent.setAttribute("class", "col-md-6 col-lg-4");
+          newEvent.setAttribute("class", "card mb-4 col-md-3 col-lg-3");
           newEvent.innerHTML = `
-        <div class="card mb-4">
-            <img src="${events[rng].Image}" class="card-img-top event-img" alt="..." width=350px height=250px/>
-            <div class="card-body">
-                <h3 class="card-title event-name">${events[rng].Name}</h3>
-                <p class="card-text event-description">
+            <img src="${events[rng].Image}" class="card-img-top event-img" alt="${events[rng].Name}" width=350px height=250px/>
+            <h3 class="card-title event-name">${events[rng].Name}</h3>
+            <div class="card-body d-flex flex-column justify-content-between">
+                <span class="card-text event-description">
                   ${events[rng].Description}
-                </p>
+                </span>
                 <a href="#EventInfo" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Id}'>Ver</a>
-            </div>
         </div>
         `;
 
@@ -292,7 +292,7 @@ class BaradosView {
               <h2 class="mb-3">Eventos</h2>
           </div>
       </div>
-      <div class="row d-flex justify-content-center" id="eventosDisplay">
+      <div class="row d-flex justify-content-center gap-5" id="eventosDisplay">
     
       </div>
     </div>`;
@@ -316,13 +316,11 @@ class BaradosView {
           arrayExistent.push(rng);
 
           let newEvent = document.createElement("div");
-          newEvent.setAttribute("class", "col-md-6 col-lg-4");
+          newEvent.setAttribute("class", "card mb-4 col-md-6 col-lg-4");
           newEvent.innerHTML = `
-        <div class="card mb-4">
-            <img src="${events[rng].Image}" class="card-img-top event-img" alt="..." width=350px height=250px/>
+            <img src="${events[rng].Image}" class="card-img-top event-img" alt="${events[rng].Name}" width=350px height=250px/>
             <div class="card-body">
 
-            </div>
         </div>
         `;
           eventsDiv.appendChild(newEvent);
@@ -370,7 +368,7 @@ class BaradosView {
     <form action="" role="form" name="flogIn" >
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" name="email" class="form-control" autocomplete="email" required id="email"/>
+            <input type="email" name="email" class="form-control" autocomplete="email" required id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
         </div>
         <a href="users.html" class="LogInForm-change">¿No tienes cuenta? Registrate</a>
         <!-- <span class="LogInForm-change">¿No tienes cuenta? Registrate</span> -->
@@ -424,28 +422,42 @@ class BaradosView {
   <div class="form-group col-12 ">
       <label for="name">Nombre</label>
       <input type="text" name="name" class="form-control" autocomplete="name" required id="name"/>
+      <div class="invalid-feedback">
+      Introduce un nombre
+    </div>
   </div>
  
   <div class="form-group col-6 ">
   <label for="genre">Género</label>
   <select class="form-select" name="genre" id=genre>
+  <option value="N/A" selected>Prefiero no decirlo</option>
   <option value="Hombre">Hombre</option>
   <option value="Mujer">Mujer</option>
-  <option value="N/A">No binario</option>
+  <option value="No binario">No binario</option>
   </select>
   </div>
   <div class="form-group col-6 ">
       <label for="birth">Nacido</label>
       <input type="date" name="birth" class="form-control" autocomplete="birth" required id="birth"/>
+      <div class="invalid-feedback">
+      Introduce una fecha válida
+    </div>
+      
   </div>
   <div class="form-group col-12 ">
       <label for="email">Email</label>
-      <input type="email" name="email" class="form-control" autocomplete="email" required id="email"/>
+      <input type="email" name="email" class="form-control" autocomplete="email" required id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+      <div class="invalid-feedback">
+        Por favor introduce un correo electrónico válido.
+      </div>
   </div>
   <div class="form-group col-12 ">
       <label for="password">Contraseña</label>
       <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-          required id="password"/>
+          required id="password"  pattern=".{6,}"/>
+          <div class="invalid-feedback">
+          La contraseña debe tener 6 caracteres mínimo.
+        </div>
   </div>
  
   <div class="form-group col-12 ">
@@ -472,11 +484,15 @@ class BaradosView {
     <div class="form-group col-12 ">
         <label for="name">Nombre</label>
         <input type="text" name="name" class="form-control" autocomplete="name" required id="name"/>
+        <div class="invalid-feedback">
+        Introduce un nombre
+      </div>
     </div>
    
     <div class="form-group col-6 ">
     <label for="genre">Género</label>
     <select class="form-select" name="genre">
+    <option value="N/A" selected disabled></option>
     <option value="Hombre">Hombre</option>
     <option value="Mujer">Mujer</option>
     <option value="N/A">No binario</option>
@@ -485,15 +501,24 @@ class BaradosView {
     <div class="form-group col-6 ">
         <label for="birth">Nacido</label>
         <input type="date" name="birth" class="form-control" autocomplete="birth" required />
+        <div class="invalid-feedback">
+        Introduce una fecha válida
+      </div>
     </div>
     <div class="form-group col-12 ">
         <label for="email">Email</label>
-        <input type="email" name="email" class="form-control" autocomplete="email" required />
+        <input type="email" name="email" class="form-control" autocomplete="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+        <div class="invalid-feedback">
+          Por favor introduce un correo electrónico válido.
+        </div>
     </div>
     <div class="form-group col-12 ">
         <label for="password">Contraseña</label>
         <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-            required />
+            required pattern=".{6,}"/>
+            <div class="invalid-feedback">
+            La contraseña debe tener 6 caracteres mínimo.
+          </div>
     </div>
    
     <div class="form-group col-12 ">
@@ -526,6 +551,7 @@ class BaradosView {
     <div class="form-group col-6 ">
     <label for="genre">Género</label>
     <select class="form-select" name="genre" id="genre">
+    <option value="N/A" selected>Prefiero no decirlo</option>
     <option value="Hombre">Hombre</option>
     <option value="Mujer">Mujer</option>
     <option value="N/A">No binario</option>
@@ -539,12 +565,6 @@ class BaradosView {
         <label for="email">Email</label>
         <input type="email" name="email" class="form-control" autocomplete="email" required id="email"/>
     </div>
-    <div class="form-group col-12 ">
-        <label for="password">Contraseña</label>
-        <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-            required id="password"/>
-    </div>
-   
     <div class="form-group col-12 ">
         <label for="profilePic">Imagen de perfil</label>
         <input type="file" name="profilePic" class="form-control" id="profilePic"/>
@@ -619,12 +639,6 @@ class BaradosView {
      <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
  </div>
  <div class="form-group col-12 ">
-     <label for="password">Contraseña</label>
-     <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-         required id="password"/>
- </div>
-
- <div class="form-group col-12 ">
      <label for="profilePic">Nueva Imagen de perfil</label>
      <input type="file" name="profilePic" class="form-control" id="profilePic"/>
  </div>
@@ -681,11 +695,6 @@ class BaradosView {
      <label for="email">Email</label>
      <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
  </div>
- <div class="form-group col-12 ">
-     <label for="password">Contraseña</label>
-     <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-         required id="password"/>
- </div>
 
  <div class="form-group col-12 ">
      <label for="profilePic">Nueva Imagen de perfil</label>
@@ -738,11 +747,6 @@ class BaradosView {
  <div class="form-group col-12 ">
      <label for="email">Email</label>
      <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
- </div>
- <div class="form-group col-12 ">
-     <label for="password">Contraseña</label>
-     <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-         required id="password"/>
  </div>
 
  <div class="form-group col-12 ">
@@ -947,11 +951,11 @@ class BaradosView {
 //     this.ShowEventsCardsOfUsersInfo(events, events.length);
 //   }
 
-showFeedback(mensaje){
+showFeedback(mensaje,kind="danger"){
   let form=document.forms[0];
 
   let errorDiv=document.createElement("div");
-  errorDiv.setAttribute("class","alert alert-danger my-2");
+  errorDiv.setAttribute("class",`alert alert-${kind} my-2`);
   errorDiv.innerHTML=`<p>${mensaje}</p>`;
 
   form.appendChild(errorDiv);
@@ -1022,7 +1026,7 @@ showFeedback(mensaje){
     }
   }
 
-  bindShowAllBusiness(handler) {
+  bindShowAllBusinessFromUser(handler) {
     for (let element of document.getElementsByClassName('allBusiness')) {
       element.addEventListener("click", (event) => {
         handler();

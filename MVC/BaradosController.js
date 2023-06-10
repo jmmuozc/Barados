@@ -29,15 +29,19 @@ class BaradosController {
         // console.log(customers);
         // console.log(owners);
         // console.log(await this.#baradosModel.logOff());
-        this.#baradosView.ShowBusinessCards(business, 3);
-        this.#baradosView.ShowEventsCards(events, 3)
+        if (!sessionStorage.getItem("action")) {
+            this.#baradosView.ShowBusinessCards(business, 3);
+            this.#baradosView.ShowEventsCards(events, 3)
+        }
         
     }
     
     onInit =async () => {
         let currentUserEmail = await this.#baradosModel.currentUser();
+        // await this.#baradosModel.logOff();
         let user;
         let action=sessionStorage.getItem("action");
+        console.log(currentUserEmail);
         if (currentUserEmail != false) {
     
             let currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Email: currentUserEmail });

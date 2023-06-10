@@ -92,45 +92,102 @@ class BaradosControllerUsers {
     HandleNewOwner = async (name, email, genre, birth, picture, passwd) => {
 
         let exists = [];
+        let regex = RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$");
+        let today = new Date();
         try {
             exists = await this.#baradosModel.fetchDataWhere("Owner", { Email: email });
+            if (exists.length == 0) {
+                exists = await this.#baradosModel.fetchDataWhere("Customers", { Email: email });
+            }
+            if (exists.length == 0) {
+                exists = await this.#baradosModel.fetchDataWhere("Business", { Email: email });
+            }
         } catch (error) {
             console.log(error);
         }
-        // console.log(pic);
-        console.log(picture);
-        console.log(exists.length);
-        if (exists.length == 0) {
-            exists = await this.#baradosModel.createUser({ email: email, password: passwd });
-            if (picture == undefined) {
-                picture = "/Media/default-user-icon.jpg";
-            } else {
-                picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/BusinessImages");
-            }
-            await this.#baradosModel.insertInto("Owner", { Name: name, Email: email, Genre: genre, Birth_Date: birth, Image: picture });
 
+        if (exists.length == 0) {
+            if (regex.test(email)) {
+                regex = RegExp(".{6,}");
+                if (regex.test(passwd)) {
+                    if (name != "") {
+                        if (Date.parse(this.birth) < today.getTime() || this.birth != "") {
+                            exists = await this.#baradosModel.createUser({ email: email, password: passwd });
+                            if (picture == undefined) {
+                                picture = "/Media/default-user-icon.jpg";
+                            } else {
+                                picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/UsersImages");
+                            }
+
+                            await this.#baradosModel.insertInto("Owner", { Name: name, Email: email, Genre: genre, Birth_Date: birth, Image: picture });
+
+                            this.#baradosView.showFeedback("Usuario creado con exito", "success");
+                        } else {
+                            this.#baradosView.showFeedback("Introduce una fecha válido");
+                        }
+                    } else {
+                        this.#baradosView.showFeedback("Introduce un nombre válido");
+                    }
+
+                } else {
+                    this.#baradosView.showFeedback("La contraseña debe tener 6 caracteres mínimo");
+                }
+            } else {
+                this.#baradosView.showFeedback("Introduce un correo válido");
+            }
+        } else {
+            this.#baradosView.showFeedback("Ya existe un usuario con este correo");
         }
     }
 
     HandleNewClient = async (name, email, genre, birth, picture, passwd) => {
         let exists = [];
+        let regex = RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$");
+        let today = new Date();
         try {
-            exists = await this.#baradosModel.fetchDataWhere("Customers", { Email: email });
+            exists = await this.#baradosModel.fetchDataWhere("Owner", { Email: email });
+            if (exists.length == 0) {
+                exists = await this.#baradosModel.fetchDataWhere("Customers", { Email: email });
+            }
+            if (exists.length == 0) {
+                exists = await this.#baradosModel.fetchDataWhere("Business", { Email: email });
+            }
         } catch (error) {
             console.log(error);
         }
-        // console.log(pic);
+
         if (exists.length == 0) {
-            exists = await this.#baradosModel.createUser({ email: email, password: passwd });
-            if (picture == undefined) {
-                picture = "/Media/default-user-icon.jpg";
+            if (regex.test(email)) {
+                regex = RegExp(".{6,}");
+                if (regex.test(passwd)) {
+                    if (name != "") {
+                        if (Date.parse(this.birth) < today.getTime() || this.birth != "") {
+                            exists = await this.#baradosModel.createUser({ email: email, password: passwd });
+                            if (picture == undefined) {
+                                picture = "/Media/default-user-icon.jpg";
+                            } else {
+                                picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/UsersImages");
+                            }
+
+                            await this.#baradosModel.insertInto("Customers", { Name: name, Email: email, Genre: genre, Birth_Date: birth, Image: picture });
+
+                            this.#baradosView.showFeedback("Usuario creado con exito", "success");
+                        } else {
+                            this.#baradosView.showFeedback("Introduce una fecha válido");
+                        }
+                    } else {
+                        this.#baradosView.showFeedback("Introduce un nombre válido");
+                    }
+
+                } else {
+                    this.#baradosView.showFeedback("La contraseña debe tener 6 caracteres mínimo");
+                }
             } else {
-                picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/BusinessImages");
+                this.#baradosView.showFeedback("Introduce un correo válido");
             }
-            await this.#baradosModel.insertInto("Customers", { Name: name, Email: email, Genre: genre, Birth_Date: birth, Image: picture });
-
+        } else {
+            this.#baradosView.showFeedback("Ya existe un usuario con este correo");
         }
-
     }
 
     HandleNewBusiness = async (name, location, description, email, passwd, picture) => {
@@ -178,24 +235,25 @@ class BaradosControllerUsers {
 
     HandleShowBusiness = async () => {
         sessionStorage.setItem("action", "Business");
-        window.location.href="index.html";
+        window.location.href = "index.html";
         // window.open("index.html");
         // window.close();
     }
 
     HandleShowEvents = async () => {
         sessionStorage.setItem("action", "Events");
-        window.location.href="index.html";
+        window.location.href = "index.html";
         // window.open("index.html");
         // window.close();
     }
-    
+
     HandleShowIndex = async () => {
         sessionStorage.setItem("action", "Index");
-        window.location.href="index.html";
+        window.location.href = "index.html";
         // window.open("index.html");
         // window.close();
     }
+
 }
 
 export default BaradosControllerUsers;

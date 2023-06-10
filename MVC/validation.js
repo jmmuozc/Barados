@@ -106,6 +106,7 @@ function newBusinessValidation(handler) {
 
 function newClientValidation(handler) {
     let form = document.forms.fUser;
+    let today= new Date();
     $(form).attr('novalidate', true);
     $(form).submit(function (event) {
         let isValid = true;
@@ -117,8 +118,8 @@ function newClientValidation(handler) {
         } else {
             showFeedBack($(this.name), true);
         }
-
-        if (!this.birth.checkValidity() || !isValid) {
+       
+        if (Date.parse(this.birth.value)>today.getTime() || this.birth.value=="") {
             isValid = false;
             showFeedBack($(this.birth), false);
             firstInvalidElement = this.birth;
@@ -126,15 +127,15 @@ function newClientValidation(handler) {
             showFeedBack($(this.birth), true);
         }
 
-        if (!this.genre.checkValidity() || !isValid) {
-            isValid = false;
-            showFeedBack($(this.genre), false);
-            firstInvalidElement = this.genre;
-        } else {
-            showFeedBack($(this.genre), true);
-        }
+        // if (!this.genre.checkValidity() || !isValid) {
+        //     isValid = false;
+        //     showFeedBack($(this.genre), false);
+        //     firstInvalidElement = this.genre;
+        // } else {
+        //     showFeedBack($(this.genre), true);
+        // }
 
-        if (!this.email.checkValidity() || !isValid) {
+        if (!this.email.checkValidity()) {
             isValid = false;
             showFeedBack($(this.email), false);
             firstInvalidElement = this.email;
@@ -142,28 +143,26 @@ function newClientValidation(handler) {
             showFeedBack($(this.email), true);
         }
         
-        if (!this.profilePic.checkValidity() || !isValid) {
-            isValid = false;
-            showFeedBack($(this.profilePic), false);
-            firstInvalidElement = this.profilePic;
-        } else {
-            showFeedBack($(this.profilePic), true);
-        }
+        // if (!this.profilePic.checkValidity() || !isValid) {
+        //     isValid = false;
+        //     showFeedBack($(this.profilePic), false);
+        //     firstInvalidElement = this.profilePic;
+        // } else {
+        //     showFeedBack($(this.profilePic), true);
+        // }
         
-        if (!this.passwd.checkValidity() || !isValid) {
+        if (!this.passwd.checkValidity()) {
             isValid = false;
             showFeedBack($(this.passwd), false);
             firstInvalidElement = this.passwd;
         } else {
             showFeedBack($(this.passwd), true);
         }
-        console.log(passwd);
-        console.log(passwd.checkValidity());
 
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(this.name.value, this.email.value, this.genre.value, this.birth.value, this.profilePic.value, this.passwd.value);
+            handler(this.name.value, this.email.value.toLowerCase(), this.genre.value, this.birth.value, this.profilePic.value, this.passwd.value);
         }
         event.preventDefault();
         event.stopPropagation();
@@ -171,12 +170,11 @@ function newClientValidation(handler) {
 }
 function newOwnerValidation(handler) {
     let form = document.forms.fOwner;
-    console.log(form);
+    let today= new Date();
     $(form).attr('novalidate', true);
     $(form).submit(function (event) {
         let isValid = true;
         let firstInvalidElement = null;
-        this.name.value = this.name.value.trim();
         if (this.name.value == "") {
             showFeedBack($(this.name), false);
             isValid = false;
@@ -184,39 +182,32 @@ function newOwnerValidation(handler) {
             showFeedBack($(this.name), true);
         }
 
-        if (!this.birth.checkValidity() || !isValid) {
+        if (Date.parse(this.birth.value)>today.getTime() || this.birth.value=="") {
             isValid = false;
             showFeedBack($(this.birth), false);
             firstInvalidElement = this.birth;
         } else {
             showFeedBack($(this.birth), true);
         }
+        //     console.log(this.genre.value);
+        //     console.log(!this.genre.checkValidity());
+        // if (!this.genre.checkValidity() || !isValid) {
+        //     isValid = false;
+        //     showFeedBack($(this.genre), false);
+        //     firstInvalidElement = this.genre;
+        // } else {
+        //     showFeedBack($(this.genre), true);
+        // }
 
-        if (!this.genre.checkValidity() || !isValid) {
-            isValid = false;
-            showFeedBack($(this.genre), false);
-            firstInvalidElement = this.genre;
-        } else {
-            showFeedBack($(this.genre), true);
-        }
-
-        if (!this.email.checkValidity() || !isValid) {
+        if (!this.email.checkValidity()) {
             isValid = false;
             showFeedBack($(this.email), false);
             firstInvalidElement = this.email;
         } else {
             showFeedBack($(this.email), true);
         }
-
-        if (!this.profilePic.checkValidity() || !isValid) {
-            isValid = false;
-            showFeedBack($(this.profilePic), false);
-            firstInvalidElement = this.profilePic;
-        } else {
-            showFeedBack($(this.profilePic), true);
-        }
         
-        if (!this.passwd.checkValidity() || !isValid) {
+        if (!this.passwd.checkValidity()) {
             isValid = false;
             showFeedBack($(this.passwd), false);
             firstInvalidElement = this.passwd;
