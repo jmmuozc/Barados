@@ -38,6 +38,7 @@ class BaradosControllerUsers {
 
                 }
                 this.#baradosView.showOwnerInfo(currentUser, userBar);
+                this.#baradosView.bindUpdateOwner(this.HandleUpdateOwner);
             }
             if (user[0] == "Customers") {
                 currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Id: user[1] });
@@ -48,6 +49,7 @@ class BaradosControllerUsers {
                 }
                 console.log(userEvent)
                 this.#baradosView.showCustomerInfo(currentUser, userEvent);
+                this.#baradosView.bindUpdateUser(this.HandleUpdateUser);
             }
             if (user[0] == "Business") {
                 currentUser = await this.#baradosModel.fetchDataWhere("Business", { Id: user[1] });
@@ -140,6 +142,44 @@ class BaradosControllerUsers {
         }
     }
 
+    HandleUpdateOwner = async (name, genre, picture) => {
+        let user;
+        if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(" ");
+        if (user.length == 1) user = sessionStorage.getItem("currentUser").split(",");
+
+        if (name != "") {
+            if (picture == undefined) {
+                this.#baradosModel.updateDataWhere("Owner", { Name: name, Genre: genre }, user[1])
+            } else {
+                picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/UsersImages");
+                this.#baradosModel.updateDataWhere("Owner", { Name: name, Genre: genre, Image: picture }, user[1])
+            }
+        } else {
+            this.#baradosView.showFeedback("Introduce un nombre válido");
+        }
+
+       this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página","success")
+    }
+
+    HandleUpdateUser = async (name, genre, picture) => {
+        let user;
+        if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(" ");
+        if (user.length == 1) user = sessionStorage.getItem("currentUser").split(",");
+
+        if (name != "") {
+            if (picture == undefined) {
+                this.#baradosModel.updateDataWhere("Customers", { Name: name, Genre: genre }, user[1])
+            } else {
+                picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/UsersImages");
+                this.#baradosModel.updateDataWhere("Customers", { Name: name, Genre: genre, Image: picture }, user[1])
+            }
+        } else {
+            this.#baradosView.showFeedback("Introduce un nombre válido");
+        }
+
+       this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página","success")
+    }
+
     HandleNewClient = async (name, email, genre, birth, picture, passwd) => {
         let exists = [];
         let regex = RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$");
@@ -210,6 +250,8 @@ class BaradosControllerUsers {
         }
     }
 
+
+
     HandleFormReturn = () => {
         this.#baradosView.ShowSignUpForms();
         this.#baradosView.bindShowOwnerForm(this.HandleshowOwnerForm);
@@ -220,8 +262,7 @@ class BaradosControllerUsers {
         await this.#baradosModel.logOff();
         sessionStorage.setItem("currentUser", "");
         document.getElementById("signUp").setAttribute("class", "py-3 bg-light main d-flex justify-content-center");
-        window.open("index.html");
-        window.close();
+        window.location.href = "index.html";
         // this.#baradosView.ShowSignUpForms();
         // this.#baradosView.bindShowOwnerForm(this.HandleshowOwnerForm);
         // this.#baradosView.bindShowUserForm(this.HandleshowUserForm);
@@ -233,21 +274,21 @@ class BaradosControllerUsers {
         subMenu.classList.toggle("open-menu");
     }
 
-    HandleShowBusiness = async () => {
+    HandleShowBusiness = () => {
         sessionStorage.setItem("action", "Business");
         window.location.href = "index.html";
         // window.open("index.html");
         // window.close();
     }
 
-    HandleShowEvents = async () => {
+    HandleShowEvents = () => {
         sessionStorage.setItem("action", "Events");
         window.location.href = "index.html";
         // window.open("index.html");
         // window.close();
     }
 
-    HandleShowIndex = async () => {
+    HandleShowIndex = () => {
         sessionStorage.setItem("action", "Index");
         window.location.href = "index.html";
         // window.open("index.html");

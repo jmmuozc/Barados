@@ -225,4 +225,50 @@ function newOwnerValidation(handler) {
     });
 }
 
-export {logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation} ;
+function updateOwnerValidation(handler) {
+    let form = document.forms.fUpdateOwner;
+    console.log(form);
+    $(form).attr('novalidate', true);
+    $(form).submit(function (event) {
+        let isValid = true;
+        let firstInvalidElement = null;
+        if (this.name.value == "") {
+            showFeedBack($(this.name), false);
+            isValid = false;
+        } else {
+            showFeedBack($(this.name), true);
+        }
+        if (!isValid) {
+            firstInvalidElement.focus();
+        } else {
+            handler(this.name.value, this.genre.value,this.profilePic.files[0]);
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    });
+}
+
+function updateUserValidation(handler) {
+    let form = document.forms.fUpdateUser;
+    console.log(form);
+    $(form).attr('novalidate', true);
+    $(form).submit(function (event) {
+        let isValid = true;
+        let firstInvalidElement = null;
+        if (this.name.value == "") {
+            showFeedBack($(this.name), false);
+            isValid = false;
+        } else {
+            showFeedBack($(this.name), true);
+        }
+        if (!isValid) {
+            firstInvalidElement.focus();
+        } else {
+            handler(this.name.value, this.genre.value,this.profilePic.files[0]);
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    });
+}
+
+export {logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation, updateOwnerValidation,updateUserValidation} ;

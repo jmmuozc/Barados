@@ -1,6 +1,6 @@
 "use strict";
 
-import { logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation } from "./validation.js";
+import { logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation,updateOwnerValidation,updateUserValidation } from "./validation.js";
 
 class BaradosView {
 
@@ -430,7 +430,7 @@ class BaradosView {
   <div class="form-group col-6 ">
   <label for="genre">Género</label>
   <select class="form-select" name="genre" id=genre>
-  <option value="N/A" selected>Prefiero no decirlo</option>
+  <option value="No especificado" selected>Prefiero no decirlo</option>
   <option value="Hombre">Hombre</option>
   <option value="Mujer">Mujer</option>
   <option value="No binario">No binario</option>
@@ -475,7 +475,7 @@ class BaradosView {
   showBusinessForm() {
     let placeHolder = document.getElementById("signUp");
     placeHolder.innerHTML = ` <section class="py-5 px-5 my-5 container" id="signUpContainer">
-    <form class="border border-3 py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fOwner">
+    <form class="border border-3 py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fBusiness">
     <span id="returnSpan">< Volver</span>
     <div class="form-group col-12">
         <h2>Nuevo Negocio</h2>
@@ -492,10 +492,10 @@ class BaradosView {
     <div class="form-group col-6 ">
     <label for="genre">Género</label>
     <select class="form-select" name="genre">
-    <option value="N/A" selected disabled></option>
+    <option value="No especificado" selected disabled>Prefiero no decirlo</option>
     <option value="Hombre">Hombre</option>
     <option value="Mujer">Mujer</option>
-    <option value="N/A">No binario</option>
+    <option value="No binario">No binario</option>
     </select>
     </div>
     <div class="form-group col-6 ">
@@ -546,28 +546,46 @@ class BaradosView {
     <div class="form-group col-12 ">
         <label for="name">Nombre</label>
         <input type="text" name="name" class="form-control" autocomplete="name" required id="name"/>
+        <div class="invalid-feedback">
+        Introduce un nombre
+      </div>
     </div>
    
     <div class="form-group col-6 ">
     <label for="genre">Género</label>
-    <select class="form-select" name="genre" id="genre">
-    <option value="N/A" selected>Prefiero no decirlo</option>
+    <select class="form-select" name="genre">
+    <option value="No especificado" selected>Prefiero no decirlo</option>
     <option value="Hombre">Hombre</option>
     <option value="Mujer">Mujer</option>
-    <option value="N/A">No binario</option>
+    <option value="No binario">No binario</option>
     </select>
     </div>
     <div class="form-group col-6 ">
         <label for="birth">Nacido</label>
-        <input type="date" name="birth" class="form-control" autocomplete="birth" required id="birth"/>
+        <input type="date" name="birth" class="form-control" autocomplete="birth" required />
+        <div class="invalid-feedback">
+        Introduce una fecha válida
+      </div>
     </div>
     <div class="form-group col-12 ">
         <label for="email">Email</label>
-        <input type="email" name="email" class="form-control" autocomplete="email" required id="email"/>
+        <input type="email" name="email" class="form-control" autocomplete="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+        <div class="invalid-feedback">
+          Por favor introduce un correo electrónico válido.
+        </div>
     </div>
     <div class="form-group col-12 ">
+        <label for="password">Contraseña</label>
+        <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+            required pattern=".{6,}"/>
+            <div class="invalid-feedback">
+            La contraseña debe tener 6 caracteres mínimo.
+          </div>
+    </div>
+   
+    <div class="form-group col-12 ">
         <label for="profilePic">Imagen de perfil</label>
-        <input type="file" name="profilePic" class="form-control" id="profilePic"/>
+        <input type="file" name="profilePic" class="form-control"/>
     </div>
     <div class="form-group col-12">
         <button type="submit" class="btn btn-primary mt-3">Registrarse</button>
@@ -611,7 +629,7 @@ class BaradosView {
      <img src="${user[0].Image}" class="me-3 " alt="user Image" id="userInfo" >
      </div>
      <div class="container col-6">
-     <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
+     <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateOwner">
      <div class="form-group col-12">
      <h2>Actualizar Propietario</h2>
  </div>
@@ -627,7 +645,7 @@ class BaradosView {
  <option value="${user[0].Genre}" selected disabled>${user[0].Genre}</option>
  <option value="Hombre">Hombre</option>
  <option value="Mujer">Mujer</option>
- <option value="N/A">No binario</option>
+ <option value="No binario">No binario</option>
  </select>
  </div>
  <div class="form-group col-6 ">
@@ -684,7 +702,7 @@ class BaradosView {
  <option value="${user[0].Genre}" selected disabled>${user[0].Genre}</option>
  <option value="Hombre">Hombre</option>
  <option value="Mujer">Mujer</option>
- <option value="N/A">No binario</option>
+ <option value="No binario">No binario</option>
  </select>
  </div>
  <div class="form-group col-6 ">
@@ -693,7 +711,7 @@ class BaradosView {
  </div>
  <div class="form-group col-12 ">
      <label for="email">Email</label>
-     <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
+     <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}" readonly/>
  </div>
 
  <div class="form-group col-12 ">
@@ -951,14 +969,28 @@ class BaradosView {
 //     this.ShowEventsCardsOfUsersInfo(events, events.length);
 //   }
 
-showFeedback(mensaje,kind="danger"){
+showFeedback(mensaje,type="danger"){
   let form=document.forms[0];
+  let errorDiv;
 
-  let errorDiv=document.createElement("div");
-  errorDiv.setAttribute("class",`alert alert-${kind} my-2`);
-  errorDiv.innerHTML=`<p>${mensaje}</p>`;
+  if (document.getElementById("OwnFeedback")==null) {
+    errorDiv=document.createElement("div") 
+    errorDiv.setAttribute("class",`alert alert-${type} my-2`);
+    errorDiv.setAttribute("id",`OwnFeedback`);
+    errorDiv.innerHTML=`<p>${mensaje}</p>`;
+  
+    form.appendChild(errorDiv);
 
-  form.appendChild(errorDiv);
+    
+  }else{
+    errorDiv=document.getElementById("OwnFeedback") ;
+    
+    errorDiv.setAttribute("class",`alert alert-${type} my-2`);
+    errorDiv.setAttribute("id",`OwnFeedback`);
+    errorDiv.innerHTML=`<p>${mensaje}</p>`;
+  
+  } 
+  
 }
 
   /**
@@ -977,6 +1009,14 @@ showFeedback(mensaje,kind="danger"){
   }
   bindNewBusiness(handler) {
     newBusinessValidation(handler);
+  }
+
+  bindUpdateOwner(handler){
+    updateOwnerValidation(handler);
+  }
+
+  bindUpdateUser(handler){
+    updateUserValidation(handler);
   }
 
   bindShowUserSubMenu(handler) {

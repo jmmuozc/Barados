@@ -45,6 +45,13 @@ class Barados {
     return JSON.parse(JSON.stringify(data));
   }
 
+  updateDataWhere = async(table,newData,idUser)=>{
+    const { error } = await this.#supabaseConnection
+  .from(table)
+  .update(newData)
+  .eq('Id', idUser);
+  }
+
   insertInto = async (table, newData) => {
 
     const {data, error } = await this.#supabaseConnection
@@ -67,9 +74,6 @@ class Barados {
       email: email,
       password: passwd,
     });
-
-
-
 
     if (error == null) {
       return data.user["email"];
