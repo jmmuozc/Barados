@@ -53,7 +53,10 @@ class BaradosControllerUsers {
             }
             if (user[0] == "Business") {
                 currentUser = await this.#baradosModel.fetchDataWhere("Business", { Id: user[1] });
-                this.#baradosView.showBusinessInfo(currentUser);
+                eventsId= await this.#baradosModel.fetchDataWhere("Events", { Business_Id: user[1] });
+                this.#baradosView.showBusinessInfo(currentUser,eventsId,user);
+                this.#baradosView.bindUpdateBusiness(this.HandleUpdateBusiness);
+                this.#baradosView.bindEventForm(this.HandleNewEvent);
             }
             sessionStorage.setItem("currentUser", user);
 
@@ -180,6 +183,25 @@ class BaradosControllerUsers {
        this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página","success")
     }
 
+    HandleUpdateBusiness = async (name, description, picture) => {
+        let user;
+        if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(" ");
+        if (user.length == 1) user = sessionStorage.getItem("currentUser").split(",");
+        console.log("merequetengue");
+        if (name != "") {
+            if (picture == undefined) {
+                this.#baradosModel.updateDataWhere("Business", { Name: name, Description: description }, user[1])
+            } else {
+                picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/BusinessImages");
+                this.#baradosModel.updateDataWhere("Business", { Name: name,Description: description, Image: picture }, user[1])
+            }
+        } else {
+            this.#baradosView.showFeedback("Introduce un nombre válido");
+        }
+
+       this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página","success")
+    }
+
     HandleNewClient = async (name, email, genre, birth, picture, passwd) => {
         let exists = [];
         let regex = RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$");
@@ -245,9 +267,19 @@ class BaradosControllerUsers {
             } else {
                 picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/BusinessImages");
             }
-            await this.#baradosModel.insertInto("Business", { Name: name, Location: location, Description: description, Email: email, Main_Image: picture });
+            await this.#baradosModel.insertInto("Business", { Name: name, Location: location, Description: description, Email: email, Image: picture });
 
         }
+    }
+
+    HandleNewEvent = () => {
+        let user;
+        console.log("Hola");
+        if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(" ");
+        if (user.length == 1) user = sessionStorage.getItem("currentUser").split(",");
+
+        this.#baradosView.eventForm(user);
+
     }
 
 

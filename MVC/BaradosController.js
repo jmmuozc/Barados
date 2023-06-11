@@ -70,7 +70,6 @@ class BaradosController {
             this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
     
         }
-        console.log("mamahuevaso");
         console.log(action);
         if(action=="Business")this.HandleShowBusiness();
         if(action=="Events")this.HandleShowEvents();
@@ -199,7 +198,6 @@ class BaradosController {
     }
     
     HandleShowAEvent= async (eventToShow)=>{
-        console.log("bababoy");
         let inicio = document.getElementById("inicio");
         let business = document.getElementById("bares");
         let eventos = document.getElementById("eventos");

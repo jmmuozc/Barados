@@ -250,7 +250,6 @@ function updateOwnerValidation(handler) {
 
 function updateUserValidation(handler) {
     let form = document.forms.fUpdateUser;
-    console.log(form);
     $(form).attr('novalidate', true);
     $(form).submit(function (event) {
         let isValid = true;
@@ -271,4 +270,38 @@ function updateUserValidation(handler) {
     });
 }
 
-export {logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation, updateOwnerValidation,updateUserValidation} ;
+function updateBusinessValidation(handler) {
+    let form = document.forms.fUpdateBusiness;
+    $(form).attr('novalidate', true);
+    $(form).submit(function (event) {
+        let isValid = true;
+        let firstInvalidElement = null;
+        if (this.name.value == "") {
+            showFeedBack($(this.name), false);
+            firstInvalidElement = this.name;
+            isValid = false;
+        } else {
+            showFeedBack($(this.name), true);
+        }
+        console.log(document.getElementById("location"));
+        this.location.value=this.location.value.trim();
+        console.log(this.location.value);
+        console.log(this.location);
+        if (this.location.checkValidity()) {
+            showFeedBack($(this.location), false);
+            firstInvalidElement = this.location;
+            isValid = false;
+        } else {
+            showFeedBack($(this.name), true);
+        }
+        if (!isValid) {
+            firstInvalidElement.focus();
+        } else {
+            handler(this.name.value, this.description.value,this.location.value,this.profilePic.files[0]);
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    });
+}
+
+export {logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation, updateOwnerValidation,updateUserValidation, updateBusinessValidation} 

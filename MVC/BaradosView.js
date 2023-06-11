@@ -1,6 +1,6 @@
 "use strict";
 
-import { logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation,updateOwnerValidation,updateUserValidation } from "./validation.js";
+import { logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation,updateOwnerValidation,updateUserValidation, updateBusinessValidation } from "./validation.js";
 
 class BaradosView {
 
@@ -131,7 +131,6 @@ class BaradosView {
     let arrayExistent = [];
     let rng;
     if (business.length == 0) {
-      // console.log("vasio");
       let newBusiness = document.createElement("div");
       newBusiness.setAttribute("class", "container");
       newBusiness.innerHTML = `<h3>Oops... parece que no hay ningun centro de ocio</h3>
@@ -149,7 +148,7 @@ class BaradosView {
           let newBusiness = document.createElement("div");
           newBusiness.setAttribute("class", "card col-md-3 col-lg-3");
           newBusiness.innerHTML = `
-          <img src="${business[rng].Main_Image}" class="card-img-top bar-img" alt="${business[rng].Name}" width=350px height=250px/>
+          <img src="${business[rng].Image}" class="card-img-top bar-img" alt="${business[rng].Name}" width=350px height=250px/>
           <h3 class="card-title bar-title">${business[rng].Name}</h3>
           <div class="card-body d-flex flex-column justify-content-between">
           <span class="card-text bar-description">
@@ -185,7 +184,6 @@ class BaradosView {
     let arrayExistent = [];
     let rng;
     if (business.length == 0) {
-      // console.log("vasio");
       let newBusiness = document.createElement("div");
       newBusiness.setAttribute("class", "container");
       newBusiness.innerHTML = `<h3>Oops... parece que no hay ningun centro de ocio</h3>
@@ -203,7 +201,7 @@ class BaradosView {
           let newBusiness = document.createElement("div");
           newBusiness.setAttribute("class", "card mb-4 col-md-3 col-lg-3");
           newBusiness.innerHTML = `
-          <img src="${business[rng].Main_Image}" class="card-img-top bar-img" alt="${business[rng].Name}" width=350px height=250px/>
+          <img src="${business[rng].Image}" class="card-img-top bar-img" alt="${business[rng].Name}" width=350px height=250px/>
           <div class="card-body">
           <h3 class="card-title bar-title">${business[rng].Name}</h3>
           <p class="card-text bar-description">
@@ -249,7 +247,6 @@ class BaradosView {
     let arrayExistent = [];
     let rng;
     if (events.length == 0) {
-      // console.log("vasio");
       let newEvent = document.createElement("div");
       newEvent.setAttribute("class", "container");
       newEvent.innerHTML = `<h3>Oops... parece que no hay ningun evento disponible</h3>
@@ -282,13 +279,13 @@ class BaradosView {
     }
   }
 
-  ShowEventsCardsOfUsersInfo(events, MAX) {
+  ShowEventsCardsOfUsersInfo(events, MAX, user) {
     // let user = sessionStorage.getItem("currentUser").split(" ");
     let eventContainer = document.getElementById("eventos");
     eventContainer.innerHTML = `
     <div class="container">
       <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12" id="MostrarEventos">
               <h2 class="mb-3">Eventos</h2>
           </div>
       </div>
@@ -301,7 +298,6 @@ class BaradosView {
     let arrayExistent = [];
     let rng;
     if (events.length == 0) {
-      // console.log("vasio");
       let newEvent = document.createElement("div");
       newEvent.setAttribute("class", "container");
       newEvent.innerHTML = `<h3>Oops... parece que no hay ningun evento disponible</h3>
@@ -319,7 +315,7 @@ class BaradosView {
           newEvent.setAttribute("class", "card mb-4 col-md-6 col-lg-4");
           newEvent.innerHTML = `
             <img src="${events[rng].Image}" class="card-img-top event-img" alt="${events[rng].Name}" width=350px height=250px/>
-            <div class="card-body">
+            <div class="card-body d-flex flex-column justify-content-between"">
 
         </div>
         `;
@@ -332,20 +328,22 @@ class BaradosView {
         </p>
         <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Id}'>Ver</a>
         `;
-          // if (user[0] == "Customers") {
-          // // <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-events='${events[rng].Id}'>Desapuntarse</a>
-          // } else {
-          //   let cardBody = document.getElementsByClassName("card-body");
-          //   // console.log(cardBody[0]);
-          //   cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
-          // <p class="card-text event-description">
-          //   ${events[rng].Description}
-          // </p>
-          // <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Id}'>Ver</a>
-          // <a href="users.html" class="btn btn-danger btn-lg deleteEvent" data-events='${events[rng].Id}'>Eliminar</a>
-          // `;
+          if (user[0] == "Customers") {
+          // <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-events='${events[rng].Id}'>Desapuntarse</a>
+          } else {
+            let cardBody = document.getElementsByClassName("card-body");
+            // console.log(cardBody[0]);
+            cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
+          <span class="card-text event-description">
+            ${events[rng].Description}
+          </span>
+          <div class="d-flex justify-content-around">
+          <a href="users.html" class="btn btn-primary btn-lg UpdateEventInfo" data-events='${events[rng].Id}'>Editar</a>
+          <a href="users.html" class="btn btn-danger btn-lg deleteEvent" data-events='${events[rng].Id}'>Eliminar</a>
+          </div>
+          `;
 
-          // }
+          }
         }
       }
       // eventImg[index].innerHTML=`${events[rng].image}`;
@@ -488,22 +486,7 @@ class BaradosView {
         Introduce un nombre
       </div>
     </div>
-   
-    <div class="form-group col-6 ">
-    <label for="genre">Género</label>
-    <select class="form-select" name="genre">
-    <option value="No especificado" selected disabled>Prefiero no decirlo</option>
-    <option value="Hombre">Hombre</option>
-    <option value="Mujer">Mujer</option>
-    <option value="No binario">No binario</option>
-    </select>
-    </div>
-    <div class="form-group col-6 ">
-        <label for="birth">Nacido</label>
-        <input type="date" name="birth" class="form-control" autocomplete="birth" required />
-        <div class="invalid-feedback">
-        Introduce una fecha válida
-      </div>
+
     </div>
     <div class="form-group col-12 ">
         <label for="email">Email</label>
@@ -733,20 +716,20 @@ class BaradosView {
 
     placeHolder.appendChild(eventsPlaceHolder);
 
-    this.ShowEventsCardsOfUsersInfo(events, events.length);
+    this.ShowEventsCardsOfUsersInfo(events, events.length, user);
 
   }
 
-  showBusinessInfo(business, events) {
+  showBusinessInfo(business, events, user) {
     let placeHolder = document.getElementById("signUp");
     placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `
     <div class="container row border border-3">
      <div class="container col-4 d-flex justify-content-center align-items-center">
-     <img src="${business[0].Main_Image}" class="me-3 " alt="user Image" id="userInfo" >
+     <img src="${business[0].Image}" class="me-3 " alt="user Image" id="userInfo" >
      </div>
      <div class="container col-6">
-     <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
+     <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateBusiness">
      <div class="form-group col-12">
      <h2>Actualizar Negocio</h2>
  </div>
@@ -756,15 +739,23 @@ class BaradosView {
      <input type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${business[0].Name}"/>
  </div>
 
- <div class="form-group col-6 ">
+ <div class="form-group col-12 ">
  <label for="businessDesc">Descripcion</label>
  <textarea name="description" cols="55" rows="7" class="descArea">
  ${business[0].Description}
  </textarea>
  </div>
+
+ <div class="form-group col-12 ">
+     <label for="location">Coordenadas</label>
+     <input type="text" name="location" class="form-control" autocomplete="" required id="location" value="${business[0].Location}"
+     pattern="^[-|+]?[0-9]{1,}.[0-9]{1,},[ ]?[-|+]?[0-9]{1,}.[0-9]{1,}$" />
+
+ </div>
+
  <div class="form-group col-12 ">
      <label for="email">Email</label>
-     <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
+     <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${business[0].Email}" readonly/>
  </div>
 
  <div class="form-group col-12 ">
@@ -778,15 +769,77 @@ class BaradosView {
      </form>
      </div>
     </div>
-    <section id="events" class="py-5">
+    <section id="eventos" class="py-5">
     
     </section>`
 
-    let eventsPlaceHolder = document.getElementById("events");
+    // pattern="[-0-9]{1,}[.0-9]{1,},[- 0-9]{1,}[.0-9]{1,}"/>
 
-    placeHolder.appendChild(eventsPlaceHolder);
+    // let eventsPlaceHolder = document.getElementById("events");
 
-    this.ShowEventsCardsOfUsersInfo(events, events.length);
+    // placeHolder.appendChild(eventsPlaceHolder);
+
+    this.ShowEventsCardsOfUsersInfo(events, events.length,user);
+
+    let cabecera=document.getElementById("MostrarEventos");
+    let boton=document.createElement("button");
+    boton.setAttribute("type","button");
+    // btn-lg
+    boton.setAttribute("class","btn btn-success");
+    boton.setAttribute("id","CreateEvent");
+    boton.setAttribute("data-bs-toggle","modal");
+    boton.setAttribute("data-bs-target","#exampleModal");
+    boton.innerHTML=`Crear Evento`;
+
+    cabecera.appendChild(boton);
+  }
+
+  eventForm(business){
+    let modalPlaceHolder=document.getElementById("exampleModal");
+    modalPlaceHolder.innerHTML=`
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="auxiliarModal">Crear Evento</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form class="border border-3 py-5 px-5 row justify-content-center" id="EventForm" action="" role="form" name="fEvent">
+      <div class="row justify-content-center" id="formContainer">
+      <div class="form-group col-12 ">
+          <label for="eventName">Nombre</label>
+          <input type="text" name="eventName" class="form-control" autocomplete="name" required id="eventName"/>
+          <div class="invalid-feedback">
+          Introduce un nombre
+        </div>
+      </div>
+
+      <div class="form-group col-12 ">
+          <label for="password">Contraseña</label>
+          <input type="password" name="passwd" class="form-control" autocomplete="current-password"
+              required pattern=".{6,}"/>
+              <div class="invalid-feedback">
+              La contraseña debe tener 6 caracteres mínimo.
+            </div>
+      </div>
+     
+      <div class="form-group col-12 ">
+          <label for="profilePic">Imagen de perfil</label>
+          <input type="file" name="profilePic" class="form-control"/>
+      </div>
+      <div class="form-group col-12">
+          <button type="submit" class="btn btn-primary mt-3">Registrarse</button>
+      </div>
+      </div>
+    </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+    `;
+
   }
 
   showBusinessInfoToUsers(business, events) {
@@ -804,13 +857,12 @@ class BaradosView {
     eventContainer.setAttribute("class", "py-5");
     if (!document.getElementById("eventos")) parent[0].insertBefore(eventContainer, logIn);
 
-    // console.log(business);
     let placeHolder = document.getElementById("bares");
     placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `
     <div class="container row border border-3">
      <div class="container col-4 d-flex justify-content-center align-items-center">
-     <img src="${business[0].Main_Image}" class="me-3 " alt="user Image" id="userInfo" >
+     <img src="${business[0].Image}" class="me-3 " alt="user Image" id="userInfo" >
      </div>
      <div class="container col-6">
      <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
@@ -829,6 +881,7 @@ class BaradosView {
  ${business[0].Description}
  </textarea>
  </div>
+
  <div class="form-group col-12 ">
      <label for="email">Email</label>
      <input readonly type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${business[0].Email}"/>
@@ -846,6 +899,14 @@ class BaradosView {
     placeHolder.appendChild(eventsPlaceHolder);
 
     this.ShowEventsCards(events, events.length);
+
+    let cardBody = document.getElementsByClassName("card-body");
+    cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
+  <p class="card-text event-description">
+    ${events[rng].Description}
+  </p>
+  <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Id}'>Ver</a>
+  `;
   }
 
   showEventInfoToUsers(events, business) {
@@ -865,8 +926,6 @@ class BaradosView {
     if (!document.getElementById("bares")) parent[0].insertBefore(businessContainer, logIn);
     let dateStart=events[0].Event_Start.split("T");
     let dateEnd=events[0].Event_End.split("T");
-    // console.log(date);
-    // console.log(business);
     let placeHolder = document.getElementById("eventos");
     placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center m-auto");
     placeHolder.innerHTML = `
@@ -1019,6 +1078,18 @@ showFeedback(mensaje,type="danger"){
     updateUserValidation(handler);
   }
 
+  bindUpdateBusiness(handler){
+    updateBusinessValidation(handler);
+  }
+
+  bindEventForm(handler){
+    console.log(document.getElementById("CreateEvent"));
+    document.getElementById("CreateEvent").addEventListener("click", (event) => {
+      handler();
+    });
+  }
+
+
   bindShowUserSubMenu(handler) {
     document.getElementById("user-header").addEventListener("click", (event) => {
       handler();
@@ -1120,7 +1191,6 @@ showFeedback(mensaje,type="danger"){
   // }
 
   bindShowIndex(handler) {
-    console.log("Berenjena")
      document.getElementById('index').addEventListener("click", (event) => {
         this.#excecuteHandler(handler, [], 'body', { action: 'init' }, '#Inicio', event);
         // handler();
@@ -1129,7 +1199,6 @@ showFeedback(mensaje,type="danger"){
     }
 
   bindShowIndexFromUser(handler) {
-    console.log("Berenjena")
      document.getElementById('index').addEventListener("click", (event) => {
         handler();
         // handler();
