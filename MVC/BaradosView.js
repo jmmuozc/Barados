@@ -749,7 +749,7 @@ class BaradosView {
  <div class="form-group col-12 ">
      <label for="location">Coordenadas</label>
      <input type="text" name="location" class="form-control" autocomplete="" required id="location" value="${business[0].Location}"
-     pattern="^[-|+]?[0-9]{1,}.[0-9]{1,},[ ]?[-|+]?[0-9]{1,}.[0-9]{1,}$" />
+     pattern="^-?(90|[0-8]?\d)(\.\d+)?, *-?(180|1[0-7]\d|\d?\d)(\.\d+)?$" />
 
  </div>
 

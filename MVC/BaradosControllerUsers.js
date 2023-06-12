@@ -1,6 +1,4 @@
-import Owner from '../Js/Owner.js';
-import Customer from "../Js/Customer.js";
-import Business from "../Js/Business.js";
+
 class BaradosControllerUsers {
     #baradosModel;
     #baradosView;

@@ -1,7 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-import Owner from '../Js/Owner.js';
-import Customer from "../Js/Customer.js";
-import Business from "../Js/Business.js";
+
 
 class Barados {
 
