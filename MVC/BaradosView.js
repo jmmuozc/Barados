@@ -1,6 +1,6 @@
 "use strict";
 
-import { logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation,updateOwnerValidation,updateUserValidation, updateBusinessValidation } from "./validation.js";
+import { logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation,updateOwnerValidation,updateUserValidation, updateBusinessValidation,newEventValidation } from "./validation.js";
 
 class BaradosView {
 
@@ -367,13 +367,19 @@ class BaradosView {
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" name="email" class="form-control" autocomplete="email" required id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+            <div class="invalid-feedback">
+                Por favor introduce un correo electrónico válido.
+              </div>
         </div>
         <a href="users.html" class="LogInForm-change">¿No tienes cuenta? Registrate</a>
-        <!-- <span class="LogInForm-change">¿No tienes cuenta? Registrate</span> -->
+       
         <div class="form-group">
             <label for="password">Contraseña</label>
             <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-                required id="password"/>
+            required id="password"/>
+            <div class="invalid-feedback">
+               Por favor introduce una contraseña.
+            </div>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Iniciar</button>
@@ -624,7 +630,7 @@ class BaradosView {
 
  <div class="form-group col-6 ">
  <label for="genre">Género</label>
- <select class="form-select" name="genre" id=genre>
+ <select class="form-select" name="genre" id="genre">
  <option value="${user[0].Genre}" selected disabled>${user[0].Genre}</option>
  <option value="Hombre">Hombre</option>
  <option value="Mujer">Mujer</option>
@@ -681,7 +687,7 @@ class BaradosView {
 
  <div class="form-group col-6 ">
  <label for="genre">Género</label>
- <select class="form-select" name="genre" id=genre>
+ <select class="form-select" name="genre" id="genre">
  <option value="${user[0].Genre}" selected disabled>${user[0].Genre}</option>
  <option value="Hombre">Hombre</option>
  <option value="Mujer">Mujer</option>
@@ -814,14 +820,40 @@ class BaradosView {
         </div>
       </div>
 
-      <div class="form-group col-12 ">
-          <label for="password">Contraseña</label>
-          <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-              required pattern=".{6,}"/>
-              <div class="invalid-feedback">
-              La contraseña debe tener 6 caracteres mínimo.
-            </div>
+      <div class="form-group col-6 ">
+        <label for="Start">Inicio del Evento</label>
+        <input type="date" name="Start" class="form-control" autocomplete="Start" required />
+        <div class="invalid-feedback">
+        Introduce una fecha válida
       </div>
+    </div>
+      <div class="form-group col-6 ">
+        <label for="End">Fin del Evento</label>
+        <input type="date" name="End" class="form-control" autocomplete="End" required />
+        <div class="invalid-feedback">
+        Introduce una fecha válida
+      </div>
+    </div>
+
+    <div class="form-group col-12 ">
+      <label for="businessDesc">Descripcion</label>
+      <textarea name="businessDesc" readonly="" cols="55" rows="7" class="descArea">
+      </textarea>
+    </div>
+
+    <div class="form-group col-6 ">
+    <label for="Capacity">Capacidad (1-1000)</label>
+    <input type="number" name="Capacity" class="form-control" autocomplete="Capacity" min="1" max="1000" required />
+    <div class="invalid-feedback">
+    Introduce un número válido
+  </div>
+</div>
+  <div class="form-group col-6 ">
+    <label for="business">Negocio</label>
+    <select class="form-select" name="business" id="business">
+    <option value="${business[1]}" selected readonly>${business[2]}</option>
+    </select>
+</div>
      
       <div class="form-group col-12 ">
           <label for="profilePic">Imagen de perfil</label>
@@ -1028,8 +1060,8 @@ class BaradosView {
 //     this.ShowEventsCardsOfUsersInfo(events, events.length);
 //   }
 
-showFeedback(mensaje,type="danger"){
-  let form=document.forms[0];
+showFeedback(mensaje,formIndex,type="danger"){
+  let form=document.forms[formIndex];
   let errorDiv;
 
   if (document.getElementById("OwnFeedback")==null) {
@@ -1082,8 +1114,11 @@ showFeedback(mensaje,type="danger"){
     updateBusinessValidation(handler);
   }
 
+  bindNewEvent(handler){
+    newEventValidation(handler);
+  }
+
   bindEventForm(handler){
-    console.log(document.getElementById("CreateEvent"));
     document.getElementById("CreateEvent").addEventListener("click", (event) => {
       handler();
     });
