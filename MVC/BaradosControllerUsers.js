@@ -51,10 +51,11 @@ class BaradosControllerUsers {
             }
             if (user[0] == "Business") {
                 currentUser = await this.#baradosModel.fetchDataWhere("Business", { Id: user[1] });
-                eventsId= await this.#baradosModel.fetchDataWhere("Events", { Business_Id: user[1] });
-                this.#baradosView.showBusinessInfo(currentUser,eventsId,user);
+                eventsId = await this.#baradosModel.fetchDataWhere("Events", { Business_Id: user[1] });
+                this.#baradosView.showBusinessInfo(currentUser, eventsId, user);
                 this.#baradosView.bindUpdateBusiness(this.HandleUpdateBusiness);
                 this.#baradosView.bindEventForm(this.HandleNewEventForm);
+                this.#baradosView.bindWarningEvent(this.HandleDeleteEventWarning);
             }
             sessionStorage.setItem("currentUser", user);
 
@@ -97,7 +98,7 @@ class BaradosControllerUsers {
         let exists = [];
         let regex = RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$");
         let today = new Date();
-        email=email.toLowerCase();
+        email = email.toLowerCase();
         try {
             exists = await this.#baradosModel.fetchDataWhere("Owner", { Email: email });
             if (exists.length == 0) {
@@ -125,22 +126,22 @@ class BaradosControllerUsers {
 
                             await this.#baradosModel.insertInto("Owner", { Name: name, Email: email, Genre: genre, Birth_Date: birth, Image: picture });
 
-                            this.#baradosView.showFeedback("Usuario creado con exito",0, "success");
+                            this.#baradosView.showFeedback("Usuario creado con exito", 0, "success");
                         } else {
-                            this.#baradosView.showFeedback("Introduce una fecha válido",0);
+                            this.#baradosView.showFeedback("Introduce una fecha válido", 0);
                         }
                     } else {
-                        this.#baradosView.showFeedback("Introduce un nombre válido",0);
+                        this.#baradosView.showFeedback("Introduce un nombre válido", 0);
                     }
 
                 } else {
-                    this.#baradosView.showFeedback("La contraseña debe tener 6 caracteres mínimo",0);
+                    this.#baradosView.showFeedback("La contraseña debe tener 6 caracteres mínimo", 0);
                 }
             } else {
-                this.#baradosView.showFeedback("Introduce un correo válido",0);
+                this.#baradosView.showFeedback("Introduce un correo válido", 0);
             }
         } else {
-            this.#baradosView.showFeedback("Ya existe un usuario con este correo",0);
+            this.#baradosView.showFeedback("Ya existe un usuario con este correo", 0);
         }
     }
 
@@ -157,10 +158,10 @@ class BaradosControllerUsers {
                 this.#baradosModel.updateDataWhere("Owner", { Name: name, Genre: genre, Image: picture }, user[1])
             }
         } else {
-            this.#baradosView.showFeedback("Introduce un nombre válido",0);
+            this.#baradosView.showFeedback("Introduce un nombre válido", 0);
         }
 
-       this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página",0,"success")
+        this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página", 0, "success")
     }
 
     HandleUpdateUser = async (name, genre, picture) => {
@@ -176,35 +177,38 @@ class BaradosControllerUsers {
                 this.#baradosModel.updateDataWhere("Customers", { Name: name, Genre: genre, Image: picture }, user[1])
             }
         } else {
-            this.#baradosView.showFeedback("Introduce un nombre válido",0);
+            this.#baradosView.showFeedback("Introduce un nombre válido", 0);
         }
 
-       this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página",0,"success")
+        this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página", 0, "success")
     }
 
-    HandleUpdateBusiness = async (name, description, picture) => {
+    HandleUpdateBusiness = async (name, description, location,picture) => {
         let user;
-        if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",") ;
-        if (user.length == 1) user =sessionStorage.getItem("currentUser").split(" ");
+        console.log(name);
+        console.log(description);
+        console.log(picture);
+        if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
+        if (user.length == 1) user = sessionStorage.getItem("currentUser").split(" ");
         if (name != "") {
             if (picture == undefined) {
-                this.#baradosModel.updateDataWhere("Business", { Name: name, Description: description }, user[1])
+                this.#baradosModel.updateDataWhere("Business", { Name: name, Description: description,Location: location }, user[1])
             } else {
                 picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/BusinessImages");
-                this.#baradosModel.updateDataWhere("Business", { Name: name,Description: description, Image: picture }, user[1])
+                this.#baradosModel.updateDataWhere("Business", { Name: name, Description: description,Location: location ,Image: picture }, user[1])
             }
         } else {
-            this.#baradosView.showFeedback("Introduce un nombre válido",0);
+            this.#baradosView.showFeedback("Introduce un nombre válido", 0);
         }
 
-       this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página",0,"success")
+        this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página", 0, "success")
     }
 
     HandleNewClient = async (name, email, genre, birth, picture, passwd) => {
         let exists = [];
         let regex = RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$");
         let today = new Date();
-        email=email.toLowerCase();
+        email = email.toLowerCase();
         try {
             exists = await this.#baradosModel.fetchDataWhere("Owner", { Email: email });
             if (exists.length == 0) {
@@ -232,28 +236,28 @@ class BaradosControllerUsers {
 
                             await this.#baradosModel.insertInto("Customers", { Name: name, Email: email, Genre: genre, Birth_Date: birth, Image: picture });
 
-                            this.#baradosView.showFeedback("Usuario creado con exito",0, "success");
+                            this.#baradosView.showFeedback("Usuario creado con exito", 0, "success");
                         } else {
-                            this.#baradosView.showFeedback("Introduce una fecha válido",0);
+                            this.#baradosView.showFeedback("Introduce una fecha válido", 0);
                         }
                     } else {
-                        this.#baradosView.showFeedback("Introduce un nombre válido",0);
+                        this.#baradosView.showFeedback("Introduce un nombre válido", 0);
                     }
 
                 } else {
-                    this.#baradosView.showFeedback("La contraseña debe tener 6 caracteres mínimo",0);
+                    this.#baradosView.showFeedback("La contraseña debe tener 6 caracteres mínimo", 0);
                 }
             } else {
-                this.#baradosView.showFeedback("Introduce un correo válido",0);
+                this.#baradosView.showFeedback("Introduce un correo válido", 0);
             }
         } else {
-            this.#baradosView.showFeedback("Ya existe un usuario con este correo",0);
+            this.#baradosView.showFeedback("Ya existe un usuario con este correo", 0);
         }
     }
 
     HandleNewBusiness = async (name, location, description, email, passwd, picture) => {
         let exists = [];
-        email=email.toLowerCase();
+        email = email.toLowerCase();
         try {
             exists = await this.#baradosModel.fetchDataWhere("Business", { Email: email });
         } catch (error) {
@@ -274,8 +278,8 @@ class BaradosControllerUsers {
 
     HandleNewEventForm = () => {
         let user;
-        if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",") ;
-        if (user.length == 1) user =sessionStorage.getItem("currentUser").split(" ");
+        if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
+        if (user.length == 1) user = sessionStorage.getItem("currentUser").split(" ");
         console.log(user);
 
         this.#baradosView.eventForm(user);
@@ -284,8 +288,81 @@ class BaradosControllerUsers {
 
     }
 
-    HandleNewEvent = async() => {}
+    HandleNewEvent = async (eventName, Start, End, eventDesc, capacity, business, picture) => {
+        let user;
+        let currentUser;
+        let eventsId;
+        if (eventName != "") {
+            if (Start != "") {
+                if (End != "" && Date.parse(End) > Date.parse(Start)) {
+                    if (capacity > 0) {
+                        if (picture == undefined) {
+                            picture = "/Media/DefaultEvent.png";
+                        } else {
+                            picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/BusinessImages");
+                        }
 
+                        await this.#baradosModel.insertInto("Events", { Business_Id: business, Event_Start: Start, Event_End: End, Description: eventDesc, Capacity: capacity, Name: eventName, Image: picture });
+
+                        if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
+
+                        currentUser = await this.#baradosModel.fetchDataWhere("Business", { Id: business });
+
+                        eventsId = await this.#baradosModel.fetchDataWhere("Events", { Business_Id: business });
+
+                        this.#baradosView.showBusinessInfo(currentUser, eventsId, user);
+                        this.#baradosView.bindUpdateBusiness(this.HandleUpdateBusiness);
+                        this.#baradosView.bindEventForm(this.HandleNewEventForm);
+                        this.#baradosView.bindWarningEvent(this.HandleDeleteEventWarning);
+                    } else {
+                        this.#baradosView.showFeedback("Introduce un número válido", 1);
+                    }
+                } else {
+                    this.#baradosView.showFeedback("Introduce una fecha válida", 1);
+                }
+
+            } else {
+                this.#baradosView.showFeedback("Introduce una fecha válida", 1);
+            }
+        } else {
+            this.#baradosView.showFeedback("Introduce un nombre válido", 1);
+        }
+
+    }
+
+    HandleDeleteEventWarning = async (EventId) => {
+        let eventsId = await this.#baradosModel.fetchDataWhere("Events", { Id: EventId });
+        this.#baradosView.showWarning(eventsId, "Evento", "Events");
+        this.#baradosView.bindDeleteObject(this.HandleDeleteEvent);
+    }
+
+    HandleDeleteEvent = async (EventId, table) => {
+        let user;
+        let currentUser;
+        let events;
+        let body= document.getElementsByTagName("body");
+        let modal= document.getElementById("exampleModal");
+        let modalBackDrop=document.getElementsByClassName("modal-backdrop");
+
+        if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
+
+
+        await this.#baradosModel.deleteDataWhere(table, EventId);
+        
+        events = await this.#baradosModel.fetchDataWhere("Events", { Business_Id: user[1] });
+
+
+        currentUser = await this.#baradosModel.fetchDataWhere("Business", { Id: user[1] });
+
+
+        this.#baradosView.showBusinessInfo(currentUser, events, user);
+        this.#baradosView.bindEventForm(this.HandleNewEventForm);
+        this.#baradosView.bindUpdateBusiness(this.HandleUpdateBusiness);
+
+        body[0].setAttribute("class"," ");
+        modal.setAttribute("class","modal fade");
+        modalBackDrop[0].parentElement.removeChild(modalBackDrop[0]);
+    }
     HandleFormReturn = () => {
         this.#baradosView.ShowSignUpForms();
         this.#baradosView.bindShowOwnerForm(this.HandleshowOwnerForm);

@@ -304,7 +304,7 @@ function newEventValidation(handler) {
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(this.eventName.value, this.Start.value, this.End.value, this.businessDesc.value,this.Capacity.value,this.business.value);
+            handler(this.eventName.value, this.Start.value, this.End.value, this.eventDesc.value,this.Capacity.value,this.business.value,this.profilePic.files[0],);
         }
         event.preventDefault();
         event.stopPropagation();
@@ -386,12 +386,7 @@ function updateBusinessValidation(handler) {
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(
-                this.name.value,
-                this.description.value,
-                this.location.value,
-                this.profilePic.files[0]
-            );
+            handler(this.name.value,this.description.value,this.location.value,this.profilePic.files[0]);
         }
         event.preventDefault();
         event.stopPropagation();

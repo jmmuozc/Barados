@@ -65,6 +65,13 @@ class Barados {
     }
   }
 
+  deleteDataWhere =async(table,idData)=>{
+    const { error } = await this.#supabaseConnection
+  .from(table)
+  .delete()
+  .eq('Id',idData)
+  }
+
   logIn = async (email, passwd) => {
 
     const { data, error } = await this.#supabaseConnection.auth.signInWithPassword({

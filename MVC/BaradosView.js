@@ -220,7 +220,6 @@ class BaradosView {
             ${business[rng].Description}
           </span>
           <div class="d-flex justify-content-around">
-          <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-business='${business[rng].Id}'>Ver</a>
           <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-business='${business[rng].Id}'>Eliminar</a>
           </div>
           `;
@@ -326,7 +325,7 @@ class BaradosView {
         <p class="card-text event-description">
           ${events[rng].Description}
         </p>
-        <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Id}'>Ver</a>
+        <button type="button" class="btn btn-danger btn-lg warningEvent" data-bs-toggle="modal" data-bs-target="#exampleModal" data-events='${events[rng].Id}'>Eliminar</button>
         `;
           if (user[0] == "Customers") {
           // <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-events='${events[rng].Id}'>Desapuntarse</a>
@@ -338,10 +337,10 @@ class BaradosView {
             ${events[rng].Description}
           </span>
           <div class="d-flex justify-content-around">
-          <a href="users.html" class="btn btn-primary btn-lg UpdateEventInfo" data-events='${events[rng].Id}'>Editar</a>
-          <a href="users.html" class="btn btn-danger btn-lg deleteEvent" data-events='${events[rng].Id}'>Eliminar</a>
+          <button type="button" class="btn btn-danger btn-lg warningEvent" data-bs-toggle="modal" data-bs-target="#exampleModal" data-events='${events[rng].Id}'>Eliminar</button>
           </div>
           `;
+          // <a href="users.html" class="btn btn-danger btn-lg deleteEvent" data-events='${events[rng].Id}'>Eliminar</a>
 
           }
         }
@@ -788,7 +787,8 @@ class BaradosView {
     this.ShowEventsCardsOfUsersInfo(events, events.length,user);
 
     let cabecera=document.getElementById("MostrarEventos");
-    let boton=document.createElement("button");
+    let boton;
+    if (!document.getElementById("CreateEvent")) boton=document.createElement("button");
     boton.setAttribute("type","button");
     // btn-lg
     boton.setAttribute("class","btn btn-success");
@@ -836,8 +836,8 @@ class BaradosView {
     </div>
 
     <div class="form-group col-12 ">
-      <label for="businessDesc">Descripcion</label>
-      <textarea name="businessDesc" readonly="" cols="55" rows="7" class="descArea">
+      <label for="eventDesc">Descripcion</label>
+      <textarea name="eventDesc" cols="55" rows="7" class="descArea">
       </textarea>
     </div>
 
@@ -1084,6 +1084,30 @@ showFeedback(mensaje,formIndex,type="danger"){
   
 }
 
+showWarning(element,object,table){
+  let modalPlaceHolder=document.getElementById("exampleModal");
+  modalPlaceHolder.innerHTML=`
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="auxiliarModal">Eliminar ${object}</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+    <h1>Aviso: Esta operación es irreversible</h1>
+    <p>¿Está seguro de que quiere eliminar el ${object} "<b>${element[0].Name}</b>" para siempre?</p>
+    </div>
+    <div class="text-center">
+    <button type="button" class="btn btn-danger btn-lg w-50" data-object='${element[0].Id}'  data-table='${table}' id="deleteObject"'>Eliminar</button>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+  `;
+}
+
   /**
 * Funcion que llama al nuevo logIn
 * @param {Function} handler 
@@ -1219,6 +1243,21 @@ showFeedback(mensaje,formIndex,type="danger"){
     });
   }
 
+  bindWarningEvent(handler){
+    for (let element of document.getElementsByClassName('warningEvent')) {
+      element.addEventListener("click", (event) => {
+        handler(element.dataset.events);
+      });
+    }
+  }
+
+  bindDeleteObject(handler){
+    let element=document.getElementById('deleteObject');
+    element.addEventListener("click", (event) => {
+        handler(element.dataset.object,element.dataset.table);
+      });
+    }
+  
   // bindShowIndex(handler) {
   //   document.getElementById("index").addEventListener("click", (event) => {
   //     handler();
