@@ -171,7 +171,7 @@ class BaradosView {
     businessContainer.innerHTML = `
     <div class="container">
       <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12" id="baresCabecera">
               <h2 class="mb-3">Centros de ocio</h2>
           </div>
       </div>
@@ -220,7 +220,7 @@ class BaradosView {
             ${business[rng].Description}
           </span>
           <div class="d-flex justify-content-around">
-          <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-business='${business[rng].Id}'>Eliminar</a>
+          <button type="button" class="btn btn-danger btn-lg warningBusiness" data-bs-toggle="modal" data-bs-target="#exampleModal" data-business='${business[rng].Id}'>Eliminar</button>
           </div>
           `;
       }
@@ -475,32 +475,53 @@ class BaradosView {
 </section>`;
   }
 
-  showBusinessForm() {
-    let placeHolder = document.getElementById("signUp");
-    placeHolder.innerHTML = ` <section class="py-5 px-5 my-5 container" id="signUpContainer">
-    <form class="border border-3 py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fBusiness">
-    <span id="returnSpan">< Volver</span>
-    <div class="form-group col-12">
-        <h2>Nuevo Negocio</h2>
-    </div>
-    <div class="row justify-content-center" id="formContainer">
-    <div class="form-group col-12 ">
-        <label for="name">Nombre</label>
-        <input type="text" name="name" class="form-control" autocomplete="name" required id="name"/>
-        <div class="invalid-feedback">
-        Introduce un nombre
+  showBusinessForm(owner) {
+    let modalPlaceHolder=document.getElementById("exampleModal");
+    modalPlaceHolder.innerHTML=`
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="auxiliarModal">Crear Negocio</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    </div>
+      <div class="modal-body">
+      <form class="border border-3 py-5 px-5 row justify-content-center" id="BusinessForm" action="" role="form" name="fBusiness">
+      <div class="row justify-content-center" id="formContainer">
+ <div class="form-group col-12 ">
+     <label for="businessName">Nombre</label>
+     <input type="text" name="businessName" class="form-control" autocomplete="name" required id="businessName" value=""/>
+ </div>
 
-    </div>
-    <div class="form-group col-12 ">
-        <label for="email">Email</label>
-        <input type="email" name="email" class="form-control" autocomplete="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
-        <div class="invalid-feedback">
-          Por favor introduce un correo electrónico válido.
-        </div>
-    </div>
-    <div class="form-group col-12 ">
+ <div class="form-group col-12 ">
+ <label for="businessDesc">Descripcion</label>
+ <textarea name="businessDesc" cols="55" rows="7" class="descArea">
+ 
+ </textarea>
+ </div>
+ <div class="form-group col-12 ">
+    <label for="owner">Propietario</label>
+    <select class="form-select" name="owner" id="owner">
+    <option value="${owner[1]}" selected readonly>${owner[2]}</option>
+    </select>
+</div>
+
+ <div class="form-group col-6 ">
+     <label for="latitud">Latitud</label>
+     <input type="number" name="latitud" class="form-control" autocomplete="" required id="latitud" value=""/>
+
+ </div>
+ <div class="form-group col-6 ">
+     <label for="longitud">Longitud</label>
+     <input type="number" name="longitud" class="form-control" autocomplete="" required id="longitud" value=""/>
+
+ </div>
+
+ <div class="form-group col-12 ">
+     <label for="businessEmail">Email</label>
+     <input type="email" name="businessEmail" class="form-control" autocomplete="email" required id="businessEmail" value=""/>
+ </div>
+
+ <div class="form-group col-12 ">
         <label for="password">Contraseña</label>
         <input type="password" name="passwd" class="form-control" autocomplete="current-password"
             required pattern=".{6,}"/>
@@ -508,19 +529,26 @@ class BaradosView {
             La contraseña debe tener 6 caracteres mínimo.
           </div>
     </div>
-   
-    <div class="form-group col-12 ">
-        <label for="profilePic">Imagen de perfil</label>
-        <input type="file" name="profilePic" class="form-control"/>
+
+ <div class="form-group col-12 ">
+     <label for="businessProfilePic">Nueva Imagen de perfil</label>
+     <input type="file" name="businessProfilePic" class="form-control" id="businessProfilePic"/>
+ </div>
+ <div class="form-group col-12">
+     <button type="submit" class="btn btn-primary mt-3">Crear</button>
+ </div>
+    </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
     </div>
-    <div class="form-group col-12">
-        <button type="submit" class="btn btn-primary mt-3">Registrarse</button>
-    </div>
-    </div>
-  </form>
-  </section>`;
+  </div>
+    `;
 
   }
+
+  
 
   showUserForm() {
     let placeHolder = document.getElementById("signUp");
@@ -664,6 +692,19 @@ class BaradosView {
     placeHolder.appendChild(barPlaceHolder);
 
     this.ShowBusinessCardsOfOwners(bar, bar.length);
+
+    let cabecera=document.getElementById("baresCabecera");
+    let boton;
+    if (!document.getElementById("CreateBusiness")) boton=document.createElement("button");
+    boton.setAttribute("type","button");
+    // btn-lg
+    boton.setAttribute("class","btn btn-success");
+    boton.setAttribute("id","CreateBusiness");
+    boton.setAttribute("data-bs-toggle","modal");
+    boton.setAttribute("data-bs-target","#exampleModal");
+    boton.innerHTML=`Crear Negocio`;
+
+    cabecera.appendChild(boton);
   }
 
   showCustomerInfo(user, events) {
@@ -1142,8 +1183,15 @@ showWarning(element,object,table){
     newEventValidation(handler);
   }
 
+
   bindEventForm(handler){
     document.getElementById("CreateEvent").addEventListener("click", (event) => {
+      handler();
+    });
+  }
+
+  bindOwnerBusinessForm(handler){
+    document.getElementById("CreateBusiness").addEventListener("click", (event) => {
       handler();
     });
   }
@@ -1241,6 +1289,15 @@ showWarning(element,object,table){
     document.getElementById("allEvents").addEventListener("click", (event) => {
       handler();
     });
+  }
+
+  bindWarningBusiness(handler){
+    for (let element of document.getElementsByClassName('warningBusiness')) {
+      
+      element.addEventListener("click", (event) => {
+        handler(element.dataset.business);
+      });
+    }
   }
 
   bindWarningEvent(handler){

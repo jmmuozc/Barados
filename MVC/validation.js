@@ -53,69 +53,69 @@ function logInValidation(handler) {
     });
 }
 
-function newBusinessValidation(handler) {
-    let form = document.forms.fBusiness;
-    $(form).attr("novalidate", true);
-    $(form).submit(function (event) {
-        let feedBack = document.getElementById("OwnFeedback");
-        if (feedBack != null) feedBack.parentElement.removeChild(feedBack);
-        let isValid = true;
-        let firstInvalidElement = null;
-        this.name.value = this.name.value.trim();
-        if (this.name.value == "") {
-            showFeedBack($(this.name), false);
-            isValid = false;
-        } else {
-            showFeedBack($(this.name), true);
-        }
+// function newBusinessValidation(handler) {
+//     let form = document.forms.fBusiness;
+//     $(form).attr("novalidate", true);
+//     $(form).submit(function (event) {
+//         let feedBack = document.getElementById("OwnFeedback");
+//         if (feedBack != null) feedBack.parentElement.removeChild(feedBack);
+//         let isValid = true;
+//         let firstInvalidElement = null;
+//         this.name.value = this.name.value.trim();
+//         if (this.name.value == "") {
+//             showFeedBack($(this.name), false);
+//             isValid = false;
+//         } else {
+//             showFeedBack($(this.name), true);
+//         }
 
-        if (!this.location.checkValidity() || !isValid) {
-            isValid = false;
-            showFeedBack($(this.location), false);
-            firstInvalidElement = this.location;
-        } else {
-            showFeedBack($(this.location), true);
-        }
+//         if (!this.location.checkValidity() || !isValid) {
+//             isValid = false;
+//             showFeedBack($(this.location), false);
+//             firstInvalidElement = this.location;
+//         } else {
+//             showFeedBack($(this.location), true);
+//         }
 
-        if (!this.description.checkValidity() || !isValid) {
-            isValid = false;
-            showFeedBack($(this.description), false);
-            firstInvalidElement = this.description;
-        } else {
-            showFeedBack($(this.description), true);
-        }
+//         if (!this.description.checkValidity() || !isValid) {
+//             isValid = false;
+//             showFeedBack($(this.description), false);
+//             firstInvalidElement = this.description;
+//         } else {
+//             showFeedBack($(this.description), true);
+//         }
 
-        if (!this.email.checkValidity() || !isValid) {
-            isValid = false;
-            showFeedBack($(this.email), false);
-            firstInvalidElement = this.email;
-        } else {
-            showFeedBack($(this.email), true);
-        }
+//         if (!this.email.checkValidity() || !isValid) {
+//             isValid = false;
+//             showFeedBack($(this.email), false);
+//             firstInvalidElement = this.email;
+//         } else {
+//             showFeedBack($(this.email), true);
+//         }
 
-        if (!this.passwd.checkValidity() || !isValid) {
-            isValid = false;
-            showFeedBack($(this.passwd), false);
-            firstInvalidElement = this.passwd;
-        } else {
-            showFeedBack($(this.passwd), true);
-        }
+//         if (!this.passwd.checkValidity() || !isValid) {
+//             isValid = false;
+//             showFeedBack($(this.passwd), false);
+//             firstInvalidElement = this.passwd;
+//         } else {
+//             showFeedBack($(this.passwd), true);
+//         }
 
-        if (!isValid) {
-            firstInvalidElement.focus();
-        } else {
-            handler(
-                this.name.value,
-                this.location.value,
-                this.description.value,
-                this.email.value,
-                this.passwd.value
-            );
-        }
-        event.preventDefault();
-        event.stopPropagation();
-    });
-}
+//         if (!isValid) {
+//             firstInvalidElement.focus();
+//         } else {
+//             handler(
+//                 this.name.value,
+//                 this.location.value,
+//                 this.description.value,
+//                 this.email.value,
+//                 this.passwd.value
+//             );
+//         }
+//         event.preventDefault();
+//         event.stopPropagation();
+//     });
+// }
 
 function newClientValidation(handler) {
     let form = document.forms.fUser;
@@ -376,7 +376,7 @@ function updateBusinessValidation(handler) {
         }
 
         this.location.value = this.location.value.trim();
-        if (this.location.checkValidity()) {
+        if (!this.location.checkValidity()) {
             showFeedBack($(this.location), false);
             firstInvalidElement = this.location;
             isValid = false;
@@ -392,5 +392,65 @@ function updateBusinessValidation(handler) {
         event.stopPropagation();
     });
 }
+
+function newBusinessValidation(handler) {
+    let form = document.forms.fBusiness;
+    $(form).attr("novalidate", true);
+    $(form).submit(function (event) {
+        let feedBack = document.getElementById("OwnFeedback");
+        if (feedBack != null) feedBack.parentElement.removeChild(feedBack);
+        let isValid = true;
+        let firstInvalidElement = null;
+        if (this.businessName.value == "") {
+            showFeedBack($(this.businessName), false);
+            firstInvalidElement = this.businessName;
+            isValid = false;
+        } else {
+            showFeedBack($(this.businessName), true);
+        }
+
+        console.log(this.latitud.value)
+        console.log(this.longitud.value)
+        if (isNaN(this.latitud.value) || this.latitud.value>90 || this.latitud.value<-90) {
+            showFeedBack($(this.latitud), false);
+            firstInvalidElement = this.latitud;
+            isValid = false;
+        } else {
+            showFeedBack($(this.latitud), true);
+        }
+        if (isNaN(this.longitud.value) || this.longitud.value>180 || this.longitud.value<-180) {
+            showFeedBack($(this.longitud), false);
+            firstInvalidElement = this.longitud;
+            isValid = false;
+        } else {
+            showFeedBack($(this.longitud), true);
+        }
+
+        if (!this.businessEmail.checkValidity()) {
+            isValid = false;
+            showFeedBack($(this.businessEmail), false);
+            firstInvalidElement = this.businessEmail;
+        } else {
+            showFeedBack($(this.businessEmail), true);
+        }
+
+        if (!this.passwd.checkValidity()) {
+            isValid = false;
+            showFeedBack($(this.passwd), false);
+            firstInvalidElement = this.passwd;
+        } else {
+            showFeedBack($(this.passwd), true);
+        }
+
+        if (!isValid) {
+            firstInvalidElement.focus();
+        } else {
+            handler(this.businessName.value,this.latitud.value,this.longitud.value, this.businessDesc.value, this.businessEmail.value, this.passwd.value, this.owner.value, this.businessProfilePic.files[0]);
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    });
+    }
+
 
 export {logInValidation,newBusinessValidation,newOwnerValidation,newClientValidation,updateOwnerValidation,updateUserValidation,updateBusinessValidation,newEventValidation}
