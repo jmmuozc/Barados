@@ -32,6 +32,8 @@ class BaradosController {
         if (!sessionStorage.getItem("action")) {
             this.#baradosView.ShowBusinessCards(business, 3);
             this.#baradosView.ShowEventsCards(events, 3)
+            this.#baradosView.bindShowABusiness(this.HandleShowABusiness);
+            this.#baradosView.bindShowAEvent(this.HandleShowAEvent);
         }
         
     }
@@ -39,6 +41,7 @@ class BaradosController {
     onInit =async () => {
         let currentUserEmail = await this.#baradosModel.currentUser();
         // await this.#baradosModel.logOff();
+        console.log(currentUserEmail);
         let user;
         let action=sessionStorage.getItem("action");
         if (currentUserEmail != false) {
@@ -57,17 +60,23 @@ class BaradosController {
                 if (currentUser.length != 0) user = "Business," + currentUser[0].Id + "," + currentUser[0].Name;
 
             }
-            sessionStorage.setItem("currentUser", user);
+            if (currentUser.length!=0) {
+                sessionStorage.setItem("currentUser", user);
+        
+                // console.log(sessionStorage.getItem("currentUser"));
+        
+                this.#baradosView.removeLogInForm();
+        
     
-            // console.log(sessionStorage.getItem("currentUser"));
-    
-            this.#baradosView.removeLogInForm();
-    
-            this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
-    
-            this.#baradosView.bindLogOff(this.HandleLogOff);
-    
-            this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
+                this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
+        
+                this.#baradosView.bindLogOff(this.HandleLogOff);
+        
+                this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
+                
+            }else{
+                await this.#baradosModel.logOff();
+            }
     
         }
         if(action=="Business")this.HandleShowBusiness();

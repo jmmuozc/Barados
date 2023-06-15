@@ -973,13 +973,13 @@ class BaradosView {
 
     this.ShowEventsCards(events, events.length);
 
-    let cardBody = document.getElementsByClassName("card-body");
-    cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
-  <p class="card-text event-description">
-    ${events[rng].Description}
-  </p>
-  <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Id}'>Ver</a>
-  `;
+  //   let cardBody = document.getElementsByClassName("card-body");
+  //   cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
+  // <p class="card-text event-description">
+  //   ${events[rng].Description}
+  // </p>
+  // <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Id}'>Ver</a>
+  // `;
   }
 
   showEventInfoToUsers(events, business) {
