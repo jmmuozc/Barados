@@ -220,6 +220,25 @@ class BaradosController {
         let businessData= await this.#baradosModel.fetchDataWhere("Business",{Id:eventData[0].Business_Id});
         this.#baradosView.showEventInfoToUsers(eventData,businessData);
         this.#baradosView.bindShowABusiness(this.HandleShowABusiness);
+        this.#baradosView.bindJoinEvent(this.HandleJoinEvent);
+    }
+
+    HandleJoinEvent=async (eventToJoin)=>{
+        let currentUser=sessionStorage.getItem("currentUser");
+        if (!sessionStorage.getItem("currentUser")) {
+            
+        }else{
+            currentUser=currentUser.split(",")
+            console.log(currentUser[1]);
+            if (currentUser[0]=="Customers") {
+               let count= await this.#baradosModel.fetchDataSelect("Event_Customers","Customer_Id(count)",{Customer_Id: currentUser[1],Event_Id:eventToJoin});
+                console.log(count[0]);
+                let countResult=count[0].Customer_Id;
+                console.log(countResult.count);
+            }else{
+
+            }
+        }
     }
 }
 

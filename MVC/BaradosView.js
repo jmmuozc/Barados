@@ -1002,7 +1002,7 @@ class BaradosView {
     let placeHolder = document.getElementById("eventos");
     placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center m-auto");
     placeHolder.innerHTML = `
-    <div class="container row border border-3">
+    <div class="container row border border-3 text-center">
      <div class="container col-4 d-flex justify-content-center align-items-center">
      <img src="${events[0].Image}" class="me-3 " alt="user Image" id="userInfo" >
      </div>
@@ -1029,8 +1029,10 @@ class BaradosView {
  </div>
      </form>
      </div>
+     <button class="btn btn-success w-50"  data-event="${events[0].Id}" id='joinEvent'>Apuntarse
      </div>
      `
+
     //  let business = document.createElement("section");
     //  business.setAttribute("id", "bares");
     //  business.setAttribute("class", "py-5 bg-light");
@@ -1230,6 +1232,12 @@ showWarning(element,object,table){
   bindShowUserForm(handler) {
     document.getElementById("showUserForm").addEventListener("click", (event) => {
       handler();
+    });
+  }
+
+  bindJoinEvent(handler) {
+    document.getElementById("joinEvent").addEventListener("click", (event) => {
+      handler(document.getElementById("joinEvent").dataset.event);
     });
   }
 

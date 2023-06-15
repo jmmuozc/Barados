@@ -42,6 +42,18 @@ class Barados {
     return JSON.parse(JSON.stringify(data));
   }
 
+  fetchDataSelect = async(table,select,condition)=>{
+
+    const { data, error } = await this.#supabaseConnection
+  .from(table)
+  .select(select)
+  .match(condition);
+
+  if (error){return error}
+
+  return data;
+  }
+
   updateDataWhere = async(table,newData,idUser)=>{
     const { error } = await this.#supabaseConnection
   .from(table)
