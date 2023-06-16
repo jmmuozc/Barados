@@ -228,6 +228,17 @@ nav a:hover {
 		padding: 0 !important;
 		margin: 0 !important;
 	}
+	body {
+		display: block;
+	}
+	#signUp > div {
+		flex-direction: column;
+		margin: auto;
+	}
+
+	#signUp > div > div {
+		width: 100%;
+	}
   }
 
 @media screen and (min-width: 991px) {
@@ -236,7 +247,6 @@ nav a:hover {
 	.sub-menu-wrap {
 		right: 0%;
 	}
-
   }
 /* Estilos para el footer */
 

@@ -97,11 +97,11 @@ class BaradosView {
 </div>`;
     let business = document.createElement("section");
     business.setAttribute("id", "bares");
-    business.setAttribute("class", "py-5 bg-light container");
+    business.setAttribute("class", "py-5 bg-light");
 
     let events = document.createElement("section");
     events.setAttribute("id", "eventos");
-    events.setAttribute("class", "py-5 container");
+    events.setAttribute("class", "py-5");
 
     // parent[0].appendChild(init);
     if (!document.getElementById("inicio")) parent[0].insertBefore(init, logIn);
@@ -495,7 +495,7 @@ class BaradosView {
 
  <div class="form-group col-12 ">
  <label for="businessDesc">Descripcion</label>
- <textarea name="businessDesc" cols="55" rows="7" class="descArea">
+ <textarea name="businessDesc" cols="55" rows="7" class="descArea form-control">
  
  </textarea>
  </div>
@@ -789,7 +789,7 @@ class BaradosView {
 
  <div class="form-group col-12 ">
  <label for="businessDesc">Descripcion</label>
- <textarea name="description" cols="55" rows="7" class="descArea">
+ <textarea name="description" cols="55" rows="7" class="descArea form-control">
  ${business[0].Description}
  </textarea>
  </div>
@@ -884,7 +884,7 @@ class BaradosView {
 
     <div class="form-group col-12 ">
       <label for="eventDesc">Descripcion</label>
-      <textarea name="eventDesc" cols="55" rows="7" class="descArea">
+      <textarea name="eventDesc" cols="55" rows="7" class="descArea form-control">
       </textarea>
     </div>
 
@@ -928,12 +928,12 @@ class BaradosView {
     let eventContainer = document.createElement("section");
 
     businessContainer.setAttribute("id", "bares");
-    businessContainer.setAttribute("class", "py-5 bg-light container");
+    businessContainer.setAttribute("class", "py-5 bg-light");
 
     if (!document.getElementById("bares")) parent[0].insertBefore(businessContainer, logIn);
 
     eventContainer.setAttribute("id", "eventos");
-    eventContainer.setAttribute("class", "py-5 container");
+    eventContainer.setAttribute("class", "py-5");
     if (!document.getElementById("eventos")) parent[0].insertBefore(eventContainer, logIn);
 
     let placeHolder = document.getElementById("bares");
@@ -956,7 +956,7 @@ class BaradosView {
 
  <div class="form-group col-12 ">
  <label for="businessDesc">Descripcion</label>
- <textarea name="description" readonly="" cols="55" rows="7" class="descArea">
+ <textarea name="description" readonly="" cols="55" rows="7" class="descArea form-control">
  ${business[0].Description}
  </textarea>
  </div>
@@ -996,11 +996,11 @@ class BaradosView {
 
 
     eventContainer.setAttribute("id", "eventos");
-    eventContainer.setAttribute("class", "py-5 container");
+    eventContainer.setAttribute("class", "py-5");
     if (!document.getElementById("eventos")) parent[0].insertBefore(eventContainer, logIn);
     
     businessContainer.setAttribute("id", "bares");
-    businessContainer.setAttribute("class", "py-5 bg-light container");
+    businessContainer.setAttribute("class", "py-5 bg-light");
     
     if (!document.getElementById("bares")) parent[0].insertBefore(businessContainer, logIn);
     let dateStart=events[0].Event_Start.split("T");
