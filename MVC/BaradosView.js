@@ -97,11 +97,11 @@ class BaradosView {
 </div>`;
     let business = document.createElement("section");
     business.setAttribute("id", "bares");
-    business.setAttribute("class", "py-5 bg-light");
+    business.setAttribute("class", "py-5 bg-light container");
 
     let events = document.createElement("section");
     events.setAttribute("id", "eventos");
-    events.setAttribute("class", "py-5");
+    events.setAttribute("class", "py-5 container");
 
     // parent[0].appendChild(init);
     if (!document.getElementById("inicio")) parent[0].insertBefore(init, logIn);
@@ -314,20 +314,21 @@ class BaradosView {
           newEvent.setAttribute("class", "card mb-4 col-md-6 col-lg-4");
           newEvent.innerHTML = `
             <img src="${events[rng].Image}" class="card-img-top event-img" alt="${events[rng].Name}" width=350px height=250px/>
-            <div class="card-body d-flex flex-column justify-content-between"">
+            <div class="card-body d-flex flex-column justify-content-between container">
 
         </div>
         `;
           eventsDiv.appendChild(newEvent);
           // console.log(user[0]);
-          let cardBody = document.getElementsByClassName("card-body");
-          cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
-        <p class="card-text event-description">
-          ${events[rng].Description}
-        </p>
-        <button type="button" class="btn btn-danger btn-lg warningEvent" data-bs-toggle="modal" data-bs-target="#exampleModal" data-events='${events[rng].Id}'>Eliminar</button>
-        `;
           if (user[0] == "Customers") {
+            // console.log("Hola");
+            let cardBody = document.getElementsByClassName("card-body");
+            cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
+          <p class="card-text event-description">
+            ${events[rng].Description}
+          </p>
+          <button type="button" class="btn btn-danger btn-lg warningEvent" data-events='${events[rng].Id}'>Eliminar</button>
+          `;
           // <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-events='${events[rng].Id}'>Desapuntarse</a>
           } else {
             let cardBody = document.getElementsByClassName("card-body");
@@ -670,7 +671,7 @@ class BaradosView {
  </div>
  <div class="form-group col-12 ">
      <label for="email">Email</label>
-     <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
+     <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}" readonly/>
  </div>
  <div class="form-group col-12 ">
      <label for="profilePic">Nueva Imagen de perfil</label>
@@ -707,7 +708,7 @@ class BaradosView {
     cabecera.appendChild(boton);
   }
 
-  showCustomerInfo(user, events) {
+  showCustomerInfo(user, events,currentUser) {
     let placeHolder = document.getElementById("signUp");
     placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `<div class="container row border border-3">
@@ -762,12 +763,13 @@ class BaradosView {
 
     placeHolder.appendChild(eventsPlaceHolder);
 
-    this.ShowEventsCardsOfUsersInfo(events, events.length, user);
+    this.ShowEventsCardsOfUsersInfo(events, events.length, currentUser);
 
   }
 
   showBusinessInfo(business, events, user) {
     let placeHolder = document.getElementById("signUp");
+    let location=business[0].Location.split(",");
     placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
     placeHolder.innerHTML = `
     <div class="container row border border-3">
@@ -792,10 +794,14 @@ class BaradosView {
  </textarea>
  </div>
 
- <div class="form-group col-12 ">
-     <label for="location">Coordenadas</label>
-     <input type="text" name="location" class="form-control" autocomplete="" required id="location" value="${business[0].Location}"
-     pattern="^-?(90|[0-8]?\d)(\.\d+)?, *-?(180|1[0-7]\d|\d?\d)(\.\d+)?$" />
+ <div class="form-group col-6 ">
+     <label for="latitud">Latitud</label>
+     <input type="text" name="latitud" class="form-control" autocomplete="" required id="latitud" value="${location[0]}"/>
+
+ </div>
+ <div class="form-group col-6 ">
+     <label for="longitud">Longitud</label>
+     <input type="text" name="longitud" class="form-control" autocomplete="" required id="longitud" value="${location[1]}"/>
 
  </div>
 
@@ -922,12 +928,12 @@ class BaradosView {
     let eventContainer = document.createElement("section");
 
     businessContainer.setAttribute("id", "bares");
-    businessContainer.setAttribute("class", "py-5 bg-light");
+    businessContainer.setAttribute("class", "py-5 bg-light container");
 
     if (!document.getElementById("bares")) parent[0].insertBefore(businessContainer, logIn);
 
     eventContainer.setAttribute("id", "eventos");
-    eventContainer.setAttribute("class", "py-5");
+    eventContainer.setAttribute("class", "py-5 container");
     if (!document.getElementById("eventos")) parent[0].insertBefore(eventContainer, logIn);
 
     let placeHolder = document.getElementById("bares");
@@ -990,11 +996,11 @@ class BaradosView {
 
 
     eventContainer.setAttribute("id", "eventos");
-    eventContainer.setAttribute("class", "py-5");
+    eventContainer.setAttribute("class", "py-5 container");
     if (!document.getElementById("eventos")) parent[0].insertBefore(eventContainer, logIn);
     
     businessContainer.setAttribute("id", "bares");
-    businessContainer.setAttribute("class", "py-5 bg-light");
+    businessContainer.setAttribute("class", "py-5 bg-light container");
     
     if (!document.getElementById("bares")) parent[0].insertBefore(businessContainer, logIn);
     let dateStart=events[0].Event_Start.split("T");
@@ -1150,6 +1156,13 @@ showWarning(element,object,table){
 </div>
   `;
 }
+
+
+changeJoinButton(text,type){
+  let button= document.getElementById("joinEvent");
+  button.setAttribute("class",`btn btn-${type} w-50`);
+  button.innerText=text;
+  }
 
   /**
 * Funcion que llama al nuevo logIn

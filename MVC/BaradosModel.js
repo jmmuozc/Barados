@@ -66,7 +66,7 @@ class Barados {
     const {data, error } = await this.#supabaseConnection
       .from(table)
       .insert(newData)
-      .select('Id');
+      .select('*');
 
     if (error) {
       return error;
@@ -82,6 +82,13 @@ class Barados {
   .from(table)
   .delete()
   .eq('Id',idData)
+  }
+
+  deleteDataEventCustomer =async(table,condition)=>{
+    const { error } = await this.#supabaseConnection
+  .from(table)
+  .delete()
+  .match(condition)
   }
 
   logIn = async (email, passwd) => {

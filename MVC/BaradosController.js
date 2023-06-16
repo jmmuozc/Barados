@@ -226,20 +226,31 @@ class BaradosController {
     HandleJoinEvent=async (eventToJoin)=>{
         let currentUser=sessionStorage.getItem("currentUser");
         if (!sessionStorage.getItem("currentUser")) {
+            this.#baradosView.changeJoinButton("Debes iniciar sesión apuntarte","danger");
             
         }else{
             currentUser=currentUser.split(",")
             console.log(currentUser[1]);
             if (currentUser[0]=="Customers") {
                let count= await this.#baradosModel.fetchDataSelect("Event_Customers","Customer_Id(count)",{Customer_Id: currentUser[1],Event_Id:eventToJoin});
-                console.log(count[0]);
-                let countResult=count[0].Customer_Id;
-                console.log(countResult.count);
+                // console.log(count);
+                // console.log(count);
+                // let countResult=count[0].Customer_Id;
+                // console.log(countResult.count);
+                if (count.length>0) {
+                    this.#baradosView.changeJoinButton("Ya estas apuntado","danger");       
+                }else{
+                    console.log(currentUser[1]);
+                    console.log(eventToJoin);
+                    this.#baradosModel.insertInto("Event_Customers",{Event_Id:eventToJoin, Customer_Id: currentUser[1]});
+                    this.#baradosView.changeJoinButton("Te has apuntado con éxito","success");       
+                }
             }else{
-
+                this.#baradosView.changeJoinButton("Debes ser cliente para apuntarte","warning");
             }
         }
     }
+    
 }
 
 export default BaradosController;

@@ -375,18 +375,26 @@ function updateBusinessValidation(handler) {
             showFeedBack($(this.name), true);
         }
 
-        this.location.value = this.location.value.trim();
-        if (!this.location.checkValidity()) {
-            showFeedBack($(this.location), false);
-            firstInvalidElement = this.location;
+        if (isNaN(this.latitud.value) || this.latitud.value>90 || this.latitud.value<-90) {
+            showFeedBack($(this.latitud), false);
+            firstInvalidElement = this.latitud;
             isValid = false;
         } else {
-            showFeedBack($(this.name), true);
+            showFeedBack($(this.latitud), true);
         }
+        if (isNaN(this.longitud.value) || this.longitud.value>180 || this.longitud.value<-180) {
+            showFeedBack($(this.longitud), false);
+            firstInvalidElement = this.longitud;
+            isValid = false;
+        } else {
+            showFeedBack($(this.longitud), true);
+        }
+
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(this.name.value,this.description.value,this.location.value,this.profilePic.files[0]);
+            console.log("arrivedercci")
+            handler(this.name.value,this.description.value,this.latitud.value,this.longitud.value,this.profilePic.files[0]);
         }
         event.preventDefault();
         event.stopPropagation();
@@ -409,8 +417,6 @@ function newBusinessValidation(handler) {
             showFeedBack($(this.businessName), true);
         }
 
-        console.log(this.latitud.value)
-        console.log(this.longitud.value)
         if (isNaN(this.latitud.value) || this.latitud.value>90 || this.latitud.value<-90) {
             showFeedBack($(this.latitud), false);
             firstInvalidElement = this.latitud;
