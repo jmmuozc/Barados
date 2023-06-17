@@ -36,15 +36,18 @@ class BaradosController {
         let currentUser;
         let user;
 
-        if(sessionStorage.getItem("currentUser")!="" || sessionStorage.getItem("currentUser")!=undefined)currentBusinessEmail=sessionStorage.getItem("currentUser");
+        if(sessionStorage.getItem("currentUser")!="" || sessionStorage.getItem("currentUser")!=undefined){
+            currentBusinessEmail=sessionStorage.getItem("currentUser");
+            currentBusinessEmail=currentBusinessEmail.split(",")
+        }
 
       
         let action=sessionStorage.getItem("action");
         if (currentUserEmail != false) {
 
-             currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Email: currentUserEmail });
+            currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Email: currentUserEmail });
             if (currentUser.length == 0) {
-                currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Name: currentUserEmail[1] });
+                currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Email: currentUserEmail });
     
                 if (currentUser.length != 0) user = "Customers," + currentUser[0].Id + "," + currentUser[0].Name;
             } else {
@@ -69,8 +72,8 @@ class BaradosController {
                 await this.#baradosModel.logOff();
             }
     
-        }else if(currentBusinessEmail){
-                currentBusinessEmail=currentBusinessEmail.split(",")
+        }else if(currentBusinessEmail && currentBusinessEmail[0]=="Business"){
+                
                 currentUser = await this.#baradosModel.fetchDataWhere("Business", { Name: currentBusinessEmail[2] });
     
                 if (currentUser.length != 0) user = "Business," + currentUser[0].Id + "," + currentUser[0].Name;
@@ -83,6 +86,8 @@ class BaradosController {
         
                 this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
 
+        }else{
+            await this.#baradosModel.logOff();
         }
         if(action=="Business")this.HandleShowBusiness();
         if(action=="Events")this.HandleShowEvents();
