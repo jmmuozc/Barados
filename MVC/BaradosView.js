@@ -40,7 +40,7 @@ class BaradosView {
       <img src="${image}" class="me-3 user-image user-img" alt="user Image" />
       </div>
       <div">
-      <a href="" class="nav-link align-middle ">${name}</a>
+      <p class="nav-link align-middle " id="username">${name}</p>
       </div>`;
       header.appendChild(userDiv);
 
@@ -51,12 +51,12 @@ class BaradosView {
       </div>
       <hr/>
       <a href="users.html" class="sub-menu-link">
-          <img src="/Media/edit-user-icon.png">
+          <img src="/Media/edit-user-icon.png" alt="edit-user-icon.png">
           <p>Editar Perfil</p>
           <span>></span>
       </a>
       <a href="#" class="sub-menu-link" id="LogOff">
-          <img src="/Media/logout-icon.png">
+          <img src="/Media/logout-icon.png" alt="/Media/logout-icon.png">
           <p>Cerrar Sesión</p>
           <span>></span>
       </a>
@@ -495,7 +495,7 @@ class BaradosView {
 
  <div class="form-group col-12 ">
  <label for="businessDesc">Descripcion</label>
- <textarea name="businessDesc" cols="55" rows="7" class="descArea form-control">
+ <textarea name="businessDesc" cols="55" rows="7" class="descArea form-control" id="businessDesc">
  
  </textarea>
  </div>
@@ -508,12 +508,12 @@ class BaradosView {
 
  <div class="form-group col-6 ">
      <label for="latitud">Latitud</label>
-     <input type="number" name="latitud" class="form-control" autocomplete="" required id="latitud" value=""/>
+     <input type="number" name="latitud" class="form-control" required id="latitud" value=""/>
 
  </div>
  <div class="form-group col-6 ">
      <label for="longitud">Longitud</label>
-     <input type="number" name="longitud" class="form-control" autocomplete="" required id="longitud" value=""/>
+     <input type="number" name="longitud" class="form-control" required id="longitud" value=""/>
 
  </div>
 
@@ -525,7 +525,7 @@ class BaradosView {
  <div class="form-group col-12 ">
         <label for="password">Contraseña</label>
         <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-            required pattern=".{6,}"/>
+            required pattern=".{6,}" id="password"/>
             <div class="invalid-feedback">
             La contraseña debe tener 6 caracteres mínimo.
           </div>
@@ -624,14 +624,14 @@ class BaradosView {
             <div class="col-md-5 col-lg-4 mt-2">
                 <div class="card-header text-bg-secondary text-center">Propietario</div>
                 <div class="card text-bg-secondary rounded-bottom signUpCard" id="showOwnerForm">
-                    <img src="Media/owner-icon.png" class="card-img  rounded-bottom" alt="...">
+                    <img src="Media/owner-icon.png" class="card-img  rounded-bottom" alt="owner-icon.png">
                 </div>
             </div>
 
             <div class="col-md-5 col-lg-4 mt-2">
                 <div class="card-header text-bg-secondary text-center">Usuario</div>
                 <div class="card text-bg-secondary signUpCard" id="showUserForm">
-                    <img src="Media/client-icon.png" class="card-img" alt="...">
+                    <img src="Media/client-icon.png" class="card-img" alt="client-icon.png">
                 </div>
             </div>
 
@@ -789,19 +789,19 @@ class BaradosView {
 
  <div class="form-group col-12 ">
  <label for="businessDesc">Descripcion</label>
- <textarea name="description" cols="55" rows="7" class="descArea form-control">
+ <textarea name="description" cols="55" rows="7" class="descArea form-control" id="businessDesc">
  ${business[0].Description}
  </textarea>
  </div>
 
  <div class="form-group col-6 ">
      <label for="latitud">Latitud</label>
-     <input type="text" name="latitud" class="form-control" autocomplete="" required id="latitud" value="${location[0]}"/>
+     <input type="text" name="latitud" class="form-control" required id="latitud" value="${location[0]}"/>
 
  </div>
  <div class="form-group col-6 ">
      <label for="longitud">Longitud</label>
-     <input type="text" name="longitud" class="form-control" autocomplete="" required id="longitud" value="${location[1]}"/>
+     <input type="text" name="longitud" class="form-control" required id="longitud" value="${location[1]}"/>
 
  </div>
 
@@ -869,14 +869,14 @@ class BaradosView {
 
       <div class="form-group col-6 ">
         <label for="Start">Inicio del Evento</label>
-        <input type="date" name="Start" class="form-control" autocomplete="Start" required />
+        <input type="date" name="Start" class="form-control" autocomplete="Start" required id="Start"/>
         <div class="invalid-feedback">
         Introduce una fecha válida
       </div>
     </div>
       <div class="form-group col-6 ">
         <label for="End">Fin del Evento</label>
-        <input type="date" name="End" class="form-control" autocomplete="End" required />
+        <input type="date" name="End" class="form-control" autocomplete="End" required id="End"/>
         <div class="invalid-feedback">
         Introduce una fecha válida
       </div>
@@ -884,13 +884,13 @@ class BaradosView {
 
     <div class="form-group col-12 ">
       <label for="eventDesc">Descripcion</label>
-      <textarea name="eventDesc" cols="55" rows="7" class="descArea form-control">
+      <textarea name="eventDesc" cols="55" rows="7" class="descArea form-control" id="eventDesc">
       </textarea>
     </div>
 
     <div class="form-group col-6 ">
     <label for="Capacity">Capacidad (1-1000)</label>
-    <input type="number" name="Capacity" class="form-control" autocomplete="Capacity" min="1" max="1000" required />
+    <input type="number" name="Capacity" class="form-control" min="1" max="1000" required id="Capacity"/>
     <div class="invalid-feedback">
     Introduce un número válido
   </div>
@@ -956,7 +956,7 @@ class BaradosView {
 
  <div class="form-group col-12 ">
  <label for="businessDesc">Descripcion</label>
- <textarea name="description" readonly="" cols="55" rows="7" class="descArea form-control">
+ <textarea name="description" readonly="" cols="55" rows="7" class="descArea form-control" id="businessDesc">
  ${business[0].Description}
  </textarea>
  </div>
@@ -993,6 +993,7 @@ class BaradosView {
     let parent = document.getElementsByTagName("body");
     let eventContainer = document.createElement("section");
     let businessContainer = document.createElement("section");
+    let capacity= events[0].Capacity-events[1].length;
 
 
     eventContainer.setAttribute("id", "eventos");
@@ -1032,13 +1033,16 @@ class BaradosView {
  <h3>Fecha fin evento</h3>
  <p>${dateEnd[0]}</p>
  </div>
+ <div class="form-group col-12 ">
+ <h3>Plazas restantes</h3>
+ <p>${capacity}</p>
+ </div>
  </div>
      </form>
      </div>
      <button class="btn btn-success w-50"  data-event="${events[0].Id}" id='joinEvent'>Apuntarse
      </div>
      `
-
     //  let business = document.createElement("section");
     //  business.setAttribute("id", "bares");
     //  business.setAttribute("class", "py-5 bg-light");

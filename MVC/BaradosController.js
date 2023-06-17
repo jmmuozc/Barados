@@ -41,7 +41,6 @@ class BaradosController {
     onInit =async () => {
         let currentUserEmail = await this.#baradosModel.currentUser();
         // await this.#baradosModel.logOff();
-        console.log(currentUserEmail);
         let user;
         let action=sessionStorage.getItem("action");
         if (currentUserEmail != false) {
@@ -112,7 +111,7 @@ class BaradosController {
             // console.log(currentUser);
             if (currentUser.length == 0) {
                 currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Email: currentUserEmail });
-                if (currentUser.length != 0) user = "Customers " + currentUser[0].Id + "," + currentUser[0].Name;
+                if (currentUser.length != 0) user = "Customers," + currentUser[0].Id + "," + currentUser[0].Name;
 
             } else {
                 user = "Owner," + currentUser[0].Id + "," + currentUser[0].Name;
@@ -218,6 +217,8 @@ class BaradosController {
         let eventData= await this.#baradosModel.fetchDataWhere("Events",{Id:eventToShow});
         // console.log(businessData);
         let businessData= await this.#baradosModel.fetchDataWhere("Business",{Id:eventData[0].Business_Id});
+        let countEvent= await this.#baradosModel.fetchDataSelect("Event_Customers","Event_Id(count)",{Event_Id:eventToShow});
+        eventData.push(countEvent);
         this.#baradosView.showEventInfoToUsers(eventData,businessData);
         this.#baradosView.bindShowABusiness(this.HandleShowABusiness);
         this.#baradosView.bindJoinEvent(this.HandleJoinEvent);
@@ -225,14 +226,18 @@ class BaradosController {
 
     HandleJoinEvent=async (eventToJoin)=>{
         let currentUser=sessionStorage.getItem("currentUser");
+        let event= await this.#baradosModel.fetchDataWhere("Events",{Id:eventToJoin});
+        let business = document.getElementById("bares");
+        let eventos = document.getElementById("eventos");
         if (!sessionStorage.getItem("currentUser")) {
             this.#baradosView.changeJoinButton("Debes iniciar sesión apuntarte","danger");
             
         }else{
             currentUser=currentUser.split(",")
-            console.log(currentUser[1]);
+ 
             if (currentUser[0]=="Customers") {
                let count= await this.#baradosModel.fetchDataSelect("Event_Customers","Customer_Id(count)",{Customer_Id: currentUser[1],Event_Id:eventToJoin});
+               let countEvent= await this.#baradosModel.fetchDataSelect("Event_Customers","Event_Id(count)",{Event_Id:eventToJoin});
                 // console.log(count);
                 // console.log(count);
                 // let countResult=count[0].Customer_Id;
@@ -240,10 +245,24 @@ class BaradosController {
                 if (count.length>0) {
                     this.#baradosView.changeJoinButton("Ya estas apuntado","danger");       
                 }else{
-                    console.log(currentUser[1]);
-                    console.log(eventToJoin);
+                    if (event.Capacity==countEvent.length) {
+                        this.#baradosView.changeJoinButton("El evento esta completo","danger");       
+                        
+                    }
                     this.#baradosModel.insertInto("Event_Customers",{Event_Id:eventToJoin, Customer_Id: currentUser[1]});
-                    this.#baradosView.changeJoinButton("Te has apuntado con éxito","success");       
+
+                    if (business) business.parentElement.removeChild(business);
+                    if (eventos) eventos.parentElement.removeChild(eventos);
+                    
+                    let eventData= await this.#baradosModel.fetchDataWhere("Events",{Id:eventToJoin});
+                    // console.log(businessData);
+                    let businessData= await this.#baradosModel.fetchDataWhere("Business",{Id:eventData[0].Business_Id});
+                    countEvent= await this.#baradosModel.fetchDataSelect("Event_Customers","Event_Id(count)",{Event_Id:eventToJoin});
+                    eventData.push(countEvent);
+                    this.#baradosView.showEventInfoToUsers(eventData,businessData);
+                    this.#baradosView.bindShowABusiness(this.HandleShowABusiness);
+                    this.#baradosView.bindJoinEvent(this.HandleJoinEvent);     
+                    this.#baradosView.changeJoinButton("Te has apuntado con éxito","success");
                 }
             }else{
                 this.#baradosView.changeJoinButton("Debes ser cliente para apuntarte","warning");

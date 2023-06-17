@@ -25,13 +25,14 @@ nav li:last-child {
 	margin-right: 0;
 }
 
-nav a {
+nav p {
 	color: #fff;
 	text-decoration: none;
 }
 
-nav a:hover {
+nav p:hover {
 	text-decoration: underline;
+	cursor: pointer;
 }
 
 /* .user-image{
@@ -41,6 +42,7 @@ nav a:hover {
 	cursor: pointer;
 	border-radius: 50%;
 } */
+
 
 .user-img{
 	width: 80px;
@@ -283,9 +285,32 @@ nav a:hover {
 	#formContainer {
 		width: 90%
 	}
+
 	#signUpForm{
 		padding: 0 !important;
 		margin: 0 !important;
+	}
+	body {
+		display: block;
+	}
+	#eventos > div {
+		flex-direction: column;
+		margin: auto;
+	}
+
+	#eventos > div > div {
+		width: 100%;
+	}
+	#bares > div {
+		flex-direction: column;
+		margin: auto;
+	}
+
+	#bares > div > div {
+		width: 100%;
+	}
+	#joinEvent{
+		width: 100% !important;
 	}
   }
 

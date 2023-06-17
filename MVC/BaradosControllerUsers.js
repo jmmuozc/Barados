@@ -21,7 +21,7 @@ class BaradosControllerUsers {
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
 
         if (user.length == 1) user = sessionStorage.getItem("currentUser").split(" ");
-
+       
         let currentUser;
         let userBar;
         let eventsId;
@@ -60,8 +60,10 @@ class BaradosControllerUsers {
                 this.#baradosView.bindEventForm(this.HandleNewEventForm);
                 this.#baradosView.bindWarningEvent(this.HandleDeleteEventWarning);
             }
+            console.log(currentUser);
+            console.log(user);
+            console.log(sessionStorage.getItem("currentUser"));
             sessionStorage.setItem("currentUser", user);
-
             this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
 
             this.#baradosView.bindLogOff(this.HandleLogOff);
@@ -425,6 +427,8 @@ class BaradosControllerUsers {
         }
 
         this.#baradosView.ShowEventsCardsOfUsersInfo(userEvent, userEvent.length, user);
+
+        this.#baradosView.bindWarningEvent(this.HandleLeaveEvent);
     }
 
     HandleDeleteEvent = async (EventId, table) => {
