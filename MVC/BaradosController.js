@@ -11,10 +11,8 @@ class BaradosController {
         // Lo invocamos en el constructor como primer evento ya que el resto necesitarán que la carga inicial se haya producido.
         this.onLoad();
 
-        // this.#baradosView.bindInit(this.handleInit);
         this.onInit();
-        // Enlazamos handlers con la vista
-        // this.#baradosView.bindInit(this.handleInit);
+
     }
 
     onLoad = async () => {
@@ -22,13 +20,7 @@ class BaradosController {
         let business = await this.#baradosModel.fetchData("Business");
         let customers = await this.#baradosModel.fetchData("Customers");
         let events = await this.#baradosModel.fetchData("Events");
-        // let business = await this.#supabaseConection.from("Business").select();
-        // let customers = await this.#supabaseConection.from("Customers").select();
-        // let owners = await this.#supabaseConection.from("Owner").select();
-        // console.log(business);
-        // console.log(customers);
-        // console.log(owners);
-        // console.log(await this.#baradosModel.logOff());
+
         if (!sessionStorage.getItem("action")) {
             this.#baradosView.ShowBusinessCards(business, 3);
             this.#baradosView.ShowEventsCards(events, 3)
@@ -40,7 +32,7 @@ class BaradosController {
     
     onInit =async () => {
         let currentUserEmail = await this.#baradosModel.currentUser();
-        // await this.#baradosModel.logOff();
+
         let user;
         let action=sessionStorage.getItem("action");
         if (currentUserEmail != false) {
@@ -62,7 +54,7 @@ class BaradosController {
             if (currentUser.length!=0) {
                 sessionStorage.setItem("currentUser", user);
         
-                // console.log(sessionStorage.getItem("currentUser"));
+
         
                 this.#baradosView.removeLogInForm();
         
@@ -99,16 +91,16 @@ class BaradosController {
        user=user.toLowerCase();
         try {
             currentUserEmail = await this.#baradosModel.logIn(user, passwd);
-            // console.log(await this.#baradosModel.currentUser());
+
 
         } catch (error) {
             
         }
-        // console.log(feedBack);
+
       
         if (currentUserEmail != false) {
             let currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Email: currentUserEmail });
-            // console.log(currentUser);
+
             if (currentUser.length == 0) {
                 currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Email: currentUserEmail });
                 if (currentUser.length != 0) user = "Customers," + currentUser[0].Id + "," + currentUser[0].Name;
@@ -127,16 +119,10 @@ class BaradosController {
             this.#baradosView.bindLogOff(this.HandleLogOff);
             this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
 
-            // console.log(sessionStorage.getItem("currentUser"));
         } else {
             this.#baradosView.showFeedback("Correo o contraseña incorrectos",0);
         }
-        // if () {
-        // document.cookie = `Cookie1 = ${user}`;
-        // this.onLogIn();
-        // } else {
-        // this.failedLogIn();
-        // }
+
     }
 
     HandleLogOff = async () => {
@@ -157,9 +143,9 @@ class BaradosController {
         let business = await this.#baradosModel.fetchData("Business");
         let inicio = document.getElementById("inicio");
         let eventos = document.getElementById("eventos");
-        // console.log(inicio);
+
         if (inicio) inicio.parentElement.removeChild(inicio);
-        // console.log(eventos)
+
         if (eventos) eventos.parentElement.removeChild(eventos);
         this.#baradosView.ShowBusinessCards(business, business.length);
         this.#baradosView.bindShowABusiness(this.HandleShowABusiness);
@@ -200,7 +186,7 @@ class BaradosController {
         if (eventos) eventos.parentElement.removeChild(eventos);
         
         let businessData= await this.#baradosModel.fetchDataWhere("Business",{Id:businessToShow});
-        // console.log(businessData);
+
         let eventsData= await this.#baradosModel.fetchDataWhere("Events",{Business_Id:businessData[0].Id});
         this.#baradosView.showBusinessInfoToUsers(businessData,eventsData);
         this.#baradosView.bindShowAEvent(this.HandleShowAEvent);
@@ -215,7 +201,7 @@ class BaradosController {
         if (eventos) eventos.parentElement.removeChild(eventos);
         
         let eventData= await this.#baradosModel.fetchDataWhere("Events",{Id:eventToShow});
-        // console.log(businessData);
+
         let businessData= await this.#baradosModel.fetchDataWhere("Business",{Id:eventData[0].Business_Id});
         let countEvent= await this.#baradosModel.fetchDataSelect("Event_Customers","Event_Id(count)",{Event_Id:eventToShow});
         eventData.push(countEvent);
@@ -238,10 +224,7 @@ class BaradosController {
             if (currentUser[0]=="Customers") {
                let count= await this.#baradosModel.fetchDataSelect("Event_Customers","Customer_Id(count)",{Customer_Id: currentUser[1],Event_Id:eventToJoin});
                let countEvent= await this.#baradosModel.fetchDataSelect("Event_Customers","Event_Id(count)",{Event_Id:eventToJoin});
-                // console.log(count);
-                // console.log(count);
-                // let countResult=count[0].Customer_Id;
-                // console.log(countResult.count);
+
                 if (count.length>0) {
                     this.#baradosView.changeJoinButton("Ya estas apuntado","danger");       
                 }else{
@@ -255,7 +238,7 @@ class BaradosController {
                     if (eventos) eventos.parentElement.removeChild(eventos);
                     
                     let eventData= await this.#baradosModel.fetchDataWhere("Events",{Id:eventToJoin});
-                    // console.log(businessData);
+
                     let businessData= await this.#baradosModel.fetchDataWhere("Business",{Id:eventData[0].Business_Id});
                     countEvent= await this.#baradosModel.fetchDataSelect("Event_Customers","Event_Id(count)",{Event_Id:eventToJoin});
                     eventData.push(countEvent);

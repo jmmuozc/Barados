@@ -18,17 +18,8 @@ class BaradosView {
   }
 
   infoUserHeader(name, image) {
-    // console.log(document.getElementById("LogInForm"));
-
-    // for (let child of document.getElementsByClassName("LogInForm")) {
-    //   console.log("Parent");
-    //   console.log(child.parentElement);
-    //   console.log("child");
-    //   console.log(child);
-    //   child.parentElement.removeChild(child);
-    // }
+  
     this.removeLogInForm();
-    // if (document.getElementById("LogInForm")) logInDiv.removeChild(document.getElementById("LogInForm"));
     if (document.getElementById("user-header") == null) {
       let header = document.getElementById("navbarSupportedContent");
       let userSubMenu = document.getElementById("sub-menu");
@@ -63,9 +54,7 @@ class BaradosView {
   </div>`;
 
     }
-    // class="img-thumbnail"
-    // class="col-md-8"
-    // class="col-md-4
+
   }
 
 
@@ -103,7 +92,6 @@ class BaradosView {
     events.setAttribute("id", "eventos");
     events.setAttribute("class", "py-5");
 
-    // parent[0].appendChild(init);
     if (!document.getElementById("inicio")) parent[0].insertBefore(init, logIn);
     if (!document.getElementById("bares")) parent[0].insertBefore(business, logIn);
     if (!document.getElementById("eventos")) parent[0].insertBefore(events, logIn);
@@ -225,7 +213,6 @@ class BaradosView {
           `;
       }
     }
-    // eventImg[index].innerHTML=`${events[rng].image}`;
   }
 
   ShowEventsCards(events, MAX) {
@@ -279,7 +266,6 @@ class BaradosView {
   }
 
   ShowEventsCardsOfUsersInfo(events, MAX, user) {
-    // let user = sessionStorage.getItem("currentUser").split(" ");
     let eventContainer = document.getElementById("eventos");
     eventContainer.innerHTML = `
     <div class="container">
@@ -319,9 +305,9 @@ class BaradosView {
         </div>
         `;
           eventsDiv.appendChild(newEvent);
-          // console.log(user[0]);
+
           if (user[0] == "Customers") {
-            // console.log("Hola");
+
             let cardBody = document.getElementsByClassName("card-body");
             cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
           <p class="card-text event-description">
@@ -329,10 +315,10 @@ class BaradosView {
           </p>
           <button type="button" class="btn btn-danger btn-lg warningEvent" data-events='${events[rng].Id}'>Eliminar</button>
           `;
-          // <a href="users.html" class="btn btn-danger btn-lg unLinkEvent" data-events='${events[rng].Id}'>Desapuntarse</a>
+
           } else {
             let cardBody = document.getElementsByClassName("card-body");
-            // console.log(cardBody[0]);
+
             cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
           <span class="card-text event-description">
             ${events[rng].Description}
@@ -341,14 +327,10 @@ class BaradosView {
           <button type="button" class="btn btn-danger btn-lg warningEvent" data-bs-toggle="modal" data-bs-target="#exampleModal" data-events='${events[rng].Id}'>Eliminar</button>
           </div>
           `;
-          // <a href="users.html" class="btn btn-danger btn-lg deleteEvent" data-events='${events[rng].Id}'>Eliminar</a>
 
           }
         }
       }
-      // eventImg[index].innerHTML=`${events[rng].image}`;
-      // eventTitle[index].innerHTML = `${events[rng].Name}`;
-      // eventDescription[index].innerHTML = `${events[rng].Description}`;
 
     }
   }
@@ -409,7 +391,6 @@ class BaradosView {
 </div>`;
   }
 
-  // Users functions
 
   showOwnerForm() {
     let userSubMenu = document.getElementById("sub-menu");
@@ -698,7 +679,7 @@ class BaradosView {
     let boton;
     if (!document.getElementById("CreateBusiness")) boton=document.createElement("button");
     boton.setAttribute("type","button");
-    // btn-lg
+
     boton.setAttribute("class","btn btn-success");
     boton.setAttribute("id","CreateBusiness");
     boton.setAttribute("data-bs-toggle","modal");
@@ -825,11 +806,6 @@ class BaradosView {
     
     </section>`
 
-    // pattern="[-0-9]{1,}[.0-9]{1,},[- 0-9]{1,}[.0-9]{1,}"/>
-
-    // let eventsPlaceHolder = document.getElementById("events");
-
-    // placeHolder.appendChild(eventsPlaceHolder);
 
     this.ShowEventsCardsOfUsersInfo(events, events.length,user);
 
@@ -837,7 +813,7 @@ class BaradosView {
     let boton;
     if (!document.getElementById("CreateEvent")) boton=document.createElement("button");
     boton.setAttribute("type","button");
-    // btn-lg
+
     boton.setAttribute("class","btn btn-success");
     boton.setAttribute("id","CreateEvent");
     boton.setAttribute("data-bs-toggle","modal");
@@ -979,13 +955,6 @@ class BaradosView {
 
     this.ShowEventsCards(events, events.length);
 
-  //   let cardBody = document.getElementsByClassName("card-body");
-  //   cardBody[index].innerHTML = `<h3 class="card-title event-name">${events[rng].Name}</h3>
-  // <p class="card-text event-description">
-  //   ${events[rng].Description}
-  // </p>
-  // <a href="users.html" class="btn btn-primary btn-lg showEventInfo" data-events='${events[rng].Id}'>Ver</a>
-  // `;
   }
 
   showEventInfoToUsers(events, business) {
@@ -1043,75 +1012,10 @@ class BaradosView {
      <button class="btn btn-success w-50"  data-event="${events[0].Id}" id='joinEvent'>Apuntarse
      </div>
      `
-    //  let business = document.createElement("section");
-    //  business.setAttribute("id", "bares");
-    //  business.setAttribute("class", "py-5 bg-light");
-    //  <section id="bares" class="py-5">
-     
-    //  </section>
-     
-    // if (!document.getElementById("bares")) parent[0].insertBefore(business, logIn);
 
     this.ShowBusinessCards(business, business.length);
   }
 
-//   showBusiness(business, events) {
-//     let placeHolder = document.createElement("section");
-
-//     placeHolder.setAttribute("class", "py-3 main d-flex justify-content-center flex-column m-auto");
-//     placeHolder.innerHTML = `
-//     <div class="container row border border-3">
-//      <div class="container col-4 d-flex justify-content-center align-items-center">
-//      <img src="${images[0].Name}" class="me-3 " alt="user Image" id="userInfo" >
-//      </div>
-//      <div class="container col-6">
-//      <div class=" py-5 px-5 row justify-content-center">
-//      <div class="form-group col-12">
-//      <h2>Actualizar Negocio</h2>
-//  </div>
-//  <div class="row justify-content-center" id="formContainer">
-//  <div class="form-group col-12 ">
-//      <label for="name">Nombre</label>
-//      <input type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${business[0].Name}"/>
-//  </div>
-
-//  <div class="form-group col-6 ">
-//  <label for="businessDesc">Descripcion</label>
-//  <textarea name="description">
-//  ${business[0].Description}
-//  </textarea>
-//  </div>
-//  <div class="form-group col-12 ">
-//      <label for="email">Email</label>
-//      <input type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${user[0].Email}"/>
-//  </div>
-//  <div class="form-group col-12 ">
-//      <label for="password">Contraseña</label>
-//      <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-//          required id="password"/>
-//  </div>
-
-//  <div class="form-group col-12 ">
-//      <label for="profilePic">Nueva Imagen de perfil</label>
-//      <input type="file" name="profilePic" class="form-control" id="profilePic"/>
-//  </div>
-//  <div class="form-group col-12">
-//      <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
-//  </div>
-//  </div>
-//      </div>
-//      </div>
-//     </div>
-//     <section id="events" class="py-5">
-    
-//     </section>`
-
-//     let eventsPlaceHolder = document.getElementById("events");
-
-//     placeHolder.appendChild(eventsPlaceHolder);
-
-//     this.ShowEventsCardsOfUsersInfo(events, events.length);
-//   }
 
 showFeedback(mensaje,formIndex,type="danger"){
   let form=document.forms[formIndex];
@@ -1240,12 +1144,6 @@ changeJoinButton(text,type){
     });
   }
 
-  // bindShowBusinessForm(handler) {
-  //   document.getElementById("showBusinessForm").addEventListener("click", (event) => {
-  //     handler();
-  //   });
-  // }
-
   bindShowUserForm(handler) {
     document.getElementById("showUserForm").addEventListener("click", (event) => {
       handler();
@@ -1263,9 +1161,7 @@ changeJoinButton(text,type){
       element.addEventListener("click", (event) => {
         this.#excecuteHandler(handler, [], 'body', { action: 'ShowBusiness' }, '#Negocios', event);
       });
-      // document.getElementById("allBusiness").addEventListener("click", (event) => {
-      //   handler();
-      // });
+
     }
   }
 
@@ -1274,33 +1170,27 @@ changeJoinButton(text,type){
       element.addEventListener("click", (event) => {
         handler();
       });
-      // document.getElementById("allBusiness").addEventListener("click", (event) => {
-      //   handler();
-      // });
+
     }
   }
 
   bindShowABusiness(handler) {
     for (let element of document.getElementsByClassName('showBusinessInfo')) {
-      // console.log(element);
+
       element.addEventListener("click", (event) => {
         this.#excecuteHandler(handler, element.dataset.business, 'body', { action: 'showABusiness', shown: element.dataset.business }, '#NegocioInfo', event);
       });
-      // document.getElementById("allBusiness").addEventListener("click", (event) => {
-      //   handler();
-      // });
+
     }
   }
-//
+
   bindShowAEvent(handler) {
     for (let element of document.getElementsByClassName('showEventInfo')) {
-      // console.log(element);
+
       element.addEventListener("click", (event) => {  
         this.#excecuteHandler(handler, element.dataset.events, 'body', { action: 'showAEvent', shown: element.dataset.events }, '#EventoInfo', event);
       });
-      // document.getElementById("allBusiness").addEventListener("click", (event) => {
-      //   handler();
-      // });
+
     }
   }
 
@@ -1340,16 +1230,10 @@ changeJoinButton(text,type){
       });
     }
   
-  // bindShowIndex(handler) {
-  //   document.getElementById("index").addEventListener("click", (event) => {
-  //     handler();
-  //   });
-  // }
 
   bindShowIndex(handler) {
      document.getElementById('index').addEventListener("click", (event) => {
         this.#excecuteHandler(handler, [], 'body', { action: 'init' }, '#Inicio', event);
-        // handler();
       });
 
     }
@@ -1357,7 +1241,6 @@ changeJoinButton(text,type){
   bindShowIndexFromUser(handler) {
      document.getElementById('index').addEventListener("click", (event) => {
         handler();
-        // handler();
       });
 
     }

@@ -10,9 +10,6 @@ class BaradosControllerUsers {
         // Lo invocamos en el constructor como primer evento ya que el resto necesitarán que la carga inicial se haya producido.
         this.onLoad();
 
-        // this.onInit();
-        // Enlazamos handlers con la vista
-        // this.#baradosView.bindInit(this.handleInit);
     }
 
     onLoad = async () => {
@@ -72,7 +69,7 @@ class BaradosControllerUsers {
         } else {
             this.#baradosView.ShowSignUpForms();
             this.#baradosView.bindShowOwnerForm(this.HandleshowOwnerForm);
-            // this.#baradosView.bindShowBusinessForm(this.HandleshowBusinessForm);
+
             this.#baradosView.bindShowUserForm(this.HandleshowUserForm);
         }
         this.#baradosView.bindShowAllBusinessFromUser(this.HandleShowBusiness)
@@ -299,7 +296,7 @@ class BaradosControllerUsers {
         } catch (error) {
             console.log(error);
         }
-        // console.log(pic);
+
         if (exists.length == 0) {
             if (regex.test(email)) {
                 regex = RegExp(".{6,}");
@@ -458,6 +455,7 @@ class BaradosControllerUsers {
         modal.setAttribute("class", "modal fade");
         modalBackDrop[0].parentElement.removeChild(modalBackDrop[0]);
     }
+    
     HandleDeleteBusiness = async (BusinessId, table) => {
         let user;
         let currentUser;
@@ -498,9 +496,7 @@ class BaradosControllerUsers {
         sessionStorage.setItem("currentUser", "");
         document.getElementById("signUp").setAttribute("class", "py-3 bg-light main d-flex justify-content-center");
         window.location.href = "index.html";
-        // this.#baradosView.ShowSignUpForms();
-        // this.#baradosView.bindShowOwnerForm(this.HandleshowOwnerForm);
-        // this.#baradosView.bindShowUserForm(this.HandleshowUserForm);
+
     }
 
     HandleUserSubMenu = () => {
@@ -512,22 +508,19 @@ class BaradosControllerUsers {
     HandleShowBusiness = () => {
         sessionStorage.setItem("action", "Business");
         window.location.href = "index.html";
-        // window.open("index.html");
-        // window.close();
+
     }
 
     HandleShowEvents = () => {
         sessionStorage.setItem("action", "Events");
         window.location.href = "index.html";
-        // window.open("index.html");
-        // window.close();
+
     }
 
     HandleShowIndex = () => {
         sessionStorage.setItem("action", "Index");
         window.location.href = "index.html";
-        // window.open("index.html");
-        // window.close();
+
     }
 
 }

@@ -13,28 +13,17 @@ class Barados {
 
     const { data, error } = await this.#supabaseConnection.from(table).select();
 
-    //    console.log(fetched.data);
-    // for (let data of fetched.data) {
-    //     data=JSON.stringify(data);
-    // }
     if (error) {
       return error;
     }
-    // console.log(data);
 
     return JSON.parse(JSON.stringify(data));
-    // return JSON.parse(JSON.stringify(data));
   }
 
   fetchDataWhere = async (table, condition) => {
 
-    // console.log(condition);
     const { data, error } = await this.#supabaseConnection.from(table).select().match(condition);
 
-    //  console.log(fetched.data);
-    // for (let data of fetched.data) {
-    //     data=JSON.stringify(data);
-    // }
     if (error) {
       return error;
     }
@@ -100,7 +89,7 @@ class Barados {
 
     if (error == null) {
       return data.user["email"];
-      // return JSON.stringify(data.user["email"]);
+
     } else {
       return false;
     }
@@ -125,7 +114,7 @@ class Barados {
     }
 
     if (data) {
-      // return data.session["user"].email;
+
       return data.session["user"].email;
     }
 
@@ -154,16 +143,6 @@ class Barados {
     return publicUrl.data.publicUrl;
   }
 
-  // OwnerFactory(id,name){
-  //   return new Owner(id,name);
-  // }
-
-  // CustomerFactory(id,name){
-  //  return new Customer(id,name);  
-  // }
-  // BusinessFactory(id,name){
-  //  return new Business(id,name);
-  // }
 
 }
 
