@@ -87,11 +87,11 @@ class Barados {
       password: passwd,
     });
 
-    if (error == null) {
-      return data.user["email"];
-
-    } else {
+    if (error) {
       return false;
+      
+    } else {
+      return data.user["email"];
     }
   }
 
@@ -124,7 +124,7 @@ class Barados {
     const { data, error } = await this.#supabaseConnection.auth.signUp(newUser);
 
     if (error) {
-      console.log(error);
+
       return false;
     }
 

@@ -59,6 +59,7 @@ class BaradosControllerUsers {
             }
 
             sessionStorage.setItem("currentUser", user);
+
             this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
 
             this.#baradosView.bindLogOff(this.HandleLogOff);

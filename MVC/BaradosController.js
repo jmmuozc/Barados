@@ -32,25 +32,25 @@ class BaradosController {
     
     onInit =async () => {
         let currentUserEmail = await this.#baradosModel.currentUser();
-
+        let currentBusinessEmail;
+        let currentUser;
         let user;
+
+        if(sessionStorage.getItem("currentUser")!="" || sessionStorage.getItem("currentUser")!=undefined)currentBusinessEmail=sessionStorage.getItem("currentUser");
+
+      
         let action=sessionStorage.getItem("action");
         if (currentUserEmail != false) {
-    
-            let currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Email: currentUserEmail });
+
+             currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Email: currentUserEmail });
             if (currentUser.length == 0) {
-                currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Email: currentUserEmail });
+                currentUser = await this.#baradosModel.fetchDataWhere("Customers", { Name: currentUserEmail[1] });
     
                 if (currentUser.length != 0) user = "Customers," + currentUser[0].Id + "," + currentUser[0].Name;
             } else {
                 user = "Owner," + currentUser[0].Id + "," + currentUser[0].Name;
             }
-            if (currentUser.length == 0) {
-                currentUser = await this.#baradosModel.fetchDataWhere("Business", { Email: currentUserEmail });
-    
-                if (currentUser.length != 0) user = "Business," + currentUser[0].Id + "," + currentUser[0].Name;
-
-            }
+           
             if (currentUser.length!=0) {
                 sessionStorage.setItem("currentUser", user);
         
@@ -69,6 +69,20 @@ class BaradosController {
                 await this.#baradosModel.logOff();
             }
     
+        }else if(currentBusinessEmail){
+                currentBusinessEmail=currentBusinessEmail.split(",")
+                currentUser = await this.#baradosModel.fetchDataWhere("Business", { Name: currentBusinessEmail[2] });
+    
+                if (currentUser.length != 0) user = "Business," + currentUser[0].Id + "," + currentUser[0].Name;
+
+                this.#baradosView.removeLogInForm();
+    
+                this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
+        
+                this.#baradosView.bindLogOff(this.HandleLogOff);
+        
+                this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
+
         }
         if(action=="Business")this.HandleShowBusiness();
         if(action=="Events")this.HandleShowEvents();
@@ -89,18 +103,17 @@ class BaradosController {
     HandleLogIn = async (user, passwd) => {
         let currentUserEmail;
         let encryptedPasswd = CryptoJS.enc.Hex.stringify(CryptoJS.SHA1(passwd));
+        let business=await this.#baradosModel.fetchDataWhere("Business", { Email: user,Password: encryptedPasswd });
        user=user.toLowerCase();
         try {
             currentUserEmail = await this.#baradosModel.logIn(user, passwd);
             
-            if (await this.#baradosModel.fetchDataWhere("Business", { Email: user,Password: encryptedPasswd })) currentUserEmail=user;
+            if (business.length!=0) currentUserEmail=user;
                 
 
         } catch (error) {
             
         }
-
-      
         if (currentUserEmail != false) {
             let currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Email: currentUserEmail });
 
@@ -118,6 +131,7 @@ class BaradosController {
 
             }
             sessionStorage.setItem("currentUser", user);
+
             this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
             this.#baradosView.bindLogOff(this.HandleLogOff);
             this.#baradosView.bindShowUserSubMenu(this.HandleUserSubMenu);
@@ -166,6 +180,7 @@ class BaradosController {
     }
 
     HandleShowIndex = async () => {
+  
         let businessElement = await this.#baradosModel.fetchData("Business");
         let eventsElement = await this.#baradosModel.fetchData("Events");
 
@@ -222,7 +237,7 @@ class BaradosController {
             this.#baradosView.changeJoinButton("Debes iniciar sesión apuntarte","danger");
             
         }else{
-            currentUser=currentUser.split(",")
+            currentUser=currentUser.split(",");
  
             if (currentUser[0]=="Customers") {
                let count= await this.#baradosModel.fetchDataSelect("Event_Customers","Customer_Id(count)",{Customer_Id: currentUser[1],Event_Id:eventToJoin});
