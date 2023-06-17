@@ -922,23 +922,19 @@ class BaradosView {
      <div class="container col-6">
      <form class=" py-5 px-5 row justify-content-center" id="signUpForm" action="" role="form" name="fUpdateUser">
      <div class="form-group col-12">
-     <h2>Negocio</h2>
+     <h2>${business[0].Name}</h2>
  </div>
  <div class="row justify-content-center" id="formContainer">
- <div class="form-group col-12 ">
-     <label for="name">Nombre</label>
-     <input readonly type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${business[0].Name}"/>
- </div>
 
  <div class="form-group col-12 ">
- <label for="businessDesc">Descripcion</label>
+ <label for="businessDesc"><h5>Descripcion</h5></label>
  <textarea name="description" readonly="" cols="55" rows="7" class="descArea form-control" id="businessDesc">
  ${business[0].Description}
  </textarea>
  </div>
 
  <div class="form-group col-12 ">
-     <label for="email">Email</label>
+     <label for="email"><h5>Email</h5></label>
      <input readonly type="email" name="email" class="form-control" autocomplete="email" required id="email" value="${business[0].Email}"/>
  </div>
  </div>
@@ -987,24 +983,27 @@ class BaradosView {
      <div class="form-group col-12">
      <h2>${events[0].Name}</h2>
  </div>
- <div class="row justify-content-center" id="formContainer">
+ <div class="row" id="formContainer">
 
  <div class="form-group col-12 ">
- <h3>Descripcion</h3>
- <p>${events[0].Description}</p>
+ <label for="desctipcion"><h5>Descripcion</h5></label>
+ <textarea name="description" readonly="" cols="55" rows="7" class="descArea form-control" id="desctipcion">
+ ${business[0].Description}
+ </textarea>
  
  </div>
  <div class="form-group col-6 ">
-     <h3>Fecha de Inicio</h3>
-     <p>${dateStart[0]}</p>
+ <label for="Start"><h5>Fecha de Inicio</h5></label>
+        <input type="date" name="Start" class="form-control" autocomplete="Start" value="${dateStart[0]}" id="Start" readonly/>
  </div>
  <div class="form-group col-6 ">
- <h3>Fecha fin evento</h3>
- <p>${dateEnd[0]}</p>
+ <label for="End"><h5>Fecha fin evento</h5></label>
+        <input type="date" name="End" class="form-control" autocomplete="End" value="${dateEnd[0]}" id="End" readonly/>
+
  </div>
- <div class="form-group col-12 ">
- <h3>Plazas restantes</h3>
- <p>${capacity}</p>
+ <div class="form-group col-12">
+ <label for="Capacity"><h5>Plazas libres</h5></label>
+ <input type="number" name="Capacity" class="form-control text-center" min="1" max="1000"  id="Capacity" value="${capacity}" readonly/>
  </div>
  </div>
      </form>
