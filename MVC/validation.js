@@ -32,8 +32,7 @@ function logInValidation(handler) {
             showFeedBack($(this.email), true);
         }
 
-        console.log(this.email.checkValidity());
-
+       
         if (!this.passwd.checkValidity()) {
             isValid = false;
             showFeedBack($(this.passwd), false);
@@ -41,7 +40,6 @@ function logInValidation(handler) {
         } else {
             showFeedBack($(this.passwd), true);
         }
-        console.log(this.passwd.checkValidity());
 
         if (!isValid || firstInvalidElement) {
             firstInvalidElement.focus();
@@ -53,69 +51,6 @@ function logInValidation(handler) {
     });
 }
 
-// function newBusinessValidation(handler) {
-//     let form = document.forms.fBusiness;
-//     $(form).attr("novalidate", true);
-//     $(form).submit(function (event) {
-//         let feedBack = document.getElementById("OwnFeedback");
-//         if (feedBack != null) feedBack.parentElement.removeChild(feedBack);
-//         let isValid = true;
-//         let firstInvalidElement = null;
-//         this.name.value = this.name.value.trim();
-//         if (this.name.value == "") {
-//             showFeedBack($(this.name), false);
-//             isValid = false;
-//         } else {
-//             showFeedBack($(this.name), true);
-//         }
-
-//         if (!this.location.checkValidity() || !isValid) {
-//             isValid = false;
-//             showFeedBack($(this.location), false);
-//             firstInvalidElement = this.location;
-//         } else {
-//             showFeedBack($(this.location), true);
-//         }
-
-//         if (!this.description.checkValidity() || !isValid) {
-//             isValid = false;
-//             showFeedBack($(this.description), false);
-//             firstInvalidElement = this.description;
-//         } else {
-//             showFeedBack($(this.description), true);
-//         }
-
-//         if (!this.email.checkValidity() || !isValid) {
-//             isValid = false;
-//             showFeedBack($(this.email), false);
-//             firstInvalidElement = this.email;
-//         } else {
-//             showFeedBack($(this.email), true);
-//         }
-
-//         if (!this.passwd.checkValidity() || !isValid) {
-//             isValid = false;
-//             showFeedBack($(this.passwd), false);
-//             firstInvalidElement = this.passwd;
-//         } else {
-//             showFeedBack($(this.passwd), true);
-//         }
-
-//         if (!isValid) {
-//             firstInvalidElement.focus();
-//         } else {
-//             handler(
-//                 this.name.value,
-//                 this.location.value,
-//                 this.description.value,
-//                 this.email.value,
-//                 this.passwd.value
-//             );
-//         }
-//         event.preventDefault();
-//         event.stopPropagation();
-//     });
-// }
 
 function newClientValidation(handler) {
     let form = document.forms.fUser;
@@ -145,14 +80,6 @@ function newClientValidation(handler) {
             showFeedBack($(this.birth), true);
         }
 
-        // if (!this.genre.checkValidity() || !isValid) {
-        //     isValid = false;
-        //     showFeedBack($(this.genre), false);
-        //     firstInvalidElement = this.genre;
-        // } else {
-        //     showFeedBack($(this.genre), true);
-        // }
-
         if (!this.email.checkValidity()) {
             isValid = false;
             showFeedBack($(this.email), false);
@@ -161,13 +88,6 @@ function newClientValidation(handler) {
             showFeedBack($(this.email), true);
         }
 
-        // if (!this.profilePic.checkValidity() || !isValid) {
-        //     isValid = false;
-        //     showFeedBack($(this.profilePic), false);
-        //     firstInvalidElement = this.profilePic;
-        // } else {
-        //     showFeedBack($(this.profilePic), true);
-        // }
 
         if (!this.passwd.checkValidity()) {
             isValid = false;
@@ -219,15 +139,6 @@ function newOwnerValidation(handler) {
         } else {
             showFeedBack($(this.birth), true);
         }
-        //     console.log(this.genre.value);
-        //     console.log(!this.genre.checkValidity());
-        // if (!this.genre.checkValidity() || !isValid) {
-        //     isValid = false;
-        //     showFeedBack($(this.genre), false);
-        //     firstInvalidElement = this.genre;
-        // } else {
-        //     showFeedBack($(this.genre), true);
-        // }
 
         if (!this.email.checkValidity()) {
             isValid = false;
@@ -393,7 +304,7 @@ function updateBusinessValidation(handler) {
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            console.log("arrivedercci")
+  
             handler(this.name.value,this.description.value,this.latitud.value,this.longitud.value,this.profilePic.files[0]);
         }
         event.preventDefault();

@@ -57,9 +57,7 @@ class BaradosControllerUsers {
                 this.#baradosView.bindEventForm(this.HandleNewEventForm);
                 this.#baradosView.bindWarningEvent(this.HandleDeleteEventWarning);
             }
-            console.log(currentUser);
-            console.log(user);
-            console.log(sessionStorage.getItem("currentUser"));
+
             sessionStorage.setItem("currentUser", user);
             this.#baradosView.infoUserHeader(currentUser[0].Name, currentUser[0].Image);
 
@@ -187,9 +185,6 @@ class BaradosControllerUsers {
 
     HandleUpdateBusiness = async (name, description, longitud, latitud, picture) => {
         let user;
-        console.log(name);
-        console.log(description);
-        console.log(picture);
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
         if (user.length == 1) user = sessionStorage.getItem("currentUser").split(" ");
         if (name != "") {
@@ -241,7 +236,6 @@ class BaradosControllerUsers {
                 if (regex.test(passwd)) {
                     if (name != "") {
                         if (Date.parse(this.birth) < today.getTime() || this.birth != "") {
-                            console.log(picture);
                             if (picture == "") {
                                 picture = "/Media/default-user-icon.jpg";
                             } else {
@@ -276,7 +270,6 @@ class BaradosControllerUsers {
         let user;
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
         if (user.length == 1) user = sessionStorage.getItem("currentUser").split(" ");
-        console.log(user);
 
         this.#baradosView.showBusinessForm(user);
 
@@ -351,7 +344,6 @@ class BaradosControllerUsers {
         let user;
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
         if (user.length == 1) user = sessionStorage.getItem("currentUser").split(" ");
-        console.log(user);
 
         this.#baradosView.eventForm(user);
 
@@ -476,9 +468,6 @@ class BaradosControllerUsers {
         userBar = await this.#baradosModel.fetchDataWhere("Business", { Owner_Id: user[1] });
 
         currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Id: user[1] });
-
-        console.log(userBar);
-        console.log(currentUser);
 
         this.#baradosView.showOwnerInfo(currentUser, userBar);
         this.#baradosView.bindUpdateOwner(this.HandleUpdateOwner);
