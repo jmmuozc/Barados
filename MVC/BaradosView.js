@@ -313,7 +313,7 @@ class BaradosView {
           <p class="card-text event-description">
             ${events[rng].Description}
           </p>
-          <button type="button" class="btn btn-danger btn-lg warningEvent" data-events='${events[rng].Id}'>Eliminar</button>
+          <button type="button" class="btn btn-danger btn-lg warningEvent" data-events='${events[rng].Id}'>Desapuntarse</button>
           `;
 
           } else {
