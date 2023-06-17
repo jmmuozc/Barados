@@ -1,4 +1,4 @@
-
+// import { CryptoJS } from 'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js';
 class BaradosControllerUsers {
     #baradosModel;
     #baradosView;
@@ -309,8 +309,12 @@ class BaradosControllerUsers {
                                 picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/BusinessImages");
                             }
                             location = latitud + "," + longitud;
-                            await this.#baradosModel.insertInto("Business", { Name: name, Location: location, Description: description, Email: email, Owner_Id: owner, Image: picture });
-                            exists = await this.#baradosModel.createUser({ email: email, password: passwd });
+                            // exists = await this.#baradosModel.createUser({ email: email, password: passwd });
+                            
+                            let encryptedPasswd = CryptoJS.enc.Hex.stringify(CryptoJS.SHA1(passwd));
+
+                            await this.#baradosModel.insertInto("Business", { Name: name, Location: location, Description: description, Email: email, Owner_Id: owner, Image: picture, Password:encryptedPasswd });
+                            
                             this.#baradosView.showFeedback("Negocio creado con exito", 1, "success");
 
                             currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Id: owner });
@@ -455,7 +459,7 @@ class BaradosControllerUsers {
         modal.setAttribute("class", "modal fade");
         modalBackDrop[0].parentElement.removeChild(modalBackDrop[0]);
     }
-    
+
     HandleDeleteBusiness = async (BusinessId, table) => {
         let user;
         let currentUser;

@@ -88,10 +88,13 @@ class BaradosController {
 
     HandleLogIn = async (user, passwd) => {
         let currentUserEmail;
+        let encryptedPasswd = CryptoJS.enc.Hex.stringify(CryptoJS.SHA1(passwd));
        user=user.toLowerCase();
         try {
             currentUserEmail = await this.#baradosModel.logIn(user, passwd);
-
+            
+            if (await this.#baradosModel.fetchDataWhere("Business", { Email: user,Password: encryptedPasswd })) currentUserEmail=user;
+                
 
         } catch (error) {
             
