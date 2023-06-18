@@ -46,7 +46,6 @@ function logInValidation(handler) {
         if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
             showFeedBack($(this.profilePic), true);
         } else {
-            console.log(this.profilePic);
             firstInvalidElement = this.profilePic;
             showFeedBack($(this.profilePic), false);
             isValid = false;
@@ -113,7 +112,6 @@ function newClientValidation(handler) {
         if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
             showFeedBack($(this.profilePic), true);
         } else {
-            console.log(this.profilePic);
             firstInvalidElement = this.profilePic;
             showFeedBack($(this.profilePic), false);
             isValid = false;
@@ -184,7 +182,7 @@ function newOwnerValidation(handler) {
         if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
             showFeedBack($(this.profilePic), true);
         } else {
-            console.log(this.profilePic);
+           
             firstInvalidElement = this.profilePic;
             showFeedBack($(this.profilePic), false);
             isValid = false;
@@ -251,7 +249,7 @@ function newEventValidation(handler) {
         if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
             showFeedBack($(this.profilePic), true);
         } else {
-            console.log(this.profilePic);
+           
             firstInvalidElement = this.profilePic;
             showFeedBack($(this.profilePic), false);
             isValid = false;
@@ -287,7 +285,7 @@ function updateOwnerValidation(handler) {
         if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
             showFeedBack($(this.profilePic), true);
         } else {
-            console.log(this.profilePic);
+           
             firstInvalidElement = this.profilePic;
             showFeedBack($(this.profilePic), false);
             isValid = false;
@@ -323,7 +321,7 @@ function updateUserValidation(handler) {
         if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
             showFeedBack($(this.profilePic), true);
         } else {
-            console.log(this.profilePic);
+           
             firstInvalidElement = this.profilePic;
             showFeedBack($(this.profilePic), false);
             isValid = false;
@@ -373,7 +371,7 @@ function updateBusinessValidation(handler) {
         if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
             showFeedBack($(this.profilePic), true);
         } else {
-            console.log(this.profilePic);
+           
             firstInvalidElement = this.profilePic;
             showFeedBack($(this.profilePic), false);
             isValid = false;
@@ -441,7 +439,6 @@ function newBusinessValidation(handler) {
         if (this.businessProfilePic.files[0] == undefined || (regex.test(this.businessProfilePic.files[0].name))) {
             showFeedBack($(this.businessProfilePic), true);
         } else {
-            console.log(this.businessProfilePic);
             firstInvalidElement = this.businessProfilePic;
             showFeedBack($(this.businessProfilePic), false);
             isValid = false;
