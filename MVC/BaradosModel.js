@@ -8,6 +8,11 @@ class Barados {
   constructor(){
   }
 
+  /**
+   * Funcion que devuelve la informacion de una tabla
+   * @param {String} table 
+   * @returns 
+   */
   fetchData = async (table) => {
 
 
@@ -20,6 +25,12 @@ class Barados {
     return JSON.parse(JSON.stringify(data));
   }
 
+  /**
+   * Funcion que devuelve la informacion de un dato de una tabla segun unas condiciones
+   * @param {String} table 
+   * @param {Object} condition 
+   * @returns 
+   */
   fetchDataWhere = async (table, condition) => {
 
     const { data, error } = await this.#supabaseConnection.from(table).select().match(condition);
@@ -31,6 +42,13 @@ class Barados {
     return JSON.parse(JSON.stringify(data));
   }
 
+  /**
+   * Funcion que devuelve la informacion que deseaba segun una condicion
+   * @param {String} table 
+   * @param {Object} select 
+   * @param {Object} condition 
+   * @returns 
+   */
   fetchDataSelect = async(table,select,condition)=>{
 
     const { data, error } = await this.#supabaseConnection
@@ -43,6 +61,12 @@ class Barados {
   return data;
   }
 
+  /**
+   * Funcion que actualiza los campos de una tabla segun su Id
+   * @param {String} table 
+   * @param {Object} newData 
+   * @param {String} idUser 
+   */
   updateDataWhere = async(table,newData,idUser)=>{
     const { error } = await this.#supabaseConnection
   .from(table)
@@ -50,6 +74,12 @@ class Barados {
   .eq('Id', idUser);
   }
 
+  /**
+   * Funcion que inserta datos en una tabla
+   * @param {String} table 
+   * @param {Object} newData 
+   * @returns 
+   */
   insertInto = async (table, newData) => {
 
     const {data, error } = await this.#supabaseConnection
@@ -66,6 +96,11 @@ class Barados {
     }
   }
 
+  /**
+   * Funcion que elimina un dato de una tabla segun el Id
+   * @param {String} table 
+   * @param {String} idData 
+   */
   deleteDataWhere =async(table,idData)=>{
     const { error } = await this.#supabaseConnection
   .from(table)
@@ -73,6 +108,11 @@ class Barados {
   .eq('Id',idData)
   }
 
+  /**
+   * Funcion que elimina de la tabla segun una condicion
+   * @param {String} table 
+   * @param {Object} condition 
+   */
   deleteDataEventCustomer =async(table,condition)=>{
     const { error } = await this.#supabaseConnection
   .from(table)
@@ -80,6 +120,12 @@ class Barados {
   .match(condition)
   }
 
+  /**
+   * Funcion que inicia sesion en el entorno de Supabase
+   * @param {String} email 
+   * @param {String} passwd 
+   * @returns 
+   */
   logIn = async (email, passwd) => {
 
     const { data, error } = await this.#supabaseConnection.auth.signInWithPassword({
@@ -95,6 +141,10 @@ class Barados {
     }
   }
 
+  /**
+   * Funcion que cierra sesion en supabase
+   * @returns 
+   */
   logOff = async () => {
 
     const { error } = await this.#supabaseConnection.auth.signOut();
@@ -105,6 +155,10 @@ class Barados {
    return false;
   }
 
+  /**
+   *  Funcion que devuelve el correo del usuario actual de supabase
+   * @returns Correo usuario actual
+   */
   currentUser = async () => {
 
     const { data, error } = await this.#supabaseConnection.auth.getSession();
@@ -120,6 +174,11 @@ class Barados {
 
   }
 
+  /**
+   * Funcion que crea un usuario en el entorno de supabase
+   * @param {Object} newUser 
+   * @returns 
+   */
   createUser = async (newUser) => {
     const { data, error } = await this.#supabaseConnection.auth.signUp(newUser);
 
@@ -133,6 +192,13 @@ class Barados {
     }
   }
 
+  /**
+   * Funcion que sube un contenido multimedia a supabase
+   * @param {String} imgName 
+   * @param {Object} img 
+   * @param {Strign} storage 
+   * @returns 
+   */
   uploadInTo =async (imgName,img,storage)=>{
 
     const { data, error } = await this.#supabaseConnection.storage.from(storage).

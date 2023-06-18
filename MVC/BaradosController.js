@@ -18,7 +18,6 @@ class BaradosController {
     onLoad = async () => {
 
         let business = await this.#baradosModel.fetchData("Business");
-        let customers = await this.#baradosModel.fetchData("Customers");
         let events = await this.#baradosModel.fetchData("Events");
 
         if (!sessionStorage.getItem("action")) {
@@ -35,7 +34,7 @@ class BaradosController {
         let currentBusinessEmail;
         let currentUser;
         let user;
-        console.log(sessionStorage.getItem("currentUser")!="");
+
         if(sessionStorage.getItem("currentUser")!="" && sessionStorage.getItem("currentUser")!=undefined){
             currentBusinessEmail=sessionStorage.getItem("currentUser");
             currentBusinessEmail=currentBusinessEmail.split(",")
@@ -104,7 +103,12 @@ class BaradosController {
     handleInit = () => {
         this.onInit();
     }
-
+/**
+ * Handle que inicia sesión al pasar un correo y contraseña, elimina el log In y guarda en una sesion datos necesarios para
+ * el resto de funciones
+ * @param {String} user 
+ * @param {String} passwd 
+ */
     HandleLogIn = async (user, passwd) => {
         let currentUserEmail;
         let encryptedPasswd = CryptoJS.enc.Hex.stringify(CryptoJS.SHA1(passwd));
@@ -147,6 +151,9 @@ class BaradosController {
 
     }
 
+    /**
+     * Funcion que elimina la sesion con los datos, cierra la sesion de supabase y muestra la información del login
+     */
     HandleLogOff = async () => {
         await this.#baradosModel.logOff();
         sessionStorage.setItem("currentUser", "");
@@ -154,12 +161,18 @@ class BaradosController {
         this.#baradosView.bindLogIn(this.HandleLogIn);
     }
 
+    /**
+     * Handle que esconde y muestra el submenu de usuarios
+     */
     HandleUserSubMenu = () => {
         let subMenu = document.getElementById("sub-menu");
 
         subMenu.classList.toggle("open-menu");
     }
 
+    /**
+     * Handle que muestra los negocios
+     */
     HandleShowBusiness = async () => {
         this.#baradosView.ShowIndex([], [], 3);
         let business = await this.#baradosModel.fetchData("Business");
@@ -173,6 +186,9 @@ class BaradosController {
         this.#baradosView.bindShowABusiness(this.HandleShowABusiness);
     }
     
+/**
+ * Handle que muestra los eventos
+ */
     HandleShowEvents = async () => {
         this.#baradosView.ShowIndex([], [], 3);
         let events = await this.#baradosModel.fetchData("Events");
@@ -184,6 +200,9 @@ class BaradosController {
         this.#baradosView.bindShowAEvent(this.HandleShowAEvent);
     }
 
+    /**
+     * Handle que muestra el index
+     */
     HandleShowIndex = async () => {
   
         let businessElement = await this.#baradosModel.fetchData("Business");
@@ -200,6 +219,10 @@ class BaradosController {
         this.#baradosView.bindShowAEvent(this.HandleShowAEvent);
     }
 
+    /**
+     * Handle que muestra la información de un negocio
+     * @param {String} businessToShow 
+     */
     HandleShowABusiness= async (businessToShow)=>{
         let inicio = document.getElementById("inicio");
         let business = document.getElementById("bares");
@@ -215,6 +238,10 @@ class BaradosController {
         this.#baradosView.bindShowAEvent(this.HandleShowAEvent);
     }
     
+    /**
+     * Handle que muestra la información de un evento
+     * @param {String} eventToShow 
+     */
     HandleShowAEvent= async (eventToShow)=>{
         let inicio = document.getElementById("inicio");
         let business = document.getElementById("bares");
@@ -233,6 +260,10 @@ class BaradosController {
         this.#baradosView.bindJoinEvent(this.HandleJoinEvent);
     }
 
+    /**
+     * Handle que muestra el boton para inscribirse a eventos e inscribe al usuario en caso de que sea posible
+     * @param {String} eventToJoin 
+     */
     HandleJoinEvent=async (eventToJoin)=>{
         let currentUser=sessionStorage.getItem("currentUser");
         let event= await this.#baradosModel.fetchDataWhere("Events",{Id:eventToJoin});

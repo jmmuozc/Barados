@@ -12,6 +12,10 @@ class BaradosControllerUsers {
 
     }
 
+    /**
+     * Funcion que muestra la interfaz de usuario dependiendo de quien haya iniciado sesion, si no ha iniciado sesion nadie
+     * muestra el registro
+     */
     onLoad = async () => {
         let user = [];
 
@@ -76,24 +80,42 @@ class BaradosControllerUsers {
         this.#baradosView.bindShowIndexFromUser(this.HandleShowIndex)
     }
 
+    /**
+     *Muestra el formulario de creacion de propietario 
+     */
     HandleshowOwnerForm = () => {
         this.#baradosView.showOwnerForm();
         this.#baradosView.bindNewOwner(this.HandleNewOwner);
         this.#baradosView.bindShowFormReturn(this.HandleFormReturn);
     }
 
+    /**
+     * Muestra el formulario de creacion de negocios
+     */
     HandleshowBusinessForm = () => {
         this.#baradosView.showBusinessForm();
         this.#baradosView.bindNewBusiness(this.HandleNewBusiness);
         this.#baradosView.bindShowFormReturn(this.HandleFormReturn);
     }
 
+    /**
+     * Muestra el formulario de creacion de usuario
+     */
     HandleshowUserForm = () => {
         this.#baradosView.showUserForm();
         this.#baradosView.bindNewClient(this.HandleNewClient);
         this.#baradosView.bindShowFormReturn(this.HandleFormReturn);
     }
 
+    /**
+     * Crea el usuario en cuestion pasando por unas validaciones
+     * @param {String} name 
+     * @param {String} email 
+     * @param {String} genre 
+     * @param {String} birth 
+     * @param {File} picture 
+     * @param {String} passwd 
+     */
     HandleNewOwner = async (name, email, genre, birth, picture, passwd) => {
 
         let exists = [];
@@ -146,6 +168,12 @@ class BaradosControllerUsers {
         }
     }
 
+    /**
+     * Actualiza los campos posibles de los propietarios
+     * @param {String} name 
+     * @param {String} genre 
+     * @param {File} picture 
+     */
     HandleUpdateOwner = async (name, genre, picture) => {
         let user;
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
@@ -165,6 +193,12 @@ class BaradosControllerUsers {
         this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página", 0, "success")
     }
 
+    /**
+     * Actualiza los campos posibles de los usuarios
+     * @param {String} name 
+     * @param {String} genre 
+     * @param {File} picture 
+     */
     HandleUpdateUser = async (name, genre, picture) => {
         let user;
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
@@ -184,6 +218,14 @@ class BaradosControllerUsers {
         this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página", 0, "success")
     }
 
+    /**
+     * Actualiza los campos posibles de los Negocios
+     * @param {String} name 
+     * @param {String} description 
+     * @param {String} longitud 
+     * @param {String} latitud 
+     * @param {File} picture 
+     */
     HandleUpdateBusiness = async (name, description, longitud, latitud, picture) => {
         let user;
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
@@ -214,6 +256,15 @@ class BaradosControllerUsers {
         this.#baradosView.showFeedback("Los cambios se han realizado con éxito, serán visibles al actualizar la página", 0, "success")
     }
 
+    /**
+     * Crea el usuario en cuestion pasando por unas validaciones
+     * @param {String} name 
+     * @param {String} email 
+     * @param {String} genre 
+     * @param {String} birth 
+     * @param {File} picture 
+     * @param {String} passwd 
+     */
     HandleNewClient = async (name, email, genre, birth, picture, passwd) => {
         let exists = [];
         let regex = RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$");
@@ -267,6 +318,9 @@ class BaradosControllerUsers {
         }
     }
 
+    /**
+     * Muestra el formulario de creacion de Negocios
+     */
     HandleNewBusinessForm = () => {
         let user;
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
@@ -278,6 +332,17 @@ class BaradosControllerUsers {
 
     }
 
+    /**
+     * Crea el usuario en cuestion pasando por unas validaciones
+     * @param {String} name 
+     * @param {String} latitud 
+     * @param {String} longitud 
+     * @param {String} description 
+     * @param {String} email 
+     * @param {String} passwd 
+     * @param {String} owner 
+     * @param {File} picture 
+     */
     HandleNewBusiness = async (name, latitud, longitud, description, email, passwd, owner, picture) => {
         let exists = [];
         let regex = RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$");
@@ -341,6 +406,9 @@ class BaradosControllerUsers {
         }
     }
 
+    /**
+     * Muestra la validacion de nuevo evento
+     */
     HandleNewEventForm = () => {
         let user;
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
@@ -352,6 +420,16 @@ class BaradosControllerUsers {
 
     }
 
+    /**
+     * Creacion de un evento pasando por validaciones
+     * @param {String} eventName 
+     * @param {Date} Start 
+     * @param {Date} End 
+     * @param {String} eventDesc 
+     * @param {Number} capacity 
+     * @param {Number} business 
+     * @param {File} picture 
+     */
     HandleNewEvent = async (eventName, Start, End, eventDesc, capacity, business, picture) => {
         let user;
         let currentUser;
@@ -394,6 +472,10 @@ class BaradosControllerUsers {
 
     }
 
+    /**
+     * Muestra en el modal un aviso de eliminacion
+     * @param {String} BusinessId 
+     */
     HandleDeleteBusinessWarning = async (BusinessId) => {
 
         let business = await this.#baradosModel.fetchDataWhere("Business", { Id: BusinessId });
@@ -401,12 +483,20 @@ class BaradosControllerUsers {
         this.#baradosView.bindDeleteObject(this.HandleDeleteBusiness);
     }
 
+    /**
+     * Muestra en el modal un aviso de eliminacion
+     * @param {String} EventId 
+     */
     HandleDeleteEventWarning = async (EventId) => {
         let eventsId = await this.#baradosModel.fetchDataWhere("Events", { Id: EventId });
         this.#baradosView.showWarning(eventsId, "Evento", "Events");
         this.#baradosView.bindDeleteObject(this.HandleDeleteEvent);
     }
 
+    /**
+     * Handle que elimina de la relacion evento Cliente esta relacion para desapuntarle
+     * @param {String} EventId 
+     */
     HandleLeaveEvent = async (EventId) => {
         let user = sessionStorage.getItem("currentUser").split(",");
         let userEvent = [];
@@ -425,6 +515,11 @@ class BaradosControllerUsers {
         this.#baradosView.bindWarningEvent(this.HandleLeaveEvent);
     }
 
+    /**
+     * Handle que elimina un evento de la tabla
+     * @param {String} EventId 
+     * @param {String} table 
+     */
     HandleDeleteEvent = async (EventId, table) => {
         let user;
         let currentUser;
@@ -453,6 +548,11 @@ class BaradosControllerUsers {
         modalBackDrop[0].parentElement.removeChild(modalBackDrop[0]);
     }
 
+    /**
+     * Handle que elimina un business de la tabla
+     * @param {String} BusinessId 
+     * @param {String} table 
+     */
     HandleDeleteBusiness = async (BusinessId, table) => {
         let user;
         let currentUser;
@@ -479,12 +579,19 @@ class BaradosControllerUsers {
         modal.setAttribute("class", "modal fade");
         modalBackDrop[0].parentElement.removeChild(modalBackDrop[0]);
     }
+
+    /**
+     * Handle que muestra la seleccion de registro
+     */
     HandleFormReturn = () => {
         this.#baradosView.ShowSignUpForms();
         this.#baradosView.bindShowOwnerForm(this.HandleshowOwnerForm);
         this.#baradosView.bindShowUserForm(this.HandleshowUserForm);
     }
 
+    /**
+     * Handle que cierra sesion y devuelve a la pagina de index
+     */
     HandleLogOff = async () => {
         await this.#baradosModel.logOff();
         sessionStorage.setItem("currentUser", "");
@@ -493,24 +600,36 @@ class BaradosControllerUsers {
 
     }
 
+    /**
+     * Handle que muestra el submenu del usuario
+     */
     HandleUserSubMenu = () => {
         let subMenu = document.getElementById("sub-menu");
 
         subMenu.classList.toggle("open-menu");
     }
 
+    /**
+     * Handle que devuelve al index y muestra todos los business
+     */
     HandleShowBusiness = () => {
         sessionStorage.setItem("action", "Business");
         window.location.href = "index.html";
 
     }
 
+    /**
+     * Handle que devuelve al index y muestra todos los eventos
+     */
     HandleShowEvents = () => {
         sessionStorage.setItem("action", "Events");
         window.location.href = "index.html";
 
     }
 
+    /**
+     * Handle que devuelve al index y muestra el index
+     */
     HandleShowIndex = () => {
         sessionStorage.setItem("action", "Index");
         window.location.href = "index.html";

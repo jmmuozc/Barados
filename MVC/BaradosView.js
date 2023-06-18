@@ -635,6 +635,9 @@ class BaradosView {
  <div class="form-group col-12 ">
      <label for="name">Nombre</label>
      <input type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${user[0].Name}"/>
+     <div class="invalid-feedback">
+     Introduce un nombre
+   </div>
  </div>
 
  <div class="form-group col-6 ">
@@ -657,6 +660,9 @@ class BaradosView {
  <div class="form-group col-12 ">
      <label for="profilePic">Nueva Imagen de perfil</label>
      <input type="file" name="profilePic" class="form-control" id="profilePic"/>
+     <div class="invalid-feedback">
+     La contraseña debe tener 6 caracteres mínimo.
+   </div>
  </div>
  <div class="form-group col-12">
      <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
@@ -705,6 +711,9 @@ class BaradosView {
  <div class="form-group col-12 ">
      <label for="name">Nombre</label>
      <input type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${user[0].Name}"/>
+     <div class="invalid-feedback">
+     Introduce un nombre
+   </div>
  </div>
 
  <div class="form-group col-6 ">
@@ -766,6 +775,9 @@ class BaradosView {
  <div class="form-group col-12 ">
      <label for="name">Nombre</label>
      <input type="text" name="name" class="form-control" autocomplete="name" required id="name" value="${business[0].Name}"/>
+     <div class="invalid-feedback">
+     Introduce un nombre
+   </div>
  </div>
 
  <div class="form-group col-12 ">
