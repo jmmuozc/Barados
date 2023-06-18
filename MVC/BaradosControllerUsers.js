@@ -146,6 +146,7 @@ class BaradosControllerUsers {
                                 picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/UsersImages");
                             }
                             
+                            
                             await this.#baradosModel.insertInto("Owner", { Name: name, Email: email, Genre: genre, Birth_Date: birth, Image: picture });
                             exists = await this.#baradosModel.createUser({ email: email, password: passwd });
 
@@ -206,7 +207,7 @@ class BaradosControllerUsers {
 
         if (name != "") {
             if (picture == undefined) {
-                this.#baradosModel.updateDataWhere("Customers", { Name: name, Genre: genre }, user[1])
+                this.#baradosModel.updateDataWhere("Customers", { Name: name, Genre: genre }, user[1]);
             } else {
                 picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/UsersImages");
                 this.#baradosModel.updateDataWhere("Customers", { Name: name, Genre: genre, Image: picture }, user[1])
@@ -266,6 +267,7 @@ class BaradosControllerUsers {
      * @param {String} passwd 
      */
     HandleNewClient = async (name, email, genre, birth, picture, passwd) => {
+        console.log();
         let exists = [];
         let regex = RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$");
         let today = new Date();
@@ -291,7 +293,9 @@ class BaradosControllerUsers {
                             if (picture == "") {
                                 picture = "/Media/default-user-icon.jpg";
                             } else {
+                               
                                 picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/UsersImages");
+                                console.log("DespuesError");
                             }
 
                             await this.#baradosModel.insertInto("Customers", { Name: name, Email: email, Genre: genre, Birth_Date: birth, Image: picture });

@@ -551,7 +551,7 @@ class BaradosView {
    
     <div class="form-group col-6 ">
     <label for="genre">Género</label>
-    <select class="form-select" name="genre">
+    <select class="form-select" name="genre" id="genre">
     <option value="No especificado" selected>Prefiero no decirlo</option>
     <option value="Hombre">Hombre</option>
     <option value="Mujer">Mujer</option>
@@ -560,14 +560,14 @@ class BaradosView {
     </div>
     <div class="form-group col-6 ">
         <label for="birth">Nacido</label>
-        <input type="date" name="birth" class="form-control" autocomplete="birth" required />
+        <input type="date" name="birth" class="form-control" autocomplete="birth" required id="birth"/>
         <div class="invalid-feedback">
         Introduce una fecha válida
       </div>
     </div>
     <div class="form-group col-12 ">
         <label for="email">Email</label>
-        <input type="email" name="email" class="form-control" autocomplete="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+        <input type="email" name="email" class="form-control" autocomplete="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/ id="email"> 
         <div class="invalid-feedback">
           Por favor introduce un correo electrónico válido.
         </div>
@@ -575,7 +575,7 @@ class BaradosView {
     <div class="form-group col-12 ">
         <label for="password">Contraseña</label>
         <input type="password" name="passwd" class="form-control" autocomplete="current-password"
-            required pattern=".{6,}"/>
+            required pattern=".{6,}" id="password"/>
             <div class="invalid-feedback">
             La contraseña debe tener 6 caracteres mínimo.
           </div>
@@ -583,7 +583,7 @@ class BaradosView {
    
     <div class="form-group col-12 ">
         <label for="profilePic">Imagen de perfil</label>
-        <input type="file" name="profilePic" class="form-control"/>
+        <input type="file" name="profilePic" class="form-control" id="profilePic"/>
     </div>
     <div class="form-group col-12">
         <button type="submit" class="btn btn-primary mt-3">Registrarse</button>

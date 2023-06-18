@@ -55,6 +55,7 @@ function logInValidation(handler) {
 function newClientValidation(handler) {
     let form = document.forms.fUser;
     let today = new Date();
+    let imgName
     $(form).attr("novalidate", true);
     $(form).submit(function (event) {
         let feedBack = document.getElementById("OwnFeedback");
@@ -96,8 +97,10 @@ function newClientValidation(handler) {
         } else {
             showFeedBack($(this.passwd), true);
         }
-
-        let imgName=this.profilePic.files[0].name;
+        console.log(this.profilePic.files[0]);
+       if (this.profilePic.files[0]) {
+           imgName=this.profilePic.files[0].name;
+       } 
         let regex = RegExp(".\.(jpg|png|jfif)$");
         if (this.profilePic.files[0] == undefined || (regex.test(imgName.toLowerCase()))) {
             showFeedBack($(this.profilePic), true);
@@ -115,7 +118,7 @@ function newClientValidation(handler) {
                 this.email.value.toLowerCase(),
                 this.genre.value,
                 this.birth.value,
-                this.profilePic.value,
+                this.profilePic.files[0],
                 this.passwd.value
             );
         }
@@ -126,6 +129,7 @@ function newClientValidation(handler) {
 function newOwnerValidation(handler) {
     let form = document.forms.fOwner;
     let today = new Date();
+    let imgName;
     $(form).attr("novalidate", true);
     $(form).submit(function (event) {
         let feedBack = document.getElementById("OwnFeedback");
@@ -166,8 +170,9 @@ function newOwnerValidation(handler) {
             showFeedBack($(this.passwd), true);
         }
 
-
-        let imgName=this.profilePic.files[0].name;
+        if (this.profilePic.files[0]) {
+            imgName=this.profilePic.files[0].name;
+        } 
         let regex = RegExp(".\.(jpg|png|jfif)$");
         if (this.profilePic.files[0] == undefined || (regex.test(imgName.toLowerCase()))) {
             showFeedBack($(this.profilePic), true);
@@ -197,6 +202,7 @@ function newOwnerValidation(handler) {
 
 function newEventValidation(handler) {
     let form = document.forms.fEvent;
+    let imgName;
     $(form).attr("novalidate", true);
     $(form).submit(function (event) {
         let feedBack = document.getElementById("OwnFeedback");
@@ -233,8 +239,10 @@ function newEventValidation(handler) {
         } else {
             showFeedBack($(this.Capacity), true);
         }
-
-        let imgName=this.profilePic.files[0].name;
+      
+        if (this.profilePic.files[0]) {
+            imgName=this.profilePic.files[0].name;
+        } 
         let regex = RegExp(".\.(jpg|png|jfif)$");
         if (this.profilePic.files[0] == undefined || (regex.test(imgName.toLowerCase()))) {
             showFeedBack($(this.profilePic), true);
@@ -248,7 +256,7 @@ function newEventValidation(handler) {
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(this.eventName.value, this.Start.value, this.End.value, this.eventDesc.value, this.Capacity.value, this.business.value, this.profilePic.files[0],);
+            handler(this.eventName.value, this.Start.value, this.End.value, this.eventDesc.value, this.Capacity.value, this.business.value, this.profilePic.files[0]);
         }
         event.preventDefault();
         event.stopPropagation();
@@ -257,6 +265,7 @@ function newEventValidation(handler) {
 
 function updateOwnerValidation(handler) {
     let form = document.forms.fUpdateOwner;
+    let imgName;
     $(form).attr("novalidate", true);
     $(form).submit(function (event) {
         let feedBack = document.getElementById("OwnFeedback");
@@ -270,7 +279,9 @@ function updateOwnerValidation(handler) {
             showFeedBack($(this.name), true);
         }
 
-        let imgName=this.profilePic.files[0].name;
+        if (this.profilePic.files[0]) {
+            imgName=this.profilePic.files[0].name;
+        } 
         let regex = RegExp(".\.(jpg|png|jfif)$");
         if (this.profilePic.files[0] == undefined || (regex.test(imgName.toLowerCase()))) {
             showFeedBack($(this.profilePic), true);
@@ -293,6 +304,7 @@ function updateOwnerValidation(handler) {
 
 function updateUserValidation(handler) {
     let form = document.forms.fUpdateUser;
+    let imgName;
     $(form).attr("novalidate", true);
     $(form).submit(function (event) {
         let regex = RegExp(".\.(jpg|png|jfif)$");
@@ -307,8 +319,10 @@ function updateUserValidation(handler) {
         } else {
             showFeedBack($(this.name), true);
         }   
-        let imgName=this.profilePic.files[0].name;
 
+        if (this.profilePic.files[0]) {
+            imgName=this.profilePic.files[0].name;
+        } 
         if (this.profilePic.files[0] == undefined || (regex.test(imgName.toLowerCase()))) {
             showFeedBack($(this.profilePic), true);
         } else {
@@ -329,6 +343,7 @@ function updateUserValidation(handler) {
 
 function updateBusinessValidation(handler) {
     let form = document.forms.fUpdateBusiness;
+    let imgName
     $(form).attr("novalidate", true);
     $(form).submit(function (event) {
         let feedBack = document.getElementById("OwnFeedback");
@@ -357,7 +372,9 @@ function updateBusinessValidation(handler) {
         } else {
             showFeedBack($(this.longitud), true);
         }
-        let imgName=this.profilePic.files[0].name;
+        if (this.profilePic.files[0]) {
+            imgName=this.profilePic.files[0].name;
+        } 
         let regex = RegExp(".\.(jpg|png|jfif)$");
         if (this.profilePic.files[0] == undefined || (regex.test(imgName.toLowerCase()))) {
             showFeedBack($(this.profilePic), true);
@@ -381,6 +398,7 @@ function updateBusinessValidation(handler) {
 
 function newBusinessValidation(handler) {
     let form = document.forms.fBusiness;
+    let imgName;
     $(form).attr("novalidate", true);
     $(form).submit(function (event) {
         let feedBack = document.getElementById("OwnFeedback");
@@ -425,7 +443,10 @@ function newBusinessValidation(handler) {
         } else {
             showFeedBack($(this.passwd), true);
         }
-        let imgName=this.businessProfilePic.files[0].name;
+        if (this.profilePic.files[0]) {
+            imgName=this.businessProfilePic.files[0].name;
+        } 
+        
         let regex = RegExp(".\.(jpg|png|jfif)$");
         if (this.businessProfilePic.files[0] == undefined || (regex.test(imgName.toLowerCase()))) {
             showFeedBack($(this.businessProfilePic), true);
