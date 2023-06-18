@@ -563,12 +563,16 @@ class BaradosControllerUsers {
 
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
 
-
         await this.#baradosModel.deleteDataWhere(table, BusinessId);
 
-        userBar = await this.#baradosModel.fetchDataWhere("Business", { Owner_Id: user[1] });
-
         currentUser = await this.#baradosModel.fetchDataWhere("Owner", { Id: user[1] });
+
+        if (currentUser[0].Email == "admin@barados.com") {
+            userBar = await this.#baradosModel.fetchData("Business");
+        } else {
+            userBar = await this.#baradosModel.fetchDataWhere("Business", { Owner_Id: user[1] });
+
+        }
 
         this.#baradosView.showOwnerInfo(currentUser, userBar);
         this.#baradosView.bindUpdateOwner(this.HandleUpdateOwner);

@@ -40,17 +40,7 @@ function logInValidation(handler) {
         } else {
             showFeedBack($(this.passwd), true);
         }
-
-
-        let regex = RegExp(".\.(jpg|png|jfif)$");
-        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
-            showFeedBack($(this.profilePic), true);
-        } else {
-            firstInvalidElement = this.profilePic;
-            showFeedBack($(this.profilePic), false);
-            isValid = false;
-        }
-
+        
         if (!isValid || firstInvalidElement) {
             firstInvalidElement.focus();
         } else {
