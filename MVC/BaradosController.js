@@ -36,7 +36,7 @@ class BaradosController {
         let currentUser;
         let user;
         console.log(sessionStorage.getItem("currentUser")!="");
-        if(sessionStorage.getItem("currentUser")!="" || sessionStorage.getItem("currentUser")!=undefined){
+        if(sessionStorage.getItem("currentUser")!="" && sessionStorage.getItem("currentUser")!=undefined){
             currentBusinessEmail=sessionStorage.getItem("currentUser");
             currentBusinessEmail=currentBusinessEmail.split(",")
         }
