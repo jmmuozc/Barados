@@ -489,12 +489,12 @@ class BaradosView {
 
  <div class="form-group col-6 ">
      <label for="latitud">Latitud</label>
-     <input type="number" name="latitud" class="form-control" required id="latitud" value=""/>
+     <input type="number" name="latitud" max="90" min="-90" class="form-control" required id="latitud" value=""/>
 
  </div>
  <div class="form-group col-6 ">
      <label for="longitud">Longitud</label>
-     <input type="number" name="longitud" class="form-control" required id="longitud" value=""/>
+     <input type="number" name="longitud" max="180" min="-180" class="form-control" required id="longitud" value=""/>
 
  </div>
 
@@ -789,12 +789,12 @@ class BaradosView {
 
  <div class="form-group col-6 ">
      <label for="latitud">Latitud</label>
-     <input type="text" name="latitud" class="form-control" required id="latitud" value="${location[0]}"/>
+     <input type="text" name="latitud" max="90" min="-90" class="form-control" required id="latitud" value="${location[0]}"/>
 
  </div>
  <div class="form-group col-6 ">
      <label for="longitud">Longitud</label>
-     <input type="text" name="longitud" class="form-control" required id="longitud" value="${location[1]}"/>
+     <input type="text" name="longitud" max="180" min="-180" class="form-control" required id="longitud" value="${location[1]}"/>
 
  </div>
 

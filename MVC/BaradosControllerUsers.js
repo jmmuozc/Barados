@@ -151,6 +151,9 @@ class BaradosControllerUsers {
                             exists = await this.#baradosModel.createUser({ email: email, password: passwd });
 
                             this.#baradosView.showFeedback("Usuario creado con exito", 0, "success");
+                            
+                            sessionStorage.setItem("action", "Index");
+                            window.location.href = "index.html";
                         } else {
                             this.#baradosView.showFeedback("Introduce una fecha válido", 0);
                         }
@@ -304,6 +307,8 @@ class BaradosControllerUsers {
 
                             this.#baradosView.showFeedback("Usuario creado con exito", 0, "success");
 
+                            sessionStorage.setItem("action", "Index");
+                            window.location.href = "index.html";
                         } else {
                             this.#baradosView.showFeedback("Introduce una fecha válido", 0);
                         }
