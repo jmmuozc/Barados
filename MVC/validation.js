@@ -32,13 +32,24 @@ function logInValidation(handler) {
             showFeedBack($(this.email), true);
         }
 
-       
+
         if (!this.passwd.checkValidity()) {
             isValid = false;
             showFeedBack($(this.passwd), false);
             firstInvalidElement = this.passwd;
         } else {
             showFeedBack($(this.passwd), true);
+        }
+
+
+        let regex = RegExp(".\.(jpg|png|jfif)$");
+        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
+            showFeedBack($(this.profilePic), true);
+        } else {
+            console.log(this.profilePic);
+            firstInvalidElement = this.profilePic;
+            showFeedBack($(this.profilePic), false);
+            isValid = false;
         }
 
         if (!isValid || firstInvalidElement) {
@@ -95,6 +106,17 @@ function newClientValidation(handler) {
             firstInvalidElement = this.passwd;
         } else {
             showFeedBack($(this.passwd), true);
+        }
+
+
+        let regex = RegExp(".\.(jpg|png|jfif)$");
+        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
+            showFeedBack($(this.profilePic), true);
+        } else {
+            console.log(this.profilePic);
+            firstInvalidElement = this.profilePic;
+            showFeedBack($(this.profilePic), false);
+            isValid = false;
         }
 
         if (!isValid) {
@@ -156,6 +178,18 @@ function newOwnerValidation(handler) {
             showFeedBack($(this.passwd), true);
         }
 
+
+
+        let regex = RegExp(".\.(jpg|png|jfif)$");
+        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
+            showFeedBack($(this.profilePic), true);
+        } else {
+            console.log(this.profilePic);
+            firstInvalidElement = this.profilePic;
+            showFeedBack($(this.profilePic), false);
+            isValid = false;
+        }
+
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
@@ -212,10 +246,21 @@ function newEventValidation(handler) {
             showFeedBack($(this.Capacity), true);
         }
 
+
+        let regex = RegExp(".\.(jpg|png|jfif)$");
+        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
+            showFeedBack($(this.profilePic), true);
+        } else {
+            console.log(this.profilePic);
+            firstInvalidElement = this.profilePic;
+            showFeedBack($(this.profilePic), false);
+            isValid = false;
+        }
+
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(this.eventName.value, this.Start.value, this.End.value, this.eventDesc.value,this.Capacity.value,this.business.value,this.profilePic.files[0],);
+            handler(this.eventName.value, this.Start.value, this.End.value, this.eventDesc.value, this.Capacity.value, this.business.value, this.profilePic.files[0],);
         }
         event.preventDefault();
         event.stopPropagation();
@@ -236,6 +281,18 @@ function updateOwnerValidation(handler) {
         } else {
             showFeedBack($(this.name), true);
         }
+
+
+        let regex = RegExp(".\.(jpg|png|jfif)$");
+        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
+            showFeedBack($(this.profilePic), true);
+        } else {
+            console.log(this.profilePic);
+            firstInvalidElement = this.profilePic;
+            showFeedBack($(this.profilePic), false);
+            isValid = false;
+        }
+
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
@@ -250,6 +307,7 @@ function updateUserValidation(handler) {
     let form = document.forms.fUpdateUser;
     $(form).attr("novalidate", true);
     $(form).submit(function (event) {
+        let regex = RegExp(".\.(jpg|png|jfif)$");
         let feedBack = document.getElementById("OwnFeedback");
         if (feedBack != null) feedBack.parentElement.removeChild(feedBack);
         let isValid = true;
@@ -257,8 +315,18 @@ function updateUserValidation(handler) {
         if (this.name.value == "") {
             showFeedBack($(this.name), false);
             isValid = false;
+            firstInvalidElement = this.name;
         } else {
             showFeedBack($(this.name), true);
+        }
+
+        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
+            showFeedBack($(this.profilePic), true);
+        } else {
+            console.log(this.profilePic);
+            firstInvalidElement = this.profilePic;
+            showFeedBack($(this.profilePic), false);
+            isValid = false;
         }
         if (!isValid) {
             firstInvalidElement.focus();
@@ -286,14 +354,14 @@ function updateBusinessValidation(handler) {
             showFeedBack($(this.name), true);
         }
 
-        if (isNaN(this.latitud.value) || this.latitud.value>90 || this.latitud.value<-90) {
+        if (isNaN(this.latitud.value) || this.latitud.value > 90 || this.latitud.value < -90) {
             showFeedBack($(this.latitud), false);
             firstInvalidElement = this.latitud;
             isValid = false;
         } else {
             showFeedBack($(this.latitud), true);
         }
-        if (isNaN(this.longitud.value) || this.longitud.value>180 || this.longitud.value<-180) {
+        if (isNaN(this.longitud.value) || this.longitud.value > 180 || this.longitud.value < -180) {
             showFeedBack($(this.longitud), false);
             firstInvalidElement = this.longitud;
             isValid = false;
@@ -301,11 +369,21 @@ function updateBusinessValidation(handler) {
             showFeedBack($(this.longitud), true);
         }
 
+        let regex = RegExp(".\.(jpg|png|jfif)$");
+        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name))) {
+            showFeedBack($(this.profilePic), true);
+        } else {
+            console.log(this.profilePic);
+            firstInvalidElement = this.profilePic;
+            showFeedBack($(this.profilePic), false);
+            isValid = false;
+        }
+
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-  
-            handler(this.name.value,this.description.value,this.latitud.value,this.longitud.value,this.profilePic.files[0]);
+
+            handler(this.name.value, this.description.value, this.latitud.value, this.longitud.value, this.profilePic.files[0]);
         }
         event.preventDefault();
         event.stopPropagation();
@@ -328,14 +406,14 @@ function newBusinessValidation(handler) {
             showFeedBack($(this.businessName), true);
         }
 
-        if (isNaN(this.latitud.value) || this.latitud.value>90 || this.latitud.value<-90) {
+        if (isNaN(this.latitud.value) || this.latitud.value > 90 || this.latitud.value < -90) {
             showFeedBack($(this.latitud), false);
             firstInvalidElement = this.latitud;
             isValid = false;
         } else {
             showFeedBack($(this.latitud), true);
         }
-        if (isNaN(this.longitud.value) || this.longitud.value>180 || this.longitud.value<-180) {
+        if (isNaN(this.longitud.value) || this.longitud.value > 180 || this.longitud.value < -180) {
             showFeedBack($(this.longitud), false);
             firstInvalidElement = this.longitud;
             isValid = false;
@@ -359,15 +437,25 @@ function newBusinessValidation(handler) {
             showFeedBack($(this.passwd), true);
         }
 
+        let regex = RegExp(".\.(jpg|png|jfif)$");
+        if (this.businessProfilePic.files[0] == undefined || (regex.test(this.businessProfilePic.files[0].name))) {
+            showFeedBack($(this.businessProfilePic), true);
+        } else {
+            console.log(this.businessProfilePic);
+            firstInvalidElement = this.businessProfilePic;
+            showFeedBack($(this.businessProfilePic), false);
+            isValid = false;
+        }
+
         if (!isValid) {
             firstInvalidElement.focus();
         } else {
-            handler(this.businessName.value,this.latitud.value,this.longitud.value, this.businessDesc.value, this.businessEmail.value, this.passwd.value, this.owner.value, this.businessProfilePic.files[0]);
+            handler(this.businessName.value, this.latitud.value, this.longitud.value, this.businessDesc.value, this.businessEmail.value, this.passwd.value, this.owner.value, this.businessProfilePic.files[0]);
         }
         event.preventDefault();
         event.stopPropagation();
     });
-    }
+}
 
 
-export {logInValidation,newBusinessValidation,newOwnerValidation,newClientValidation,updateOwnerValidation,updateUserValidation,updateBusinessValidation,newEventValidation}
+export { logInValidation, newBusinessValidation, newOwnerValidation, newClientValidation, updateOwnerValidation, updateUserValidation, updateBusinessValidation, newEventValidation }
