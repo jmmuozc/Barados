@@ -143,7 +143,7 @@ class BaradosControllerUsers {
                             if (picture == undefined) {
                                 picture = "/Media/default-user-icon.jpg";
                             } else {
-                                picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/UsersImages");
+                                picture = await this.#baradosModel.uploadInTo(today.getTime()+picture.name, picture, "BaradosMedia/UsersImages");
                             }
                             
                             
@@ -180,6 +180,7 @@ class BaradosControllerUsers {
      */
     HandleUpdateOwner = async (name, genre, picture) => {
         let user;
+        let today = new Date();
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
         if (user.length == 1) user = sessionStorage.getItem("currentUser").split(" ");
 
@@ -187,7 +188,7 @@ class BaradosControllerUsers {
             if (picture == undefined) {
                 this.#baradosModel.updateDataWhere("Owner", { Name: name, Genre: genre }, user[1])
             } else {
-                picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/UsersImages");
+                picture = await this.#baradosModel.uploadInTo(today.getTime()+picture.name, picture, "BaradosMedia/UsersImages");
                 this.#baradosModel.updateDataWhere("Owner", { Name: name, Genre: genre, Image: picture }, user[1])
             }
         } else {
@@ -205,6 +206,7 @@ class BaradosControllerUsers {
      */
     HandleUpdateUser = async (name, genre, picture) => {
         let user;
+        let today = new Date();
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
         if (user.length == 1) user = sessionStorage.getItem("currentUser").split(" ");
 
@@ -212,7 +214,7 @@ class BaradosControllerUsers {
             if (picture == undefined) {
                 this.#baradosModel.updateDataWhere("Customers", { Name: name, Genre: genre }, user[1]);
             } else {
-                picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/UsersImages");
+                picture = await this.#baradosModel.uploadInTo(today.getTime()+picture.name, picture, "BaradosMedia/UsersImages");
                 this.#baradosModel.updateDataWhere("Customers", { Name: name, Genre: genre, Image: picture }, user[1])
             }
         } else {
@@ -232,6 +234,7 @@ class BaradosControllerUsers {
      */
     HandleUpdateBusiness = async (name, description, longitud, latitud, picture) => {
         let user;
+        let today = new Date();
         if (sessionStorage.getItem("currentUser")) user = sessionStorage.getItem("currentUser").split(",");
         if (user.length == 1) user = sessionStorage.getItem("currentUser").split(" ");
         if (name != "") {
@@ -241,7 +244,7 @@ class BaradosControllerUsers {
                     if (picture == undefined) {
                         this.#baradosModel.updateDataWhere("Business", { Name: name, Description: description, Location: location }, user[1])
                     } else {
-                        picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/BusinessImages");
+                        picture = await this.#baradosModel.uploadInTo(today.getTime()+picture.name, picture, "BaradosMedia/BusinessImages");
 
                         this.#baradosModel.updateDataWhere("Business", { Name: name, Description: description, Location: location, Image: picture }, user[1])
                     }
@@ -297,7 +300,7 @@ class BaradosControllerUsers {
                                 picture = "/Media/default-user-icon.jpg";
                             } else {
                                
-                                picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/UsersImages");
+                                picture = await this.#baradosModel.uploadInTo(today.getTime()+picture.name, picture, "BaradosMedia/UsersImages");
                                 console.log("DespuesError");
                             }
 
@@ -358,6 +361,7 @@ class BaradosControllerUsers {
         let location;
         let currentUser;
         let userBar;
+        let today = new Date();
         email = email.toLowerCase();
         try {
             exists = await this.#baradosModel.fetchDataWhere("Business", { Email: email });
@@ -374,7 +378,7 @@ class BaradosControllerUsers {
                             if (picture == undefined) {
                                 picture = "/Media/business.png";
                             } else {
-                                picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/BusinessImages");
+                                picture = await this.#baradosModel.uploadInTo(today.getTime()+picture.name, picture, "BaradosMedia/BusinessImages");
                             }
                             location = latitud + "," + longitud;
                             // exists = await this.#baradosModel.createUser({ email: email, password: passwd });
@@ -443,6 +447,7 @@ class BaradosControllerUsers {
         let user;
         let currentUser;
         let eventsId;
+        let today = new Date();
         if (eventName != "") {
             if (Start != "") {
                 if (End != "" && Date.parse(End) > Date.parse(Start)) {
@@ -450,7 +455,7 @@ class BaradosControllerUsers {
                         if (picture == undefined) {
                             picture = "/Media/DefaultEvent.png";
                         } else {
-                            picture = await this.#baradosModel.uploadInTo(picture.name, picture, "BaradosMedia/BusinessImages");
+                            picture = await this.#baradosModel.uploadInTo(today.getTime()+picture.name, picture, "BaradosMedia/BusinessImages");
                         }
 
                         await this.#baradosModel.insertInto("Events", { Business_Id: business, Event_Start: Start, Event_End: End, Description: eventDesc, Capacity: capacity, Name: eventName, Image: picture });
