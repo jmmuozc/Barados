@@ -97,9 +97,9 @@ function newClientValidation(handler) {
             showFeedBack($(this.passwd), true);
         }
 
-
+        let imgName=this.profilePic.files[0].name;
         let regex = RegExp(".\.(jpg|png|jfif)$");
-        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name.toLowerCase))) {
+        if (this.profilePic.files[0] == undefined || (regex.test(imgName.toLowerCase))) {
             showFeedBack($(this.profilePic), true);
         } else {
             firstInvalidElement = this.profilePic;
@@ -167,9 +167,9 @@ function newOwnerValidation(handler) {
         }
 
 
-
+        let imgName=this.profilePic.files[0].name;
         let regex = RegExp(".\.(jpg|png|jfif)$");
-        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name.toLowerCase))) {
+        if (this.profilePic.files[0] == undefined || (regex.test(imgName.toLowerCase))) {
             showFeedBack($(this.profilePic), true);
         } else {
            
@@ -234,9 +234,9 @@ function newEventValidation(handler) {
             showFeedBack($(this.Capacity), true);
         }
 
-
+        let imgName=this.profilePic.files[0].name;
         let regex = RegExp(".\.(jpg|png|jfif)$");
-        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name.toLowerCase))) {
+        if (this.profilePic.files[0] == undefined || (regex.test(imgName.toLowerCase))) {
             showFeedBack($(this.profilePic), true);
         } else {
            
@@ -270,9 +270,9 @@ function updateOwnerValidation(handler) {
             showFeedBack($(this.name), true);
         }
 
-
+        let imgName=this.profilePic.files[0].name;
         let regex = RegExp(".\.(jpg|png|jfif)$");
-        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name.toLowerCase))) {
+        if (this.profilePic.files[0] == undefined || (regex.test(imgName.toLowerCase))) {
             showFeedBack($(this.profilePic), true);
         } else {
            
@@ -306,9 +306,10 @@ function updateUserValidation(handler) {
             firstInvalidElement = this.name;
         } else {
             showFeedBack($(this.name), true);
-        }
+        }   
+        let imgName=this.profilePic.files[0].name;
 
-        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name.toLowerCase))) {
+        if (this.profilePic.files[0] == undefined || (regex.test(imgName.toLowerCase))) {
             showFeedBack($(this.profilePic), true);
         } else {
            
@@ -356,9 +357,9 @@ function updateBusinessValidation(handler) {
         } else {
             showFeedBack($(this.longitud), true);
         }
-
+        let imgName=this.profilePic.files[0].name;
         let regex = RegExp(".\.(jpg|png|jfif)$");
-        if (this.profilePic.files[0] == undefined || (regex.test(this.profilePic.files[0].name.toLowerCase))) {
+        if (this.profilePic.files[0] == undefined || (regex.test(imgName.toLowerCase))) {
             showFeedBack($(this.profilePic), true);
         } else {
            
@@ -424,9 +425,9 @@ function newBusinessValidation(handler) {
         } else {
             showFeedBack($(this.passwd), true);
         }
-
+        let imgName=this.businessProfilePic.files[0].name;
         let regex = RegExp(".\.(jpg|png|jfif)$");
-        if (this.businessProfilePic.files[0] == undefined || (regex.test(this.businessProfilePic.files[0].name))) {
+        if (this.businessProfilePic.files[0] == undefined || (regex.test(imgName.toLowerCase))) {
             showFeedBack($(this.businessProfilePic), true);
         } else {
             firstInvalidElement = this.businessProfilePic;
